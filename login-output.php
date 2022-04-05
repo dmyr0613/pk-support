@@ -11,7 +11,7 @@
 				<!-- loginpage -->
 				<section id="loginpage">
 					<?php
-					unset($_SESSION['kanja']);
+					unset($_SESSION['userinfo']);
 
 					//localhost mySql
 				  // $pdo=new PDO('mysql:host=localhost;dbname=marcs;charset=utf8', 'sbs', 'sbs_toro');

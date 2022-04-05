@@ -35,7 +35,7 @@
 							'person'=>$row['person']];
 					}
 					if (isset($_SESSION['userinfo'])) {
-						echo '<p>ようこそ、', $_SESSION['userinfo']['name'], ' 様</p>';
+						echo '<p>ようこそ、', $_SESSION['userinfo']['name'], '様</p>';
 						echo '<ul class="actions">';
 						echo '<li><a href="main.php" class="button big">TOPPAGE</a></li>';
 						echo '</ul>';

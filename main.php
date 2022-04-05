@@ -27,6 +27,18 @@
 						<!-- <img src="images/100127_2.jpg" alt="" /> -->
 						<img src="images/101208_1.jpg" alt="" />
 					</span>
+
+					<?php
+						$kanja_id=$name=$password=$line_id=$phone_no='';
+						if (isset($_SESSION['kanja'])) {
+							$kanja_id=$_SESSION['kanja']['kanja_id'];
+							$name=$_SESSION['kanja']['name'];
+							$password=$_SESSION['kanja']['password'];
+							$line_id=$_SESSION['kanja']['line_id'];
+							$phone_no=$_SESSION['kanja']['phone_no'];
+						}
+						echo '<tr><td>ユーザ名:', $name, '</td><td>';
+					?>
 				</section>
 
 			<!-- Section -->

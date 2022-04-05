@@ -11,8 +11,8 @@
 				<section id="banner">
 					<div class="content">
 						<header>
-							<h1>MARCS</h1>
-							<p>MedicAl Record Control System ＜マークス＞</p>
+							<h1>PK-Support</h1>
+							<p>PrimeKarteSupportCenter＜マークス＞</p>
 						</header>
 						<p>診察の予約、LINEやメールでの呼び出し通知、問診情報の事前入力ができます。<br>
 							LINEを使って、診察予約や、診察進捗の確認、順番が近くなった際のメッセージ受信など、診察に関する時間を節約します。<br>

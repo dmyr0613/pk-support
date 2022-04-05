@@ -1,7 +1,7 @@
 
 			<!-- Header -->
 				<header id="header">
-					<a href="index.php" class="logo"><strong>MARCS</strong> MedicAl Record Control System</a>
+					<a href="index.php" class="logo"><strong>PK Support</strong> Prime Karte Support Center</a>
 					<ul class="icons">
 						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>

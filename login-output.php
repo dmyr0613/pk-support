@@ -31,7 +31,7 @@
 							'name'=>$row['name'],
 							'password'=>$row['password'],
 							'email'=>$row['email'],
-							'department'=>$row['department']],
+							'department'=>$row['department'],
 							'person'=>$row['person']];
 					}
 					if (isset($_SESSION['userinfo'])) {

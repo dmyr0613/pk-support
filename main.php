@@ -11,12 +11,12 @@
 				<section id="banner">
 					<div class="content">
 						<header>
-							<h1>PK-Support</h1>
-							<p>PrimeKarteSupportCenter＜マークス＞</p>
+							<h1>PK Support</h1>
+							<p>PrimeKarteSupportCenter</p>
 						</header>
-						<p>診察の予約、LINEやメールでの呼び出し通知、問診情報の事前入力ができます。<br>
-							LINEを使って、診察予約や、診察進捗の確認、順番が近くなった際のメッセージ受信など、診察に関する時間を節約します。<br>
-							また、問診情報を入力しておくと、外国人など言葉が通じない場合でも、症状を伝える事ができます。</p>
+						<p>PrimeKarteサポートページです。<br>
+							不具合等の調査依頼について、お問合せフォームより記入をお願いいたします。<br>
+							お問合せフォームの回答欄およびメールにて、ご回答させていただきます。</p>
 						<ul class="actions">
 							<li><a href="login-input.php" class="button big">LOGIN</a></li>
 						</ul>
@@ -30,6 +30,7 @@
 				</section>
 
 			<!-- Section -->
+			<!--
 				<section>
 					<header class="major">
 						<h2>MARCSでできること</h2>
@@ -85,6 +86,7 @@
 						</article>
 					</div>
 				</section>
+			-->
 
 		</div>
 	</div>

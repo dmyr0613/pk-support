@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
 <!-- <link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
 </head>
 
 <?php

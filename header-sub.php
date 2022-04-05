@@ -9,4 +9,15 @@
 						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
 						<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
 					</ul>
+					<?php
+						$kanja_id=$name=$password=$line_id=$phone_no='';
+						if (isset($_SESSION['kanja'])) {
+							$kanja_id=$_SESSION['kanja']['kanja_id'];
+							$name=$_SESSION['kanja']['name'];
+							$password=$_SESSION['kanja']['password'];
+							$line_id=$_SESSION['kanja']['line_id'];
+							$phone_no=$_SESSION['kanja']['phone_no'];
+						}
+						echo '<tr><td>ユーザ名:', $name, '</td><td>';
+					?>
 				</header>

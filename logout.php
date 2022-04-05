@@ -7,9 +7,10 @@
 				<!-- Header -->
 				<?php require 'header-sub.php'; ?>
 
-				<!-- loginpage -->
+				<!-- logout -->
 				<section id="logout">
 					<?php
+					//ログアウト後、ログイン画面に遷移
 					unset($_SESSION['userinfo']);
 					header("location: login-input.php");
 					?>

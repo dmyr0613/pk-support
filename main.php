@@ -11,8 +11,8 @@
 				<section id="banner">
 					<div class="content">
 						<header>
-							<h1>PK Support</h1>
-							<p>PrimeKarte SupportCenter</p>
+							<h1>PKサポートセンター</h1>
+							<p>PrimeKarte Support Center</p>
 						</header>
 						<p>PrimeKarteサポートページです。<br>
 							不具合等の調査依頼について、お問合せフォームより記入をお願いいたします。<br>

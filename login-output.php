@@ -13,15 +13,6 @@
 					<?php
 					unset($_SESSION['userinfo']);
 
-					//localhost mySql
-				  // $pdo=new PDO('mysql:host=localhost;dbname=marcs;charset=utf8', 'sbs', 'sbs_toro');
-
-				  //Heroku PostgresSQL
-				  // $dsn = 'pgsql:dbname=d13p6kmhdcirvm host=ec2-174-129-208-118.compute-1.amazonaws.com port=5432';
-				  // $user = 'gkijtxlavebgol';
-				  // $password = 'ecff643bfa3612a94627c9d668f867a06ce4b86e4a69f8a42d981af26c50a505';
-				  // $pdo = new PDO($dsn, $user, $password);
-
 					$sql=$pdo->prepare('select * from userinfo where user_id=? and password=?');
 					$sql->execute([$_REQUEST['user_id'], $_REQUEST['password']]);
 					foreach ($sql as $row) {
@@ -39,6 +30,7 @@
 						echo '<ul class="actions">';
 						echo '<li><a href="main.php" class="button big">TOPPAGE</a></li>';
 						echo '</ul>';
+						header("location: main.php");
 					} else {
 						echo '<p>ログイン名またはパスワードが違います。</p>';
 						echo '<ul class="actions">';

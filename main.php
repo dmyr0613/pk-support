@@ -18,7 +18,13 @@
 							不具合等の調査依頼について、お問合せフォームより記入をお願いいたします。<br>
 							お問合せフォームの回答欄およびメールにて、ご回答させていただきます。</p>
 						<ul class="actions">
-							<li><a href="login-input.php" class="button big">LOGIN</a></li>
+							<?php
+							if (isset($_SESSION['userinfo'])) {
+								echo '<li><a href="login-input.php" class="button big">LOGOUT</a></li>';
+							} else {
+								echo '<li><a href="login-input.php" class="button big">LOGIN</a></li>';
+							}
+							?>
 						</ul>
 					</div>
 					<span class="image object">

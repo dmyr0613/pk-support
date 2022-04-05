@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php require 'header.php'; ?>
 
 <!-- Main -->
@@ -36,8 +37,8 @@
 							$password=$_SESSION['kanja']['password'];
 							$line_id=$_SESSION['kanja']['line_id'];
 							$phone_no=$_SESSION['kanja']['phone_no'];
+							echo '<tr><td>ユーザ名:', $name, '</td><td>';
 						}
-						echo '<tr><td>ユーザ名:', $name, '</td><td>';
 					?>
 				</section>
 

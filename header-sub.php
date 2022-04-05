@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 
 			<!-- Header -->
 				<header id="header">
@@ -9,6 +10,7 @@
 						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
 						<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
 					</ul>
+
 					<?php
 						$kanja_id=$name=$password=$line_id=$phone_no='';
 						if (isset($_SESSION['kanja'])) {

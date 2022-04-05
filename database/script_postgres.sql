@@ -1,7 +1,22 @@
-drop database if exists marcs;
-create database marcs default character set utf8 collate utf8_general_ci;
-grant all on marcs.* to 'sbs'@'localhost' identified by 'sbs_toro';
-use marcs;
+drop database if exists pksupport;
+create database pksupport default character set utf8 collate utf8_general_ci;
+grant all on pksupport.* to 'sbs'@'localhost' identified by 'sbs_toro';
+use pksupport;
+
+create table userinfo (
+  user_id varchar(15) not null unique,
+	name varchar(100) not null,
+	password varchar(15) not null,
+  email varchar(30),
+  department varchar(100),
+  person varchar(100)
+);
+
+insert into userinfo values('111','SBS総合病院','111','d_ota@sbs-infosys.co.jp','医療事業本部','太田大介');
+
+
+-----------
+
 
 create table kanja (
   kanja_id varchar(100) not null unique,

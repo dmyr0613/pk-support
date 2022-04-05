@@ -14,13 +14,14 @@
 					-->
 
 					<?php
-						$kanja_id=$name=$password=$line_id=$phone_no='';
-						if (isset($_SESSION['kanja'])) {
-							$kanja_id=$_SESSION['kanja']['kanja_id'];
-							$name=$_SESSION['kanja']['name'];
-							$password=$_SESSION['kanja']['password'];
-							$line_id=$_SESSION['kanja']['line_id'];
-							$phone_no=$_SESSION['kanja']['phone_no'];
+						$user_id=$name=$password=$email=$department=$person='';
+						if (isset($_SESSION['userinfo'])) {
+							$user_id=$_SESSION['userinfo']['user_id'];
+							$name=$_SESSION['userinfo']['name'];
+							$password=$_SESSION['userinfo']['password'];
+							$email=$_SESSION['userinfo']['email'];
+							$department=$_SESSION['userinfo']['department'];
+							$person=$_SESSION['userinfo']['person'];
 							echo '<tr><td>', $name, '様</td><td>';
 						}
 					?>

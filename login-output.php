@@ -22,19 +22,20 @@
 				  // $password = 'ecff643bfa3612a94627c9d668f867a06ce4b86e4a69f8a42d981af26c50a505';
 				  // $pdo = new PDO($dsn, $user, $password);
 
-					$sql=$pdo->prepare('select * from kanja where kanja_id=? and password=?');
+					$sql=$pdo->prepare('select * from userinfo where user_id=? and password=?');
 					$sql->execute([$_REQUEST['user_id'], $_REQUEST['password']]);
 					foreach ($sql as $row) {
-						$_SESSION['kanja']=[
+						$_SESSION['userinfo']=[
 							'no'=>$row['no'],
-							'kanja_id'=>$row['user_id'],
+							'user_id'=>$row['user_id'],
 							'name'=>$row['name'],
 							'password'=>$row['password'],
-							'line_id'=>$row['line_id'],
-							'phone_no'=>$row['phone_no']];
+							'email'=>$row['email'],
+							'department'=>$row['department']],
+							'person'=>$row['person']];
 					}
-					if (isset($_SESSION['kanja'])) {
-						echo '<p>ようこそ、', $_SESSION['kanja']['name'], ' さん。</p>';
+					if (isset($_SESSION['userinfo'])) {
+						echo '<p>ようこそ、', $_SESSION['userinfo']['name'], ' 様</p>';
 						echo '<ul class="actions">';
 						echo '<li><a href="main.php" class="button big">TOPPAGE</a></li>';
 						echo '</ul>';

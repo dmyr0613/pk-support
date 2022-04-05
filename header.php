@@ -21,9 +21,15 @@
   // $password = 'ecff643bfa3612a94627c9d668f867a06ce4b86e4a69f8a42d981af26c50a505';
 
   //20220404 接続文字列変更
-  $dsn = 'pgsql:dbname=dbejrl8163lahl host=ec2-54-156-80-253.compute-1.amazonaws.com port=5432';
-  $user = 'ocmkfhxxlrdqcl';
-  $password = '19a9523daf9e628a66d12d0a17aa5a0f9505d09ede0aa9857dccedc78c4f4a1f';
+  // $dsn = 'pgsql:dbname=dbejrl8163lahl host=ec2-54-156-80-253.compute-1.amazonaws.com port=5432';
+  // $user = 'ocmkfhxxlrdqcl';
+  // $password = '19a9523daf9e628a66d12d0a17aa5a0f9505d09ede0aa9857dccedc78c4f4a1f';
+  // $pdo = new PDO($dsn, $user, $password);
+
+  //20220404 接続文字列変更
+  $dsn = 'pgsql:dbname=d5a5uarogr4ag5 host=ec2-52-73-155-171.compute-1.amazonaws.com port=5432';
+  $user = 'wiqxmjieopiick';
+  $password = 'c691b8de99e71d03b591f0ff325298fdbe4ad6e801ba3bfccbde567eda9fadbf';
   $pdo = new PDO($dsn, $user, $password);
 ?>
 

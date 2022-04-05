@@ -117,7 +117,8 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #7f888f;
-		font-family: "Open Sans", sans-serif;
+		/* font-family: "Open Sans", sans-serif; */
+		font-family: "M PLUS 1p", 游ゴシック, "Yu Gothic", メイリオ, Meiryo, Verdana, Helvetica, Arial, sans-serif;
 		font-size: 13pt;
 		font-weight: 400;
 		line-height: 1.65;

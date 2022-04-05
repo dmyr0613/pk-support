@@ -23,11 +23,11 @@
 				  // $pdo = new PDO($dsn, $user, $password);
 
 					$sql=$pdo->prepare('select * from kanja where kanja_id=? and password=?');
-					$sql->execute([$_REQUEST['kanja_id'], $_REQUEST['password']]);
+					$sql->execute([$_REQUEST['user_id'], $_REQUEST['password']]);
 					foreach ($sql as $row) {
 						$_SESSION['kanja']=[
 							'no'=>$row['no'],
-							'kanja_id'=>$row['kanja_id'],
+							'kanja_id'=>$row['user_id'],
 							'name'=>$row['name'],
 							'password'=>$row['password'],
 							'line_id'=>$row['line_id'],

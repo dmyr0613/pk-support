@@ -12,7 +12,7 @@
 					<div class="content">
 						<header>
 							<h1>PK Support</h1>
-							<p>PrimeKarteSupportCenter</p>
+							<p>PrimeKarte SupportCenter</p>
 						</header>
 						<p>PrimeKarteサポートページです。<br>
 							不具合等の調査依頼について、お問合せフォームより記入をお願いいたします。<br>

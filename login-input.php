@@ -10,7 +10,7 @@
 				<!-- loginpage -->
 				<section id="loginpage">
 					<form action="login-output.php" method="post">
-					診察券番号<input type="text" name="kanja_id"><br>
+					ユーザID<input type="text" name="user_id"><br>
 					パスワード<input type="password" name="password"><br>
 					<input type="submit" value="LOGIN">
 					</form>

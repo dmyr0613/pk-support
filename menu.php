@@ -13,7 +13,7 @@
 										<li><a href="main.php">メイン TopPage</a></li>
 										<li><a href="login-input.php">ログイン Login</a></li>
 										<li><a href="#">新規問合せ Inquiry</a></li>
-										<li><a href="#">問合せ状況一覧 StatusList</a></li>
+										<li><a href="#">問合せ状況一覧 Status List</a></li>
 										<li><a href="#">他院事例 Search</a></li>
 										<li><a href="userinfo.php">ユーザ情報 User Info</a></li>
 										<li><a href="#">アイコンダウンロード Download</a></li>

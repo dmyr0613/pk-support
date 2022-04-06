@@ -50,7 +50,7 @@
 						//
 						// } else {
 							// 新規ユーザ登録
-							$sql=$pdo->prepare('insert into inquiry (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval('''inquiry_seq'''),?,?,?,?,?,?,?,?)');
+							$sql=$pdo->prepare('insert into inquiry (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(¥'inquiry_seq¥'),?,?,?,?,?,?,?,?)');
 							$sql->execute([
 								$user_id,
 								$facility_code,

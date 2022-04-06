@@ -7,15 +7,6 @@
 				<!-- Header -->
 				<?php require 'header-sub.php'; ?>
 
-				inquiry_no int not null unique,
-			  user_id varchar(15),
-			  facility_code varchar(15),
-			  priority_flg int,
-				order_kind varchar(100),
-				contents varchar(1000),
-			  kanja_id varchar(15),
-			  sbs_comment varchar(1000)
-
 				<!-- inquiryMain -->
 				<section id="inquiryMain">
 					<?php

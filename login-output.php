@@ -13,6 +13,7 @@
 					<?php
 					unset($_SESSION['userinfo']);
 
+					//ユーザ情報をセッションに設定
 					$sql=$pdo->prepare('select * from userinfo where user_id=? and password=?');
 					$sql->execute([$_REQUEST['user_id'], $_REQUEST['password']]);
 					foreach ($sql as $row) {
@@ -30,8 +31,10 @@
 						echo '<ul class="actions">';
 						echo '<li><a href="main.php" class="button big">ホーム</a></li>';
 						echo '</ul>';
+						//トップページに遷移
 						header("location: main.php");
 					} else {
+						//ログイン失敗時
 						echo '<p>ログイン名またはパスワードが違います。</p>';
 						echo '<ul class="actions">';
 						echo '<li><a href="login-input.php" class="button big">戻る</a></li>';

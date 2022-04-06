@@ -11,6 +11,7 @@
 				<section id="statusListMain">
 
 					<div class="table-wrapper">
+						<form action="status-list-output.php" method="post">
 						<table class="alt">
 							<thead>
 								<tr>
@@ -18,6 +19,8 @@
 									<th>お問合せ番号</th>
 									<th>事象・内容</th>
 									<th>SBS回答</th>
+									<th>ステータス</th>
+									<th>詳細表示</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -33,6 +36,8 @@
 									echo '	<td>', $row['inquiry_no'], '</td>';
 									echo '	<td>', $row['contents'], '</td>';
 									echo '	<td>', $row['sbs_comment'], '</td>';
+									echo '	<td>　</td>';
+									echo '  <td><input type="submit" class="button small" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
 									echo '</tr>';
 
 								}
@@ -40,12 +45,13 @@
 
 							</tbody>
 							<tfoot>
-								<tr>
+								<!-- <tr>
 									<td colspan="2"></td>
 									<td>100.00</td>
-								</tr>
+								</tr> -->
 							</tfoot>
 						</table>
+						</form>
 					</div>
 				</section>
 

@@ -12,6 +12,7 @@
 					<?php
 					$inquiry_no=$user_id=$facility_code=$facility_name=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment='';
 					if (isset($_SESSION['inquiry'])) {
+						// お問合せセッション情報ある場合
 						$inquiry_no=$_SESSION['inquiry']['inquiry_no'];
 						$user_id=$_SESSION['inquiry']['user_id'];
 						$facility_code=$_SESSION['inquiry']['facility_code'];
@@ -56,7 +57,12 @@
 					echo '<input type="text" name="sbs_comment" value="', $sbs_comment, '">';
 					echo '</td></tr>';
 					echo '</table>';
-					echo '<input type="submit" class="button big primary" value="問合せ情報登録">';
+					if (isset($_SESSION['inquiry'])) {
+						// お問合せセッション情報ある場合
+						echo '<input type="submit" class="button big primary" value="問合せ情報更新">';
+					}else {
+						echo '<input type="submit" class="button big primary" value="問合せ情報登録">';
+					}
 					echo '</form>';
 					?>
 				</section>

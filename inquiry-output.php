@@ -70,7 +70,7 @@
 							$sql=$pdo->prepare('select currval(\'inquiry_seq\')');
 							$sql->execute();
 							foreach ($sql as $row) {
-								$inquiry_no=>$row['inquiry_no'];
+								$inquiry_no=$row['currval'];
 							}
 
 							// お問合せセッション情報を更新

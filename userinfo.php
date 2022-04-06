@@ -10,10 +10,11 @@
 				<!-- userinfoMain -->
 				<section id="userinfoMain">
 					<?php
-					$user_id=$name=$password=$email=$department=$person='';
+					$user_id=$facility_code=$facility_name=$password=$email=$department=$person='';
 					if (isset($_SESSION['userinfo'])) {
 						$user_id=$_SESSION['userinfo']['user_id'];
-						$name=$_SESSION['userinfo']['name'];
+						$facility_code=$_SESSION['userinfo']['facility_code'];
+						$facility_name=$_SESSION['userinfo']['facility_name'];
 						$password=$_SESSION['userinfo']['password'];
 						$email=$_SESSION['userinfo']['email'];
 						$department=$_SESSION['userinfo']['department'];
@@ -33,8 +34,11 @@
 						echo '<input type="text" name="user_id" value="', $user_id, '" readonly="readonly">';
 					}
 					echo '</td></tr>';
+					echo '<tr><td>施設コード</td><td>';
+					echo '<input type="text" name="facility_code" value="', $facility_code, '">';
+					echo '</td></tr>';
 					echo '<tr><td>施設名</td><td>';
-					echo '<input type="text" name="name" value="', $name, '">';
+					echo '<input type="text" name="facility_name" value="', $facility_name, '">';
 					echo '</td></tr>';
 					echo '<tr><td>パスワード</td><td>';
 					echo '<input type="password" name="password" value="', $password, '">';

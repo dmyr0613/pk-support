@@ -25,6 +25,10 @@
 					echo '<form action="inquiry-output.php" method="post">';
 					echo '<table>';
 
+					echo '<tr><td>お問合せ番号</td><td>';
+					echo '<input type="label" name="inquiry_no" value="', $inquiry_no, '">';
+					echo '</td></tr>';
+
 					echo '<tr><td>緊急度</td><td>';
 					echo '<div class="col-4 col-12-small">';
 					echo '	<input type="radio" id="priority-normal" name="priority" checked>';

@@ -17,16 +17,16 @@
 					$sql->execute([$_REQUEST['user_id'], $_REQUEST['password']]);
 					foreach ($sql as $row) {
 						$_SESSION['userinfo']=[
-							'no'=>$row['no'],
 							'user_id'=>$row['user_id'],
-							'name'=>$row['name'],
+							'facility_code'=>$row['facility_code'],
+							'facility_name'=>$row['facility_name'],
 							'password'=>$row['password'],
 							'email'=>$row['email'],
 							'department'=>$row['department'],
 							'person'=>$row['person']];
 					}
 					if (isset($_SESSION['userinfo'])) {
-						echo '<p>ようこそ、', $_SESSION['userinfo']['name'], '様</p>';
+						echo '<p>ようこそ、', $_SESSION['userinfo']['facility_name'], '様</p>';
 						echo '<ul class="actions">';
 						echo '<li><a href="main.php" class="button big">ホーム</a></li>';
 						echo '</ul>';

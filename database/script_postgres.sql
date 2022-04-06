@@ -3,18 +3,35 @@ create database pksupport default character set utf8 collate utf8_general_ci;
 grant all on pksupport.* to 'sbs'@'localhost' identified by 'sbs_toro';
 use pksupport;
 
+drop table userinfo;
 create table userinfo (
   user_id varchar(15) not null unique,
-	name varchar(100) not null,
+	facility_code varchar(15) not null,
+  facility_name varchar(100) not null,
 	password varchar(15) not null,
   email varchar(30),
   department varchar(100),
   person varchar(100)
 );
 
-insert into userinfo values('111','SBS総合病院','111','d_ota@sbs-infosys.co.jp','医療事業本部','太田大介');
+insert into userinfo values('111','111','SBS総合病院','111','d_ota@sbs-infosys.co.jp','医療事業本部','太田大介');
 
+create table inquiry (
+  inquiry_no int not null unique,
+  facility_code varchar(15),
+  user_id varchar(15),
+  priority_flg int,
+	order_kind varchar(100),
+	contents varchar(1000),
+  kanja_id varchar(15),
+  sbs_comment varchar(1000)
+);
 
+CREATE SEQUENCE inquiry_seq;
+
+insert into inquiry
+  (inquiry_no,priority_flg,order_kind,contents,kanja_id,sbs_comment)
+  values(nextval(inquiry_seq),0,'テストオーダ種','質問です。','1234567','SBS回答です。');
 -----------
 
 

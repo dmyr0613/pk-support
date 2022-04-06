@@ -13,15 +13,16 @@
 
 					<!-- ログイン中はユーザ名を表示 -->
 					<?php
-						$user_id=$name=$password=$email=$department=$person='';
+						$user_id=$facility_code=$facility_name=$password=$email=$department=$person='';
 						if (isset($_SESSION['userinfo'])) {
 							$user_id=$_SESSION['userinfo']['user_id'];
-							$name=$_SESSION['userinfo']['name'];
+							$facility_code=$_SESSION['userinfo']['facility_code'];
+							$facility_name=$_SESSION['userinfo']['facility_name'];
 							$password=$_SESSION['userinfo']['password'];
 							$email=$_SESSION['userinfo']['email'];
 							$department=$_SESSION['userinfo']['department'];
 							$person=$_SESSION['userinfo']['person'];
-							echo '<tr><td>ようこそ、', $name, '様</td><td>';
+							echo '<tr><td>ようこそ、', $facility_name, '様</td><td>';
 						}
 					?>
 				</header>

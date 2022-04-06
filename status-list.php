@@ -26,7 +26,7 @@
 
 							<?php
 								//ログイン者と同じ病院コードの問合せを検索（継続中のみ）
-								$sql=$pdo->prepare('select * from inquiry where facility_code=?');
+								$sql=$pdo->prepare('select * from inquiry where facility_code=? order by inquiry_no');
 								$sql->execute([$_SESSION['userinfo']['facility_code']]);
 								foreach ($sql as $row) {
 

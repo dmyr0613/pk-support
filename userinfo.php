@@ -7,7 +7,7 @@
 				<!-- Header -->
 				<?php require 'header-sub.php'; ?>
 
-				<!-- reserveMain -->
+				<!-- userinfoMain -->
 				<section id="userinfoMain">
 					<?php
 					$user_id=$name=$password=$email=$department=$person='';
@@ -49,7 +49,7 @@
 					echo '<input type="text" name="phone_no" value="', $person, '">';
 					echo '</td></tr>';
 					echo '</table>';
-					// echo '<input type="submit" class="button big primary" value="ユーザ情報登録">';
+					echo '<input type="submit" class="button big primary" value="ユーザ情報更新">';
 					echo '　<a href="main.php" class="button big">ホーム</a>';
 					echo '</form>';
 					?>

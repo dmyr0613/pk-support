@@ -21,7 +21,7 @@
 							$email=$_SESSION['userinfo']['email'];
 							$department=$_SESSION['userinfo']['department'];
 							$person=$_SESSION['userinfo']['person'];
-							echo '<tr><td>ようこそ、', $name, 'æ§˜</td><td>';
+							echo '<tr><td>ようこそ、', $name, '様</td><td>';
 						}
 					?>
 				</header>

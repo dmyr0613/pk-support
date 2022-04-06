@@ -67,7 +67,7 @@
 								'user_id'=>$user_id,
 								'facility_code'=>$facility_code,
 								'facility_name'=>$facility_name,
-								'priority_flg'=>0
+								'priority_flg'=>0,
 								'order_kind'=>$_REQUEST['order_kind'],
 								'contents'=>$_REQUEST['contents'],
 								'kanja_id'=>$_REQUEST['kanja_id'],

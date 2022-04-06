@@ -27,26 +27,26 @@
 					echo '<tr><td>ユーザーID</td><td>';
 					if (empty($user_id)) {
 						//ReadOnly属性を外す
-						echo '<input type="text" name="kanja_id" value="">';
+						echo '<input type="text" name="user_id" value="">';
 					} else {
-						echo '<input type="text" name="kanja_id" value="', $user_id, '" readonly="readonly">';
+						echo '<input type="text" name="user_id" value="', $user_id, '" readonly="readonly">';
 					}
 					echo '</td></tr>';
 					echo '<tr><td>施設名</td><td>';
 					echo '<input type="text" name="name" value="', $name, '">';
 					echo '</td></tr>';
-					// echo '<tr><td>パスワード</td><td>';
-					// echo '<input type="password" name="password" value="', $password, '">';
-					// echo '</td></tr>';
+					echo '<tr><td>パスワード</td><td>';
+					echo '<input type="password" name="password" value="', $password, '">';
+					echo '</td></tr>';
 					echo '</td></tr>';
 					echo '<tr><td>メールアドレス</td><td>';
-					echo '<input type="text" name="phone_no" value="', $email, '">';
+					echo '<input type="text" name="email" value="', $email, '">';
 					echo '</td></tr>';
 					echo '<tr><td>部署</td><td>';
-					echo '<input type="text" name="phone_no" value="', $department, '">';
+					echo '<input type="text" name="department" value="', $department, '">';
 					echo '</td></tr>';
 					echo '<tr><td>担当者名</td><td>';
-					echo '<input type="text" name="phone_no" value="', $person, '">';
+					echo '<input type="text" name="person" value="', $person, '">';
 					echo '</td></tr>';
 					echo '</table>';
 					echo '<input type="submit" class="button big primary" value="ユーザ情報更新">';

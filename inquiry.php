@@ -19,7 +19,7 @@
 				<!-- inquiryMain -->
 				<section id="inquiryMain">
 					<?php
-					$inquiry_no=$user_id=$facility_code=$facility_name=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment=$;
+					$inquiry_no=$user_id=$facility_code=$facility_name=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment='';
 					if (isset($_SESSION['inquiry'])) {
 						$inquiry_no=$_SESSION['inquiry']['inquiry_no'];
 						$user_id=$_SESSION['inquiry']['user_id'];

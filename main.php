@@ -14,7 +14,7 @@
 							<h1>PK-Support</h1>
 							<p>PrimeKarte Support Center</p>
 						</header>
-						<p>PrimeKarteサポートページです。<br>
+						<p>PrimeKarteサポートセンターサイトです。<br>
 							ご質問や不具合等の調査依頼について、お問合せフォームより記入をお願いいたします。<br>
 							フォームの回答欄およびメールにて、ご回答させていただきます。</p>
 						<ul class="actions">

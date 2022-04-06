@@ -53,7 +53,7 @@
 							echo '</ul>';
 
 						} else {
-							// 新規ユーザ登録
+							// 新規お問合せ登録
 							$sql=$pdo->prepare('insert into inquiry (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?)');
 							$sql->execute([
 								$user_id,
@@ -65,9 +65,17 @@
 								$_REQUEST['kanja_id'],
 								$_REQUEST['sbs_comment']]);
 
+							// 登録したinquiry_noを取得
+							$inquiry_no=0;
+							$sql=$pdo->prepare('select currval(\'inquiry_seq\')');
+							$sql->execute();
+							foreach ($sql as $row) {
+								$inquiry_no=>$row['inquiry_no'];
+							}
+
 							// お問合せセッション情報を更新
 							$_SESSION['inquiry']=[
-								'inquiry_no'=>1,
+								'inquiry_no'=>$inquiry_no,
 								'user_id'=>$user_id,
 								'facility_code'=>$facility_code,
 								'facility_name'=>$facility_name,

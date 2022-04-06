@@ -29,7 +29,11 @@ create table inquiry (
   sbs_comment varchar(1000)
 );
 
+--シーケンス
 CREATE SEQUENCE inquiry_seq;
+--シーケンスの現在値取得（currvalは同じセッションにおいて、nextvalの値を戻すため、last_valueであれば最大値となる）
+select currval('inquiry_seq');
+SELECT last_value FROM inquiry_seq;
 
 insert into inquiry
   (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment)

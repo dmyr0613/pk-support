@@ -16,11 +16,11 @@
   global $pdo;
 
   //Heroku PostgresSQL
-  // $dsn = 'pgsql:dbname=d5a5uarogr4ag5 host=ec2-52-73-155-171.compute-1.amazonaws.com port=5432';
-  // $user = 'wiqxmjieopiick';
-  // $password = 'c691b8de99e71d03b591f0ff325298fdbe4ad6e801ba3bfccbde567eda9fadbf';
-  // $pdo = new PDO($dsn, $user, $password);
-  $pdo = new PDO('postgres://wquiwpacdiajcc:ad11385cbb40f80154f981dc388d5c94e1149eb71ffd71c9d390f1d60a5cc4a8@ec2-34-194-73-236.compute-1.amazonaws.com:5432/dehvcdqgtekqb0');
+  $dsn = 'pgsql:dbname=dehvcdqgtekqb0 host=ec2-34-194-73-236.compute-1.amazonaws.com port=5432';
+  $user = 'wquiwpacdiajcc';
+  $password = 'ad11385cbb40f80154f981dc388d5c94e1149eb71ffd71c9d390f1d60a5cc4a8';
+  $pdo = new PDO($dsn, $user, $password);
+  // $pdo = new PDO('postgres://wquiwpacdiajcc:ad11385cbb40f80154f981dc388d5c94e1149eb71ffd71c9d390f1d60a5cc4a8@ec2-34-194-73-236.compute-1.amazonaws.com:5432/dehvcdqgtekqb0');
 ?>
 
 <body class="is-preload">

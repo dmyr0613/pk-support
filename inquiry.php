@@ -27,7 +27,7 @@
 
 					echo '<tr><td>緊急度</td><td>';
 					echo '<div class="col-4 col-12-small">';
-					echo '	<input type="radio" id="priority-normal" name="priority"> checked';
+					echo '	<input type="radio" id="priority-normal" name="priority" checked>';
 					echo '	<label for="priority-normal">通常</label>';
 					// echo '</div>';
 					// echo '<div class="col-4 col-12-small">';
@@ -46,6 +46,7 @@
 					echo '<input type="text" name="kanja_id" value="', $kanja_id, '">';
 
 					echo '<tr><td></td><td>';
+					echo '　';
 					echo '</td></tr>';
 
 					echo '</td></tr>';

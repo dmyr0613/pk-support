@@ -27,7 +27,7 @@
 							'order_kind'=>$row['order_kind'],
 							'contents'=>$row['contents'],
 							'kanja_id'=>$row['kanja_id'],
-							'sbs_comment'=>$_REQUEST['sbs_comment']];
+							'sbs_comment'=>$row['sbs_comment']];
 					}
 					if (isset($_SESSION['inquiry'])) {
 						//お問合せページに遷移

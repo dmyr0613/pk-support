@@ -20,7 +20,6 @@
 									<th>事象・内容</th>
 									<th>SBS回答</th>
 									<th>ステータス</th>
-									<th>詳細表示</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -33,11 +32,10 @@
 
 									echo '<tr>';
 									echo '	<td>　</td>';
-									echo '	<td>', $row['inquiry_no'], '</td>';
+									echo '  <td><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
 									echo '	<td>', $row['contents'], '</td>';
 									echo '	<td>', $row['sbs_comment'], '</td>';
 									echo '	<td>　</td>';
-									echo '  <td><input type="submit" class="button small" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
 									echo '</tr>';
 
 								}

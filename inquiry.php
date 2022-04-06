@@ -27,10 +27,10 @@
 
 					echo '<tr><td>緊急度</td><td>';
 					echo '<div class="col-4 col-12-small">';
-					echo '	<input type="radio" id="priority-normal" name="priority">';
+					echo '	<input type="radio" id="priority-normal" name="priority"> checked';
 					echo '	<label for="priority-normal">通常</label>';
-					echo '</div>';
-					echo '<div class="col-4 col-12-small">';
+					// echo '</div>';
+					// echo '<div class="col-4 col-12-small">';
 					echo '	<input type="radio" id="demo-priority-high" name="priority">';
 					echo '	<label for="priority-high">至急</label>';
 					echo '</div>';

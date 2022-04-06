@@ -20,6 +20,7 @@
 											echo '<li><a href="#">PK通知情報 Information</a></li>';
 											echo '<li><a href="userinfo.php">ユーザ情報 User Info</a></li>';
 										}
+										?>
 										<li><a href="#">アイコンダウンロード Download</a></li>
 										<li><a href="elements.html">Elements</a></li>
 									</ul>

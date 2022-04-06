@@ -7,9 +7,22 @@
 				<!-- Header -->
 				<?php require 'header-sub.php'; ?>
 
-				<!-- useiinfoRegMain -->
-				<section id="useiinfoRegMain">
+				<!-- inquiryRegMain -->
+				<section id="inquiryRegMain">
 					<?php
+						//最初にユーザ情報を取得
+						$user_id=$facility_code=$facility_name=$password=$email=$department=$person='';
+						if (isset($_SESSION['userinfo'])) {
+							$user_id=$_SESSION['userinfo']['user_id'];
+							$facility_code=$_SESSION['userinfo']['facility_code'];
+							$facility_name=$_SESSION['userinfo']['facility_name'];
+							$password=$_SESSION['userinfo']['password'];
+							$email=$_SESSION['userinfo']['email'];
+							$department=$_SESSION['userinfo']['department'];
+							$person=$_SESSION['userinfo']['person'];
+						}
+
+
 						// if (isset($_SESSION['userinfo'])) {
 						//
 						// 	// ログイン中であれば、userinfoテーブルをUPDATE。
@@ -37,26 +50,27 @@
 						//
 						// } else {
 							// 新規ユーザ登録
-							// $sql=$pdo->prepare('insert into kanja values(null, ?, ?, ?, ?, ?, null, null)');
-							$sql=$pdo->prepare('insert into inquiry values(?, ?, ?, ?, ?, null, null, null)');
+							$sql=$pdo->prepare('insert into inquiry (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval('inquiry_seq'),?,?,?,?,?,?,?,?)');
 							$sql->execute([
-								$_REQUEST['user_id'],
-								$_REQUEST['name'],
-								$_REQUEST['password'],
-								$_REQUEST['email'],
-								$_REQUEST['department'],
-								$_REQUEST['person']]);
+								$user_id,
+								$facility_code,
+								$facility_name,
+								0,
+								$_REQUEST['order_kind'],
+								$_REQUEST['contents'],
+								$_REQUEST['kanja_id'],
+								$_REQUEST['sbs_comment']]);
 
 							//セッション情報を更新
-							$_SESSION['userinfo']=[
-								'user_id'=>$_REQUEST['user_id'],
-								'name'=>$_REQUEST['name'],
-								'password'=>$_REQUEST['password'],
-								'email'=>$_REQUEST['email'],
-								'department'=>$_REQUEST['department'],
-								'person'=>$_REQUEST['person']];
+							// $_SESSION['userinfo']=[
+							// 	'user_id'=>$_REQUEST['user_id'],
+							// 	'name'=>$_REQUEST['name'],
+							// 	'password'=>$_REQUEST['password'],
+							// 	'email'=>$_REQUEST['email'],
+							// 	'department'=>$_REQUEST['department'],
+							// 	'person'=>$_REQUEST['person']];
 
-								echo '<p>ユーザ情報を登録しました。</p>';
+								echo '<p>お問合せ情報を登録しました。</p>';
 								echo '<ul class="actions">';
 								echo '<li><a href="main.php" class="button big">ホーム</a></li>';
 								echo '</ul>';

@@ -21,6 +21,7 @@ create table inquiry (
   inquiry_no int not null unique,
   user_id varchar(15),
   facility_code varchar(15),
+  facility_name varchar(100),
   priority_flg int,
 	order_kind varchar(100),
 	contents varchar(1000),
@@ -31,8 +32,10 @@ create table inquiry (
 CREATE SEQUENCE inquiry_seq;
 
 insert into inquiry
-  (inquiry_no,facility_code,user_id,priority_flg,order_kind,contents,kanja_id,sbs_comment)
-  values(nextval(inquiry_seq),111,0001,0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+  (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment)
+  values(nextval('inquiry_seq'),111,0001,'SBS総合病院',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+
+
 -----------
 
 

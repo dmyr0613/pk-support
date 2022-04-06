@@ -28,7 +28,6 @@
 						</ul>
 					</div>
 					<span class="image object">
-						<!-- <img src="images/pic10.jpg" alt="" /> -->
 						<!-- <img src="images/171024_5.jpg" alt="" /> -->
 						<!-- <img src="images/100127_2.jpg" alt="" /> -->
 						<img src="images/101208_1.jpg" alt="" />

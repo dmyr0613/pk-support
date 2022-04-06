@@ -14,12 +14,13 @@ create table userinfo (
   person varchar(100)
 );
 
-insert into userinfo values('111','111','SBS総合病院','111','d_ota@sbs-infosys.co.jp','医療事業本部','太田大介');
+insert into userinfo values('111','0001','SBS総合病院','111','d_ota@sbs-infosys.co.jp','医療事業本部','太田大介');
 
+drop table inquiry;
 create table inquiry (
   inquiry_no int not null unique,
-  facility_code varchar(15),
   user_id varchar(15),
+  facility_code varchar(15),
   priority_flg int,
 	order_kind varchar(100),
 	contents varchar(1000),
@@ -30,8 +31,8 @@ create table inquiry (
 CREATE SEQUENCE inquiry_seq;
 
 insert into inquiry
-  (inquiry_no,priority_flg,order_kind,contents,kanja_id,sbs_comment)
-  values(nextval(inquiry_seq),0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+  (inquiry_no,facility_code,user_id,priority_flg,order_kind,contents,kanja_id,sbs_comment)
+  values(nextval(inquiry_seq),111,0001,0,'テストオーダ種','質問です。','1234567','SBS回答です。');
 -----------
 
 

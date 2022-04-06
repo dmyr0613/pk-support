@@ -31,8 +31,8 @@
 						//ReadOnly属性を外す
 						echo '<input type="text" name="user_id" value="">';
 					} else {
-						echo '<input type="text" name="user_id" value="', $user_id, '" readonly="readonly">';
-						$user_id
+						// echo '<input type="text" name="user_id" value="', $user_id, '" readonly="readonly">';
+						echo '', $user_id , '';
 					}
 					echo '</td></tr>';
 					echo '<tr><td>施設コード</td><td>';

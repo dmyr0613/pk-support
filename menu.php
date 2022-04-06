@@ -23,7 +23,7 @@
 										}
 										?>
 										<li><a href="#">アイコンダウンロード Download</a></li>
-										<li><a href="elements.html">Elements</a></li>
+										<!-- <li><a href="elements.html">Elements</a></li> -->
 									</ul>
 								</nav>
 

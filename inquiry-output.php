@@ -61,19 +61,24 @@
 								$_REQUEST['kanja_id'],
 								$_REQUEST['sbs_comment']]);
 
-							//セッション情報を更新
-							// $_SESSION['userinfo']=[
-							// 	'user_id'=>$_REQUEST['user_id'],
-							// 	'name'=>$_REQUEST['name'],
-							// 	'password'=>$_REQUEST['password'],
-							// 	'email'=>$_REQUEST['email'],
-							// 	'department'=>$_REQUEST['department'],
-							// 	'person'=>$_REQUEST['person']];
+							// お問合せセッション情報を更新
+							$_SESSION['inquiry']=[
+								'inquiry_no'=>'新規番号',
+								'user_id'=>$user_id,
+								'facility_code'=>$facility_code,
+								'facility_name'=>$facility_name,
+								'priority_flg'=>0
+								'order_kind'=>$_REQUEST['order_kind'],
+								'contents'=>$_REQUEST['contents'],
+								'kanja_id'=>$_REQUEST['kanja_id'],
+								'sbs_comment'=>$_REQUEST['sbs_comment']];
 
-								echo '<p>お問合せ情報を登録しました。</p>';
-								echo '<ul class="actions">';
-								echo '<li><a href="main.php" class="button big">ホーム</a></li>';
-								echo '</ul>';
+							echo '<p>お問合せ情報を登録しました。<br>';
+							echo 'サポートセンターからの回答をお待ちください。</p>';
+							echo '<ul class="actions">';
+							echo '<li><a href="inquiry.php" class="button big">お問合せフォームに戻る</a></li>';
+							echo '<li><a href="main.php" class="button big">ホーム</a></li>';
+							echo '</ul>';
 						// }
 					?>
 				</section>

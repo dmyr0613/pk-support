@@ -51,7 +51,7 @@
 					echo '</td></tr>';
 					echo '</table>';
 					// echo '<input type="submit" class="button big primary" value="ユーザ情報登録">';
-					echo '　<a href="main.php" class="button big">TOPPAGE</a>';
+					echo '　<a href="main.php" class="button big">ホーム</a>';
 					echo '</form>';
 					?>
 				</section>

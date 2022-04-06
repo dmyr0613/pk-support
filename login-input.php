@@ -12,7 +12,7 @@
 					<form action="login-output.php" method="post">
 					ユーザID<input type="text" name="user_id"><br>
 					パスワード<input type="password" name="password"><br>
-					<input type="submit" value="LOGIN">
+					<input type="submit" value="ログイン">
 					</form>
 				</section>
 

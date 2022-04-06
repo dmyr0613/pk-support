@@ -20,7 +20,6 @@
   $user = 'wquiwpacdiajcc';
   $password = 'ad11385cbb40f80154f981dc388d5c94e1149eb71ffd71c9d390f1d60a5cc4a8';
   $pdo = new PDO($dsn, $user, $password);
-  // $pdo = new PDO('postgres://wquiwpacdiajcc:ad11385cbb40f80154f981dc388d5c94e1149eb71ffd71c9d390f1d60a5cc4a8@ec2-34-194-73-236.compute-1.amazonaws.com:5432/dehvcdqgtekqb0');
 ?>
 
 <body class="is-preload">

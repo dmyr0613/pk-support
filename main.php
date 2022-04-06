@@ -20,9 +20,9 @@
 						<ul class="actions">
 							<?php
 							if (isset($_SESSION['userinfo'])) {
-								echo '<li><a href="logout.php" class="button big">LOGOUT</a></li>';
+								echo '<li><a href="logout.php" class="button big">ログアウト</a></li>';
 							} else {
-								echo '<li><a href="login-input.php" class="button big">LOGIN</a></li>';
+								echo '<li><a href="login-input.php" class="button big">ログイン</a></li>';
 							}
 							?>
 						</ul>

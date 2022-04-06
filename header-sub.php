@@ -2,7 +2,7 @@
 
 			<!-- Header -->
 				<header id="header">
-					<a href="index.php" class="logo"><strong>PK-Support</strong>　PrimeKarte Support Center</a>
+					<a href="main.php" class="logo"><strong>PK-Support</strong>　PrimeKarte Support Center</a>
 					<!--
 					<ul class="icons">
 						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>

@@ -15,7 +15,7 @@
 										<?php
 										if (isset($_SESSION['userinfo'])) {
 											// ログイン時のみ表示するメニュー
-											echo '<li><a href="#">新規問合せ Inquiry</a></li>';
+											echo '<li><a href="inquiry.php">新規問合せ Inquiry</a></li>';
 											echo '<li><a href="#">問合せ状況一覧 Status List</a></li>';
 											echo '<li><a href="#">事例検索 Search</a></li>';
 											echo '<li><a href="#">PK通知情報 Information</a></li>';

@@ -20,6 +20,7 @@
 						$person=$_SESSION['userinfo']['person'];
 					}
 					else {
+						// ログイン中でなければ、トップページへ戻る
 						header("location: login-input.php");
 					}
 					echo '<form action="userinfo-output.php" method="post">';

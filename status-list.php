@@ -31,8 +31,8 @@
 								foreach ($sql as $row) {
 
 									echo '<tr>';
-									echo '	<td>　</td>';
-									echo '  <td><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
+									echo '	<td width= "50">　</td>';
+									echo '  <td width= "100"><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
 									echo '	<td>', $row['contents'], '</td>';
 									echo '	<td>', $row['sbs_comment'], '</td>';
 									echo '	<td>　</td>';

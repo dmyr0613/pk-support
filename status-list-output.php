@@ -19,7 +19,7 @@
 					foreach ($sql as $row) {
 						$_SESSION['inquiry']=[
 							'user_id'=>$row['user_id'],
-							'inquiry_no'=>row['inquiry_no'],
+							'inquiry_no'=>$row['inquiry_no'],
 							'user_id'=>$row['user_id'],
 							'facility_code'=>$row['facility_code'],
 							'facility_name'=>$row['facility_name'],

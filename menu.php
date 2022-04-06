@@ -29,9 +29,9 @@
 
 								<!-- Footer -->
 									<footer id="footer">
-										<p class="copyright">&copy; SBS Information Systems Co.,Ltd. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+										<p class="copyright">&copy; SBS Information Systems Co.,Ltd. All rights reserved. Design: <a href="https://html5up.net" target=”_blank”>HTML5 UP</a>.</p>
 									</footer>
-									
+
 						</div>
 					</div>
 

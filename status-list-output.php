@@ -11,6 +11,7 @@
 				<!-- loginpage -->
 				<section id="loginpage">
 					<?php
+					///お問合せ情報セッションをクリア
 					unset($_SESSION['inquiry']);
 
 					//お問合せ情報をセッションに設定

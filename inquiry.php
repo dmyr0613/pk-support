@@ -60,7 +60,8 @@
 					if (isset($_SESSION['inquiry'])) {
 						// お問合せセッション情報ある場合
 						echo '<input type="submit" class="button big primary" value="問合せ情報更新">';
-						echo '<button onclick="location.href="status-list.php"">一覧に戻る</button>';
+						echo '　';
+						echo '<button onclick="location.href=\'status-list.php\'">一覧に戻る</button>';
 					}else {
 						echo '<input type="submit" class="button big primary" value="問合せ情報登録">';
 					}

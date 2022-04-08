@@ -11,9 +11,11 @@
 									</header>
 									<ul>
 										<li><a href="main.php">メイン TopPage</a></li>
-										<li><a href="login-input.php">ログイン Login</a></li>
 										<?php
-										if (isset($_SESSION['userinfo'])) {
+										if (isset($_SESSION['userinfo'])) = false {
+											//ログアウト状態時のメニュー
+											echo '<li><a href="login-input.php">ログイン Login</a></li>';
+										}else {
 											// ログイン時のみ表示するメニュー
 											echo '<li><a href="inquiry.php">新規問合せ Inquiry</a></li>';
 											echo '<li><a href="status-list.php">問合せ状況一覧 Status List</a></li>';

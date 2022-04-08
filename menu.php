@@ -12,7 +12,7 @@
 									<ul>
 										<li><a href="main.php">メイン TopPage</a></li>
 										<?php
-										if (isset($_SESSION['userinfo'])) = false {
+										if (isset($_SESSION['userinfo']) = false){
 											//ログアウト状態時のメニュー
 											echo '<li><a href="login-input.php">ログイン Login</a></li>';
 										}else {

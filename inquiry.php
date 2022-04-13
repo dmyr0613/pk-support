@@ -46,7 +46,7 @@
 					echo '</td></tr>';
 					echo '<tr><td>事象・内容</td><td>';
 					// echo '<input type="text" name="contents" value="', $contents, '">';
-					echo '<textarea name="contents" value="', $contents, '" placeholder="Enter your message" rows="6">', $contents, '</textarea>';
+					echo '<textarea name="contents" placeholder="Enter your message" rows="6">', $contents, '</textarea>';
 					// <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
 
 					echo '</td></tr>';

@@ -10,10 +10,12 @@
 				<!-- inquiryMain -->
 				<section id="inquiryMain">
 					<?php
-					$inquiry_no=$user_id=$facility_code=$facility_name=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment='';
+					$inquiry_no=$insert_datetime=$update_datetime=$user_id=$facility_code=$facility_name=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment='';
 					if (isset($_SESSION['inquiry'])) {
 						// お問合せセッション情報ある場合
 						$inquiry_no=$_SESSION['inquiry']['inquiry_no'];
+						$insert_datetime=$_SESSION['inquiry']['insert_datetime'];
+						$update_datetime=$_SESSION['inquiry']['update_datetime'];
 						$user_id=$_SESSION['inquiry']['user_id'];
 						$facility_code=$_SESSION['inquiry']['facility_code'];
 						$facility_name=$_SESSION['inquiry']['facility_name'];

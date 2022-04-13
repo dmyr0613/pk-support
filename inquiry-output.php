@@ -30,9 +30,10 @@
 
 						if (isset($_SESSION['inquiry'])) {
 							// お問合せセッション情報がある場合は、inquiryテーブルをUPDATE
-							$sql=$pdo->prepare('update inquiry set priority_flg=?, order_kind=?, contents=?, kanja_id=?, sbs_comment=? where inquiry_no=?');
+							$sql=$pdo->prepare('update inquiry set priority_flg=?, update_datetime=?, order_kind=?, contents=?, kanja_id=?, sbs_comment=? where inquiry_no=?');
 							$sql->execute([
 								0,
+								$datetime,
 								$_REQUEST['order_kind'],
 								$_REQUEST['contents'],
 								$_REQUEST['kanja_id'],
@@ -42,6 +43,7 @@
 								// お問合せセッション情報を更新
 								$_SESSION['inquiry']=[
 									'inquiry_no'=>$_SESSION['inquiry']['inquiry_no'],
+									'update_datetime'=>$datetime,
 									'user_id'=>$user_id,							//念のため再設定
 									'facility_code'=>$facility_code,	//念のため再設定
 									'facility_name'=>$facility_name,	//念のため再設定
@@ -56,8 +58,10 @@
 
 						} else {
 							// 新規お問合せ登録
-							$sql=$pdo->prepare('insert into inquiry (inquiry_no,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?)');
+							$sql=$pdo->prepare('insert into inquiry (inquiry_no,insert_datetime,update_datetime,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?)');
 							$sql->execute([
+								$datetime,
+								$datetime,
 								$user_id,
 								$facility_code,
 								$facility_name,
@@ -78,6 +82,8 @@
 							// お問合せセッション情報を更新
 							$_SESSION['inquiry']=[
 								'inquiry_no'=>$inquiry_no,
+								'insert_datetime'=>$datetime,
+								'update_datetime'=>$datetime,
 								'user_id'=>$user_id,
 								'facility_code'=>$facility_code,
 								'facility_name'=>$facility_name,

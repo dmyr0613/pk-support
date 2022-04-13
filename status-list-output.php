@@ -20,6 +20,8 @@
 					foreach ($sql as $row) {
 						$_SESSION['inquiry']=[
 							'user_id'=>$row['user_id'],
+							'insert_datetime'=>$row['insert_datetime'],
+							'update_datetime'=>$row['update_datetime'],
 							'inquiry_no'=>$row['inquiry_no'],
 							'user_id'=>$row['user_id'],
 							'facility_code'=>$row['facility_code'],

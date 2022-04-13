@@ -56,8 +56,14 @@
 
 					echo '</td></tr>';
 					echo '<tr><td>SBS回答</td><td>';
-					echo '<input type="text" name="sbs_comment" value="', $sbs_comment, '">';
+					if ($_SESSION['userinfo']['kind'] == 0) {
+						//修正できるのはSBS管理者のみ
+						echo '<input type="text" name="sbs_comment" value="', $sbs_comment, '">';
+					} else {
+						echo '', $sbs_comment, '';
+					}
 					echo '</td></tr>';
+
 					echo '</table>';
 					if (isset($_SESSION['inquiry'])) {
 						// お問合せセッション情報ある場合

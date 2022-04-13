@@ -27,10 +27,17 @@
 							<?php
 								//お問合せ情報セッションをクリア
 								unset($_SESSION['inquiry']);
-								
-								//ログイン者と同じ病院コードの問合せを検索（継続中のみ）
-								$sql=$pdo->prepare('select * from inquiry where facility_code=? order by inquiry_no');
-								$sql->execute([$_SESSION['userinfo']['facility_code']]);
+
+								if ($_SESSION['userinfo']['kind'] == 0) {
+									//SBS管理者は有効データ全て検索
+									$sql=$pdo->prepare('select * from inquiry order by inquiry_no');
+									$sql->execute();
+								} else {
+									//ログイン者と同じ病院コードの問合せを検索（継続中のみ）
+									$sql=$pdo->prepare('select * from inquiry where facility_code=? order by inquiry_no');
+									$sql->execute([$_SESSION['userinfo']['facility_code']]);
+								}
+
 								foreach ($sql as $row) {
 
 									echo '<tr>';

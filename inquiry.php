@@ -45,9 +45,7 @@
 					echo '<input type="text" name="order_kind" value="', $order_kind, '">';
 					echo '</td></tr>';
 					echo '<tr><td>事象・内容</td><td>';
-					// echo '<input type="text" name="contents" value="', $contents, '">';
 					echo '<textarea name="contents" placeholder="Enter your message" rows="6">', $contents, '</textarea>';
-					// <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
 
 					echo '</td></tr>';
 					echo '<tr><td>患者ID</td><td>';
@@ -61,7 +59,7 @@
 					echo '<tr><td>SBS回答</td><td>';
 					if ($_SESSION['userinfo']['kind'] == 0) {
 						//修正できるのはSBS管理者のみ
-						echo '<input type="text" name="sbs_comment" value="', $sbs_comment, '">';
+						echo '<textarea name="contents" placeholder="Enter your message" rows="6">', $sbs_comment, '</textarea>';
 					} else {
 						echo '', $sbs_comment, '';
 					}

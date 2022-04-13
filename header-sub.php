@@ -23,7 +23,7 @@
 							$email=$_SESSION['userinfo']['email'];
 							$department=$_SESSION['userinfo']['department'];
 							$person=$_SESSION['userinfo']['person'];
-							echo '<tr><td><strong>ようこそ、', $facility_name, '様</strong></td><td>';
+							echo '<tr><td>ようこそ、', $facility_name, '様</td><td>';
 						}
 					?>
 				</header>

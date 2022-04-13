@@ -45,7 +45,10 @@
 					echo '<input type="text" name="order_kind" value="', $order_kind, '">';
 					echo '</td></tr>';
 					echo '<tr><td>事象・内容</td><td>';
-					echo '<input type="text" name="contents" value="', $contents, '">';
+					// echo '<input type="text" name="contents" value="', $contents, '">';
+					echo '<textarea name="contents" value="', $contents, '" placeholder="Enter your message" rows="6"></textarea>';
+					// <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+
 					echo '</td></tr>';
 					echo '<tr><td>患者ID</td><td>';
 					echo '<input type="text" name="kanja_id" value="', $kanja_id, '">';

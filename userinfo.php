@@ -51,7 +51,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>施設コード</td><td>';
-					echo '<input type="text" name="facility_code" value="', $facility_code, '" readonly="readonly">';
+					echo '', $facility_code , '';
 					echo '</td></tr>';
 					echo '<tr><td>施設名</td><td>';
 					echo '<input type="text" name="facility_name" value="', $facility_name, '">';

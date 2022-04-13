@@ -22,11 +22,14 @@ insert into userinfo values('002',1,'H001','SBS総合病院','002','d_ota@sbs-in
 insert into userinfo values('003',1,'H002','SBS医療センター','003','d_ota@sbs-infosys.co.jp','企画室','若林 源三');
 insert into userinfo values('300',2,'C300','BSNアイネット','300','d_ota@sbs-infosys.co.jp','ヘルスケアビジネス事業部','前潟 新也');
 
+--STEP_FLG:0=回答待ち、1=回答済み、2=完了
 drop table inquiry;
 create table inquiry (
   inquiry_no int not null unique,
+  condition_flg int,
   insert_datetime timestamp,
   update_datetime timestamp,
+  step_flg int,
   user_id varchar(15),
   facility_code varchar(15),
   facility_name varchar(100),
@@ -45,7 +48,7 @@ SELECT last_value FROM inquiry_seq;
 
 insert into inquiry
   (inquiry_no,insert_datetime,update_datetime,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment)
-  values(nextval('inquiry_seq'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'000','C000','SBS総合病院',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+  values(nextval('inquiry_seq'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP'000','C000','SBS総合病院',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
 
 
 -----------

@@ -13,19 +13,22 @@
 					<div class="table-wrapper">
 						<form action="status-list-output.php" method="post">
 						<table class="alt">
-							<thead>
-								<tr>
-									<th>更新</th>
-									<th>お問合せ番号</th>
-									<th>施設名</th>
-									<th>事象・内容</th>
-									<th>SBS回答</th>
-									<th>ステータス</th>
-								</tr>
-							</thead>
-							<tbody>
-
 							<?php
+								echo '<thead>';
+								echo '	<tr>';
+								// echo '		<th>更新</th>';
+								echo '		<th>お問合せ番号</th>';
+								if ($_SESSION['userinfo']['kind'] == 0) {
+									//SBS管理者は施設名を表示
+									echo '		<th>施設名</th>';
+								}
+								echo '		<th>事象・内容</th>';
+								echo '		<th>SBS回答</th>';
+								echo '		<th>ステータス</th>';
+								echo '	</tr>';
+								echo '</thead>';
+								echo '<tbody>';
+
 								//お問合せ情報セッションをクリア
 								unset($_SESSION['inquiry']);
 
@@ -42,9 +45,12 @@
 								foreach ($sql as $row) {
 
 									echo '<tr>';
-									echo '	<td width= "50">　</td>';
+									// echo '	<td width= "50">　</td>';
 									echo '  <td width= "100"><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
-									echo '	<td>', $row['facility_name'], '</td>';
+									if ($_SESSION['userinfo']['kind'] == 0) {
+										//SBS管理者は施設名を表示
+										echo '	<td>', $row['facility_name'], '</td>';
+									}
 									echo '	<td>', $row['contents'], '</td>';
 									echo '	<td>', $row['sbs_comment'], '</td>';
 									echo '	<td>　</td>';

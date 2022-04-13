@@ -40,9 +40,10 @@
 						} else {
 							// 新規ユーザ登録
 							// $sql=$pdo->prepare('insert into kanja values(null, ?, ?, ?, ?, ?, null, null)');
-							$sql=$pdo->prepare('insert into userinfo values(null, null, null, null, null, null, null)');
+							$sql=$pdo->prepare('insert into userinfo values(null, null, null, null, null, null, null, null)');
 							$sql->execute([
 								$_REQUEST['user_id'],
+								$_REQUEST['kind'],
 								$_REQUEST['facility_code'],
 								$_REQUEST['facility_name'],
 								$_REQUEST['password'],
@@ -53,6 +54,7 @@
 							//セッション情報を更新
 							$_SESSION['userinfo']=[
 								'user_id'=>$_REQUEST['user_id'],
+								'kind'=>$_REQUEST['kind'],
 								'facility_code'=>$_REQUEST['facility_code'],
 								'facility_name'=>$_REQUEST['facility_name'],
 								'password'=>$_REQUEST['password'],

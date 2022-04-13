@@ -20,8 +20,10 @@
 						<ul class="actions">
 							<?php
 							if (isset($_SESSION['userinfo'])) {
+								//ログイン時は「ログアウト」ボタン
 								echo '<li><a href="logout.php" class="button big">ログアウト</a></li>';
 							} else {
+								//ログアウト時は「ログイン」ボタン
 								echo '<li><a href="login-input.php" class="button big">ログイン</a></li>';
 							}
 							?>

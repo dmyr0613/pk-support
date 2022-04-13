@@ -19,6 +19,7 @@
 					foreach ($sql as $row) {
 						$_SESSION['userinfo']=[
 							'user_id'=>$row['user_id'],
+							'kind'=>$row['kind'],
 							'facility_code'=>$row['facility_code'],
 							'facility_name'=>$row['facility_name'],
 							'password'=>$row['password'],
@@ -27,6 +28,7 @@
 							'person'=>$row['person']];
 					}
 					if (isset($_SESSION['userinfo'])) {
+						//トップページに遷移するので表示しても意味はない
 						echo '<p>ようこそ、', $_SESSION['userinfo']['facility_name'], '様</p>';
 						echo '<ul class="actions">';
 						echo '<li><a href="main.php" class="button big">ホーム</a></li>';

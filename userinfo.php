@@ -10,9 +10,10 @@
 				<!-- userinfoMain -->
 				<section id="userinfoMain">
 					<?php
-					$user_id=$facility_code=$facility_name=$password=$email=$department=$person='';
+					$user_id=$kind=$facility_code=$facility_name=$password=$email=$department=$person='';
 					if (isset($_SESSION['userinfo'])) {
 						$user_id=$_SESSION['userinfo']['user_id'];
+						$kind=$_SESSION['userinfo']['kind'];
 						$facility_code=$_SESSION['userinfo']['facility_code'];
 						$facility_name=$_SESSION['userinfo']['facility_name'];
 						$password=$_SESSION['userinfo']['password'];
@@ -35,8 +36,22 @@
 						echo '', $user_id , '';
 					}
 					echo '</td></tr>';
+
+					echo '<tr><td>施設区分</td><td>';
+					switch ($kind){
+						case 1:
+						  echo '医療機関様';
+						  break;
+						case 2:
+							echo 'パートナー企業様';
+						  break;
+						default:
+							echo 'SBS管理者';
+					}
+					echo '</td></tr>';
+
 					echo '<tr><td>施設コード</td><td>';
-					echo '<input type="text" name="facility_code" value="', $facility_code, '">';
+					echo '<input type="text" name="facility_code" value="', $facility_code, '" readonly="readonly">';
 					echo '</td></tr>';
 					echo '<tr><td>施設名</td><td>';
 					echo '<input type="text" name="facility_name" value="', $facility_name, '">';

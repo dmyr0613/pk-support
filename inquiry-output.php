@@ -11,9 +11,10 @@
 				<section id="inquiryRegMain">
 					<?php
 						//最初にユーザ情報を取得
-						$user_id=$facility_code=$facility_name=$password=$email=$department=$person='';
+						$user_id=$kind=$facility_code=$facility_name=$password=$email=$department=$person='';
 						if (isset($_SESSION['userinfo'])) {
 							$user_id=$_SESSION['userinfo']['user_id'];
+							$kind=$_SESSION['userinfo']['kind'];
 							$facility_code=$_SESSION['userinfo']['facility_code'];
 							$facility_name=$_SESSION['userinfo']['facility_name'];
 							$password=$_SESSION['userinfo']['password'];
@@ -21,6 +22,11 @@
 							$department=$_SESSION['userinfo']['department'];
 							$person=$_SESSION['userinfo']['person'];
 						}
+
+						//現在時刻を取得
+						date_default_timezone_set('Asia/Tokyo');
+						$datetime = date("Y/m/d His");
+						error_log("DateTime：" . $datetime);
 
 						if (isset($_SESSION['inquiry'])) {
 							// お問合せセッション情報がある場合は、inquiryテーブルをUPDATE

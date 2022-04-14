@@ -13,10 +13,10 @@
 					<!-- <table class="alt"> -->
 						<!-- <tbody> -->
 							<p>アイコン素材はフリーで商用利用可能です。<br>
-							　右クリックメニューの「名前を付けて画像を保存...」からダウンロードしてください。</p>
+							右クリックメニューの「名前を付けて画像を保存...」からダウンロードしてください。</p>
 						<?php
 
-							echo '<h2 id="content">「' , $_POST['search'], '」の検索結果です</h2>';
+							echo '<h2 id="content">「' , $_POST['search'], '」の検索結果です。</h2>';
 
 							//アイコン検索
 							$sqltxt  = 'select * from iconlist where keyword like \'%';
@@ -35,7 +35,7 @@
 								// echo '<p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200">';
 								// echo ' ', $row['disp_name'], '</p>';
 
-								echo '<p><span class="image left"><img src="icon/512w/' , $row['icon_name'] , '.png" width="200" /></span>';
+								echo '<p><span class="image left"><img src="icon/512w/' , $row['icon_name'] , '.png" width="200"></span>';
 								echo ' ', $row['disp_name'], '</p>';
 							}
 						?>

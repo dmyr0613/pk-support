@@ -37,7 +37,7 @@
 
 								echo '<p><span class="image left"><img src="icon/512w/' , $row['icon_name'] , '.png" width="200" /></span>';
 								echo ' ', $row['disp_name'], '</p>';
-
+							}
 						?>
 
 						<!-- </tbody> -->

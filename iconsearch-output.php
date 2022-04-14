@@ -28,20 +28,25 @@
 							var_dump($_REQUEST['search']);
 
 							$sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
-						  $sql = $pdo->prepare($sqltxt);
-						  $sql->bindValue(':search', $_REQUEST['search']);
-						  $sql->execute();
+							error_log($sqltxt);
 
-							// $sql=$pdo->prepare('select * from iconlist where keyword like \'%医師%\' order by code');
-							// $sql->execute();
 
-							// $sql->execute($_REQUEST['search']);
-							foreach ($sql as $row) {
 
-								echo '<tr>';
-								echo '	<td><p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200"></p></td>';
-								echo '</tr>';
-							}
+							// $sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
+						  // $sql = $pdo->prepare($sqltxt);
+						  // $sql->bindValue(':search', $_REQUEST['search']);
+						  // $sql->execute();
+							//
+							// // $sql=$pdo->prepare('select * from iconlist where keyword like \'%医師%\' order by code');
+							// // $sql->execute();
+							//
+							// // $sql->execute($_REQUEST['search']);
+							// foreach ($sql as $row) {
+							//
+							// 	echo '<tr>';
+							// 	echo '	<td><p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200"></p></td>';
+							// 	echo '</tr>';
+							// }
 						?>
 
 						</tbody>

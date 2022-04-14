@@ -29,7 +29,8 @@
 						  // $sql->execute();
 
 							$sql=$pdo->prepare('select * from iconlist where keyword like \'?\' order by code');
-							$sql->execute($_REQUEST['search']);
+							$sql->execute('医師');
+							// $sql->execute($_REQUEST['search']);
 							foreach ($sql as $row) {
 
 								echo '<tr>';

@@ -23,13 +23,14 @@
 							// $sql=$pdo->prepare('select * from iconlist where keyword like \'%?%\' order by code');
 							// $sql->execute($_REQUEST['search']);
 
-							// $sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
-						  // $sql = $pdo->prepare($sqltxt);
-						  // $sql->bindValue(':search', $_REQUEST['search']);
-						  // $sql->execute();
+							$sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
+						  $sql = $pdo->prepare($sqltxt);
+						  $sql->bindValue(':search', $_REQUEST['search']);
+						  $sql->execute();
 
-							$sql=$pdo->prepare('select * from iconlist where keyword like \'%医師%\' order by code');
-							$sql->execute();
+							// $sql=$pdo->prepare('select * from iconlist where keyword like \'%医師%\' order by code');
+							// $sql->execute();
+
 							// $sql->execute($_REQUEST['search']);
 							foreach ($sql as $row) {
 

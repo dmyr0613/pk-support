@@ -19,8 +19,8 @@
 							error_log($_REQUEST['search']);
 
 							//アイコン検索
-							$sql=$pdo->prepare('select * from iconlist where keyword like \'%?%\' order by code');
-							$sql->execute($_REQUEST['search']);
+							$sql=$pdo->prepare('select * from iconlist where keyword like \'%' , $_REQUEST['search'] , '%\' order by code');
+							$sql->execute();
 
 							foreach ($sql as $row) {
 

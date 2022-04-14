@@ -14,6 +14,11 @@
 						<form action="status-list-output.php" method="post">
 						<table class="alt">
 							<?php
+								if (isset($_SESSION['userinfo']) == false){
+									//ログイン情報がなければ、トップページに遷移
+									header("location: main.php");
+								}
+
 								echo '<thead>';
 								echo '	<tr>';
 								// echo '		<th>更新</th>';

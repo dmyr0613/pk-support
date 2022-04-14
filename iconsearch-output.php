@@ -11,7 +11,7 @@
 				<section id="iconlist">
 
 					<!-- <table class="alt"> -->
-						<tbody>
+						<!-- <tbody> -->
 							<p>アイコン素材はフリーで商用利用可能です。<br>
 							　右クリックメニューの「名前を付けて画像を保存...」からダウンロードしてください。</p>
 						<?php
@@ -32,10 +32,10 @@
 								// echo '	<td>', $row['disp_name'], '</td>';
 								// echo '</tr>';
 								echo '<p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200">';
-								echo '', $row['disp_name'], '</p>';
+								echo ' ', $row['disp_name'], '</p>';
 						?>
 
-						</tbody>
+						<!-- </tbody> -->
 					<!-- </table> -->
 
 				</section>

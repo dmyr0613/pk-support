@@ -14,7 +14,7 @@
 					<form action="iconsearch-output.php" method="post">
 
 						<div class="col-4 col-12-small">
-							アイコンサイズ
+							アイコンサイズ　
 							<input type="radio" id="priority-normal" name="priority" checked>
 							<label for="priority-normal">256px</label>
 							<input type="radio" id="priority-high" name="priority">

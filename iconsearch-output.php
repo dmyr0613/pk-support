@@ -28,7 +28,10 @@
 
 							$sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
 							error_log($sqltxt);
-							$sqltxt = 'select * from iconlist where keyword like \'%' , $_POST['search'] , '%\' order by code';
+							
+							$sqltxt  = 'select * from iconlist where keyword like \'%';
+							$sqltxt .= $_POST['search'];
+							$sqltxt .= '%\' order by code';
 							error_log($sqltxt);
 
 

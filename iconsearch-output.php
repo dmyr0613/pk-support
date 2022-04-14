@@ -10,14 +10,13 @@
 				<!-- iconlist -->
 				<section id="iconlist">
 
-					<table class="alt">
+					<!-- <table class="alt"> -->
 						<tbody>
-
+							<p>アイコン素材はフリーで商用利用可能です。<br>
+							　右クリックメニューの「名前を付けて画像を保存...」からダウンロードしてください。</p>
 						<?php
 
-							echo '<h2 id="content">' , $_POST['search'], 'の検索結果</h2>';
-							echo '<p>アイコン素材はフリーで商用利用可能です。</p>';
-							echo '<p>右クリックメニューの「名前を付けて画像を保存...」からダウンロードしてください。</p>';
+							echo '<h2 id="content">「' , $_POST['search'], '」の検索結果です</h2>';
 
 							//アイコン検索
 							$sqltxt  = 'select * from iconlist where keyword like \'%';
@@ -28,15 +27,16 @@
 
 							foreach ($sql as $row) {
 								//検索結果を表示
-								echo '<tr>';
-								echo '	<td><img src="icon/512w/' , $row['icon_name'] , '.png" width="200"></td>';
-								echo '	<td>', $row['disp_name'], '</td>';
-								echo '</tr>';
-							}
+								// echo '<tr>';
+								// echo '	<td><img src="icon/512w/' , $row['icon_name'] , '.png" width="200"></td>';
+								// echo '	<td>', $row['disp_name'], '</td>';
+								// echo '</tr>';
+								echo '<p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200">';
+								echo '', $row['disp_name'], '</p>';
 						?>
 
 						</tbody>
-					</table>
+					<!-- </table> -->
 
 				</section>
 

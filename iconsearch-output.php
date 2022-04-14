@@ -23,6 +23,10 @@
 							// $sql=$pdo->prepare('select * from iconlist where keyword like \'%?%\' order by code');
 							// $sql->execute($_REQUEST['search']);
 
+							var_dump($_POST['search']);
+							var_dump($_GET['search']);
+							var_dump($_REQUEST['search']);
+
 							$sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
 						  $sql = $pdo->prepare($sqltxt);
 						  $sql->bindValue(':search', $_REQUEST['search']);

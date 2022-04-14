@@ -17,6 +17,7 @@
 						<?php
 						  error_log('select * from iconlist where keyword like \'%?%\' order by code');
 							error_log($_REQUEST['search']);
+							error_log('select * from iconlist where keyword like \'%' , $_REQUEST['search'] , '%\' order by code');
 
 							//アイコン検索
 							$sql=$pdo->prepare('select * from iconlist where keyword like \'%' , $_REQUEST['search'] , '%\' order by code');

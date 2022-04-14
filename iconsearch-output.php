@@ -15,20 +15,20 @@
 						<tbody>
 
 						<?php
-						  error_log('select * from iconlist where keyword like \'%?%\' order by code');
-							error_log($_REQUEST['search']);
-							error_log("select * from iconlist where keyword like \'%" , $_REQUEST['search'] , "%\' order by code");
+						  // error_log('select * from iconlist where keyword like \'%?%\' order by code');
+							// error_log($_REQUEST['search']);
+							// error_log("select * from iconlist where keyword like \'%" , $_REQUEST['search'] , "%\' order by code");
 
 							//アイコン検索
-							// $sql=$pdo->prepare('select * from iconlist where keyword like \'%' , $_REQUEST['search'] , '%\' order by code');
-							// $sql->execute();
-							//
-							// foreach ($sql as $row) {
-							//
-							// 	echo '<tr>';
-							// 	echo '	<td><p><img src="icon/' , $row['icon_name'] , '.png" alt="' , $row['icon_name'] , '"></p></td>';
-							// 	echo '</tr>';
-							// }
+							$sql=$pdo->prepare('select * from iconlist where keyword like \'%?%\' order by code');
+							$sql->execute($_REQUEST['search']);
+
+							foreach ($sql as $row) {
+
+								echo '<tr>';
+								echo '	<td><p><img src="icon/' , $row['icon_name'] , '.png" alt="' , $row['icon_name'] , '"></p></td>';
+								echo '</tr>';
+							}
 						?>
 
 						</tbody>

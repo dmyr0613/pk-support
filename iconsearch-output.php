@@ -16,11 +16,11 @@
 
 						<?php
 						  error_log('select * from iconlist where keyword like \'%?%\' order by code');
-							error_log([$_REQUEST['keyword']]);
+							error_log([$_REQUEST['search']]);
 
 							//アイコン検索
 							$sql=$pdo->prepare('select * from iconlist where keyword like \'%?%\' order by code');
-							$sql->execute([$_REQUEST['keyword']]);
+							$sql->execute([$_REQUEST['search']]);
 
 							foreach ($sql as $row) {
 

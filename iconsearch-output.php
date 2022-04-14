@@ -28,8 +28,8 @@
 						  // $sql->bindValue(':search', $_REQUEST['search']);
 						  // $sql->execute();
 
-							$sql=$pdo->prepare('select * from iconlist where keyword like \'?\' order by code');
-							$sql->execute('医師');
+							$sql=$pdo->prepare('select * from iconlist where keyword like \'%医師%\' order by code');
+							$sql->execute();
 							// $sql->execute($_REQUEST['search']);
 							foreach ($sql as $row) {
 

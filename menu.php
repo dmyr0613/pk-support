@@ -24,7 +24,7 @@
 											echo '<li><a href="userinfo.php">ユーザ情報 User Info</a></li>';
 										}
 										?>
-										<li><a href="#">アイコンダウンロード Download</a></li>
+										<li><a href="iconsearch.php">アイコンダウンロード Download</a></li>
 										<!-- <li><a href="elements.html">Elements</a></li> -->
 									</ul>
 								</nav>

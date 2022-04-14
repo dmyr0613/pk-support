@@ -34,7 +34,7 @@
 							foreach ($sql as $row) {
 
 								echo '<tr>';
-								echo '	<td><p><img src="icon/512w/' , $row['icon_name'] , '.png"></p></td>';
+								echo '	<td><p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200"></p></td>';
 								echo '</tr>';
 							}
 						?>

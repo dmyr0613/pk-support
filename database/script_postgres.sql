@@ -50,9 +50,23 @@ insert into inquiry
   (inquiry_no,insert_datetime,update_datetime,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment)
   values(nextval('inquiry_seq'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP'000','C000','SBS総合病院',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
 
+--ICONテーブル
+drop table iconlist;
+create table iconlist (
+  code varchar(15) not null,
+  icon_name varchar(100),
+  disp_name varchar(100),
+  keyword varchar(1000)
+);
+
+insert into iconlist values('1001','1001_医師','医師','医師、医者、男性医師');
+insert into iconlist values('1002','1002_医師女性','医師','医師、医者、女性医師');
+insert into iconlist values('1003','1003_看護師','女性看護師','看護師、女性看護師');
+insert into iconlist values('1004','1004_看護師2','女性看護師','看護師、女性看護師');
+insert into iconlist values('1005','1005_看護師男性','男性看護師','看護師、男性看護師');
+
 
 -----------
-
 
 create table kanja (
   kanja_id varchar(100) not null unique,

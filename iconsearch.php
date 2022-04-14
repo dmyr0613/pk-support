@@ -12,7 +12,8 @@
 				<section id="iconsearch">
 
 					<form action="iconsearch-output.php" method="post">
-						<input type="text" name="keyword" placeholder="Search"/><br>
+						<!-- <input type="text" name="keyword" placeholder="Search"/><br> -->
+						検索ワード<input type="text" name="keyword"><br>
 						<p><input type="submit" value="アイコン検索"></p>
 					</form>
 

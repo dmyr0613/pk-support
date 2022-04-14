@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <?php require 'header.php'; ?>
 
 <!-- Main -->
@@ -24,11 +23,13 @@
 							// $sql=$pdo->prepare('select * from iconlist where keyword like \'%?%\' order by code');
 							// $sql->execute($_REQUEST['search']);
 
-							$sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
-						  $sql = $pdo->prepare($sqltxt);
-						  $sql->bindValue(':search', $_REQUEST['search']);
-						  $sql->execute();
+							// $sqltxt = 'select * from iconlist where keyword like \'%:search%\' order by code';
+						  // $sql = $pdo->prepare($sqltxt);
+						  // $sql->bindValue(':search', $_REQUEST['search']);
+						  // $sql->execute();
 
+							$sql=$pdo->prepare('select * from iconlist where keyword like \'?\' order by code');
+							$sql->execute($_REQUEST['search']);
 							foreach ($sql as $row) {
 
 								echo '<tr>';

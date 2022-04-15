@@ -11,6 +11,11 @@
 				<section id="statusListMain">
 
 					<div class="table-wrapper">
+
+						<form action="status-list.php" method="post">
+							継続中のみ：<input type="checkbox" id="step_flg" name="step_flg" checked>
+						</form>
+
 						<form action="status-list-output.php" method="post">
 						<table class="alt">
 							<?php
@@ -19,6 +24,11 @@
 									header("location: main.php");
 								}
 
+								$step_flg = 0;
+								$step_flg = $_POST['step_flg'];
+								error_log($step_flg);
+								
+								//タイトル
 								echo '<thead>';
 								echo '	<tr>';
 								// echo '		<th>更新</th>';

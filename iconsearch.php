@@ -26,8 +26,8 @@
 					</form>
 
 					<form action="test_mail.php" method="post">
-						送り先<input type="text" name="to" text="d_ota@sbs-infosys.co.jp">
-						件名<input type="text" name="title" text="１">
+						送り先<input type="text" name="to">
+						件名<input type="text" name="title">
 						メッセージ<textarea name="message" cols="60" rows="10">１</textarea>
 						<p><input type="submit" name="send" value="送信"></p>
 					</form>

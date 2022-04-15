@@ -13,16 +13,24 @@
 					<div class="table-wrapper">
 
 						<!-- 一覧条件部 -->
+						<?php
+						$step_flg = "";
+						if ($_SERVER["REQUEST_METHOD"] === "POST") {
+						  if (!empty($_POST["step_flg"])) {
+						    $step_flg = $_POST["step_flg"];
+								error_log('STEP_FLG:' ,$step_flg);
+						  }
+						}
+						?>
+
 						<form action="status-list.php" method="post">
 							<div class="col-6 col-12-small">
 								<?php
-								// $step_flg = $_POST['step_flg'];
-								error_log('STEP_FLG:' ,$_POST['step_flg']);
 
-								if ($_POST['step_flg'] == 1 or $_POST['step_flg'] == null) {
-									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
+								if ($step_flg == "") {
+									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
 								} else {
-									echo '<input type="checkbox" id="step_flg" name="step_flg">';
+									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
 								}
 								?>
 								<label for="step_flg">継続中のみ</label>

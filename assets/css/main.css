@@ -2402,6 +2402,12 @@ input, select, textarea {
 				background-color: rgba(230, 235, 237, 0.25);
 			}
 
+			/* 追加 */
+			table tbody tr.clickable:hover td  {
+				background: #ecf2fa;
+        cursor: pointer;
+			}
+
 		table td {
 			padding: 0.75em 0.75em;
 		}

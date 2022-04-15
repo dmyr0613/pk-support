@@ -32,6 +32,12 @@
 					echo '', $inquiry_no, '';
 					echo '</td></tr>';
 
+					echo '<tr><td>施設名</td><td>';
+					if ($_SESSION['userinfo']['kind'] == 0) {
+						//SBS管理者の場合は施設名を表示
+						echo '', $facility_name, '';
+					}
+
 					echo '<tr><td>緊急度</td><td>';
 					echo '<div class="col-4 col-12-small">';
 					echo '	<input type="radio" id="priority-normal" name="priority" checked>';

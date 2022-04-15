@@ -50,7 +50,7 @@
 								foreach ($sql as $row) {
 
 									// echo '<tr>';
-									echo '<tr data-href="status-list-output.php?inquiry_no="', $row['inquiry_no'], '">';
+									echo '<tr data-href="status-list-output.php?inquiry_no=',$row['inquiry_no'],'">';
 									// echo '	<td width= "50">　</td>';
 									echo '  <td width= "100"><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
 									if ($_SESSION['userinfo']['kind'] == 0) {

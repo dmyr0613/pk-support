@@ -16,10 +16,10 @@
 						<form action="status-list.php" method="post">
 							<div class="col-6 col-12-small">
 								<?php
-								$step_flg = $_POST['step_flg'];
-								error_log('STEP_FLG:' ,$step_flg);
+								// $step_flg = $_POST['step_flg'];
+								// error_log('STEP_FLG:' ,$step_flg);
 
-								if ($step_flg == ture or $step_flg == null) {
+								if ($_POST['step_flg']== ture or $_POST['step_flg'] == null) {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
 								} else {
 									echo '<input type="checkbox" id="step_flg" name="step_flg">';

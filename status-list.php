@@ -29,7 +29,7 @@
 								}
 								echo '		<th>事象・内容</th>';
 								echo '		<th>SBS回答</th>';
-								echo '		<th>ステータス</th>';
+								// echo '		<th>ステータス</th>';
 								echo '	</tr>';
 								echo '</thead>';
 								echo '<tbody>';
@@ -49,17 +49,18 @@
 
 								foreach ($sql as $row) {
 
-									// echo '<tr>';
+									// 行クリックで詳細表示
 									echo '<tr data-href="status-list-output.php?inquiry_no=',$row['inquiry_no'],'">';
 									// echo '	<td width= "50">　</td>';
-									echo '  <td width= "100"><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
+									// echo '  <td width= "100"><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
+									echo '	<td>', $row['inquiry_no'], '</td>';
 									if ($_SESSION['userinfo']['kind'] == 0) {
 										//SBS管理者は施設名を表示
 										echo '	<td>', $row['facility_name'], '</td>';
 									}
 									echo '	<td>', $row['contents'], '</td>';
 									echo '	<td>', $row['sbs_comment'], '</td>';
-									echo '	<td>　</td>';
+									// echo '	<td>　</td>';
 									echo '</tr>';
 
 								}
@@ -82,8 +83,8 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script>
+		 //行クリックでページ遷移できるスクリプト
 			jQuery(function($) {
-
 			  //data-hrefの属性を持つtrを選択しclassにclickableを付加
 			  $('tr[data-href]').addClass('clickable')
 

@@ -31,7 +31,7 @@
 
 								<!-- Footer -->
 									<footer id="footer">
-										<p class="copyright">&copy; SBS Information Systems Co.,Ltd. All rights reserved. Design: <a href="https://html5up.net" target=”_blank”>HTML5 UP</a>.</p>
+										<p class="copyright"><a href="https://www.sbs-infosys.co.jp/" target=”_blank”>&copy; SBS Information Systems Co.,Ltd.</a> All rights reserved. Design: <a href="https://html5up.net" target=”_blank”>HTML5 UP</a>.</p>
 									</footer>
 
 						</div>

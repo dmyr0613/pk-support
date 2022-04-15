@@ -61,7 +61,7 @@
 						//修正できるのはSBS管理者のみ
 						echo '<textarea name="sbs_comment" placeholder="Enter your message" rows="5">', $sbs_comment, '</textarea>';
 					} else {
-						echo '', $sbs_comment, '';
+						echo '<textarea name="sbs_comment" placeholder="Enter your message" rows="5" readonly="readonly">', $sbs_comment, '</textarea>';
 					}
 					echo '</td></tr>';
 

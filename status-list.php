@@ -17,13 +17,14 @@
 							<div class="col-6 col-12-small">
 								<?php
 								if ($_POST['step_flg'] == 1 or $_POST['step_flg'] == null) {
-									echo '<input type="checkbox" id="step_flg" name="step_flg">';
+									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
 								} else {
 									echo '<input type="checkbox" id="step_flg" name="step_flg">';
 								}
 								?>
-								<label for="demo-copy">継続中のみ</label>
+								<label for="step_flg">継続中のみ</label>
 							</div>
+							<input type="submit" value="再検索">
 						</form>
 
 						<form action="status-list-output.php" method="post">

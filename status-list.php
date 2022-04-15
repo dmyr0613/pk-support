@@ -14,19 +14,21 @@
 
 						<!-- 一覧条件部 -->
 						<?php
-						$step_flg = "";
+						$step_flg = 1;
 						if ($_SERVER["REQUEST_METHOD"] === "POST") {
 						  if (!empty($_POST["step_flg"])) {
 						    $step_flg = $_POST["step_flg"];
 								// error_log('STEP_FLG:' ,$step_flg);
-						  }
+						  } else {
+
+							}
 						}
 						?>
 
 						<form action="status-list.php" method="post">
 							<div class="col-6 col-12-small">
 								<?php
-
+								$step_flg
 								if ($step_flg == "") {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
 								} else {

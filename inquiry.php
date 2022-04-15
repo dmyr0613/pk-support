@@ -80,9 +80,9 @@
 					echo '<tr><td>SBS回答</td><td>';
 					if ($_SESSION['userinfo']['kind'] == 0) {
 						//修正できるのはSBS管理者のみ
-						echo '<textarea name="sbs_comment" placeholder="Enter your message" rows="5">', $sbs_comment, '</textarea>';
+						echo '<textarea name="sbs_comment" placeholder="Reply message" rows="5">', $sbs_comment, '</textarea>';
 					} else {
-						echo '<textarea name="sbs_comment" placeholder="Enter your message" rows="5" readonly="readonly">', $sbs_comment, '</textarea>';
+						echo '<textarea name="sbs_comment" placeholder="Reply message" rows="5" readonly="readonly">', $sbs_comment, '</textarea>';
 					}
 					echo '</td></tr>';
 

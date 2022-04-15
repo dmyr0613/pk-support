@@ -49,7 +49,8 @@
 
 								foreach ($sql as $row) {
 
-									echo '<tr>';
+									// echo '<tr>';
+									echo '<tr data-href="inquiry.php?inquiry_no='", $row['inquiry_no'], '"'>';
 									// echo '	<td width= "50">　</td>';
 									echo '  <td width= "100"><input type="submit" class="button small fit" name="inquiry_no" value="', $row['inquiry_no'], '"></td>';
 									if ($_SESSION['userinfo']['kind'] == 0) {
@@ -78,6 +79,25 @@
 
 			</div>
 		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script>
+			jQuery(function($) {
+
+			  //data-hrefの属性を持つtrを選択しclassにclickableを付加
+			  $('tr[data-href]').addClass('clickable')
+
+			    //クリックイベント
+			    .click(function(e) {
+			      //e.targetはクリックした要素自体、それがa要素以外であれば
+			      if(!$(e.target).is('a')){
+
+			        //その要素の先祖要素で一番近いtrの
+			        //data-href属性の値に書かれているURLに遷移する
+			        window.location = $(e.target).closest('tr').data('href');}
+			  });
+			});
+		</script>
 
 <?php require 'menu.php'; ?>
 <?php require 'footer.php'; ?>

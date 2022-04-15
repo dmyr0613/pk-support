@@ -60,11 +60,21 @@ create table iconlist (
 );
 
 insert into iconlist values('1001','1001_医師','医師','医師、医者、男性医師');
-insert into iconlist values('1002','1002_医師女性','医師','医師、医者、女性医師');
+insert into iconlist values('1002','1002_医師女性','女性医師','医師、医者、女性医師');
 insert into iconlist values('1003','1003_看護師','女性看護師','看護師、女性看護師');
 insert into iconlist values('1004','1004_看護師2','女性看護師','看護師、女性看護師');
 insert into iconlist values('1005','1005_看護師男性','男性看護師','看護師、男性看護師');
-
+insert into iconlist values('1006','1006_患者女性','患者女性','患者女性');
+insert into iconlist values('1007','1007_患者男性','患者男性','患者男性');
+insert into iconlist values('1008','1008_研修医','研修医','医師、医者、研修医、男性医師');
+insert into iconlist values('1009','1009_薬剤師女性','薬剤師女性','薬剤師女性');
+insert into iconlist values('1010','1010_手術医','手術医','手術医、オペ');
+insert into iconlist values('1011','1011_医事課','医事課','医事課、事務');
+insert into iconlist values('1012','1012_放射線技師','放射線技師','放射線技師、放射線科');
+insert into iconlist values('1013','1013_療法士','療法士','療法士、リハビリ、理学、言語、');
+insert into iconlist values('1014','1014_医療事務','医療事務','医療事務、医事課、メディカルクラーク');
+insert into iconlist values('1015','1015_看護助手','看護助手','看護助手、ヘルパー');
+insert into iconlist values('1016','1016_栄養士・検査技師','栄養士・検査技師','栄養士、検査技師');
 
 -----------
 

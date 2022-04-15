@@ -25,12 +25,12 @@
 						<p><input type="submit" value="アイコン検索"></p>
 					</form>
 
-					<form action="test_mail.php" method="post">
+					<!-- <form action="test_mail.php" method="post">
 						送り先<input type="text" name="to">
 						件名<input type="text" name="title">
 						メッセージ<textarea name="message" cols="60" rows="10">１</textarea>
 						<p><input type="submit" name="send" value="送信"></p>
-					</form>
+					</form> -->
 
 				</section>
 

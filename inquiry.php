@@ -42,18 +42,33 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>オーダ種</td><td>';
-					echo '<input type="text" name="order_kind" value="', $order_kind, '">';
+					if ($_SESSION['userinfo']['kind'] == 0) {
+						//修正できるのはSBS管理者以外
+						echo '<input type="text" name="order_kind" value="', $order_kind, '" readonly="readonly">';
+					} else {
+						echo '<input type="text" name="order_kind" value="', $order_kind, '">';
+					}
 					echo '</td></tr>';
 					echo '<tr><td>事象・内容</td><td>';
-					echo '<textarea name="contents" placeholder="Enter your message" rows="5">', $contents, '</textarea>';
+					if ($_SESSION['userinfo']['kind'] == 0) {
+						//修正できるのはSBS管理者以外
+						echo '<textarea name="contents" placeholder="Enter your message" rows="5" readonly="readonly">', $contents, '</textarea>';
+					} else {
+						echo '<textarea name="contents" placeholder="Enter your message" rows="5">', $contents, '</textarea>';
+					}
 
 					echo '</td></tr>';
 					echo '<tr><td>患者ID</td><td>';
-					echo '<input type="text" name="kanja_id" value="', $kanja_id, '">';
+					if ($_SESSION['userinfo']['kind'] == 0) {
+						//修正できるのはSBS管理者以外
+						echo '<input type="text" name="kanja_id" value="', $kanja_id, '" readonly="readonly">';
+					} else {
+						echo '<input type="text" name="kanja_id" value="', $kanja_id, '">';
+					}
 
-					echo '<tr><td></td><td>';
-					echo '　';
-					echo '</td></tr>';
+					// echo '<tr><td></td><td>';
+					// echo '　';
+					// echo '</td></tr>';
 
 					echo '</td></tr>';
 					echo '<tr><td>SBS回答</td><td>';

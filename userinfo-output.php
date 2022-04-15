@@ -13,9 +13,8 @@
 						if (isset($_SESSION['userinfo'])) {
 
 							// ログイン中であれば、userinfoテーブルをUPDATE。
-							$sql=$pdo->prepare('update userinfo set facility_code=?, facility_name=?, password=?, email=?, department=?, person=? where user_id=?');
+							$sql=$pdo->prepare('update userinfo set facility_name=?, password=?, email=?, department=?, person=? where user_id=?');
 							$sql->execute([
-								$_REQUEST['facility_code'],
 								$_REQUEST['facility_name'],
 								$_REQUEST['password'],
 								$_REQUEST['email'],
@@ -25,7 +24,7 @@
 
 							$_SESSION['userinfo']=[
 								'user_id'=>$_SESSION['userinfo']['user_id'],
-								'facility_code'=>$_REQUEST['facility_code'],
+								'facility_code'=>$_SESSION['userinfo']['facility_code'],
 								'facility_name'=>$_REQUEST['facility_name'],
 								'password'=>$_REQUEST['password'],
 								'email'=>$_REQUEST['email'],

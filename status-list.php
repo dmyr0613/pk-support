@@ -19,7 +19,7 @@
 								// $step_flg = $_POST['step_flg'];
 								error_log('STEP_FLG:' ,$_POST['step_flg']);
 
-								if ($_POST['step_flg'] == ture or $_POST['step_flg'] == null) {
+								if ($_POST['step_flg'] == 1 or $_POST['step_flg'] == null) {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
 								} else {
 									echo '<input type="checkbox" id="step_flg" name="step_flg">';

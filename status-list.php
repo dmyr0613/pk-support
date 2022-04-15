@@ -14,6 +14,11 @@
 
 						<!-- 一覧条件部 -->
 						<?php
+						if (!empty($_REQUEST)) {
+							$obj = $_REQUEST;
+							error_log(print_r($obj, true));
+						}
+
 						$step_flg = 1;
 						if ($_SERVER["REQUEST_METHOD"] === "POST") {
 						  if (!empty($_POST["step_flg"])) {
@@ -30,6 +35,7 @@
 								<?php
 								echo '', $step_flg , '';
 								echo '', $_POST["step_flg"], '';
+
 								if ($step_flg == 0) {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
 								} else {

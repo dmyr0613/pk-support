@@ -46,7 +46,9 @@
 								// error_log("from_date : " . date("Y-m-d", strtotime("Y-m-d -1 month")));
 								// error_log("to_date : " . date("Y-m-d"));
 								// echo date("Y-m-d", strtotime("2021-09-30 -1 day")); //2021-09-29
+
 								$from_date = date("Y-m-d", strtotime("Y-m-d -1 month"));
+								$from_date = date('Y-m-d', strtotime('last month'));
 								$to_date = date("Y-m-d");
 								error_log("from_date : " . $from_date);
 								error_log("to_date : " . $to_date);

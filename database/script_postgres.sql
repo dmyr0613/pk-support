@@ -47,8 +47,8 @@ select currval('inquiry_seq');
 SELECT last_value FROM inquiry_seq;
 
 insert into inquiry
-  (inquiry_no,insert_datetime,update_datetime,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment)
-  values(nextval('inquiry_seq'),CURRENT_TIMESTAMP,CURRENT_TIMESTAMP'000','C000','SBS総合病院',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+  (inquiry_no,condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment)
+  values(nextval('inquiry_seq'),0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'001','H001','SBS総合病院',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
 
 --ICONテーブル
 drop table iconlist;

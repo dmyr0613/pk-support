@@ -98,7 +98,7 @@
 						}
 						echo '<ul class="actions">';
 						echo '<li><a href="inquiry.php" class="button big">お問合せフォームに戻る</a></li>';
-						echo '<a class="button big" href="status-list.php">問合せ状況一覧</a>';
+						echo '<li><a class="button big" href="status-list.php">問合せ状況一覧</a>/li>';
 						echo '<li><a href="main.php" class="button big">ホーム</a></li>';
 						echo '</ul>';
 					?>

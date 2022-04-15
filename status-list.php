@@ -17,8 +17,8 @@
 							<div class="col-6 col-12-small">
 								<?php
 								error_log($_POST['step_flg']);
-								
-								if ($_POST['step_flg'] == 1 or $_POST['step_flg'] == null) {
+
+								if ($_POST['step_flg'] == 'on' or $_POST['step_flg'] == null) {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
 								} else {
 									echo '<input type="checkbox" id="step_flg" name="step_flg">';
@@ -36,10 +36,6 @@
 									//ログイン情報がなければ、トップページに遷移
 									header("location: main.php");
 								}
-
-								$step_flg = 0;
-								$step_flg = $_POST['step_flg'];
-								error_log($step_flg);
 
 								//タイトル
 								echo '<thead>';

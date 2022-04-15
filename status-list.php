@@ -12,8 +12,18 @@
 
 					<div class="table-wrapper">
 
+						<!-- 一覧条件部 -->
 						<form action="status-list.php" method="post">
-							継続中のみ：<input type="checkbox" id="step_flg" name="step_flg" checked>
+							<div class="col-6 col-12-small">
+								<?php
+								if ($_POST['step_flg'] == 1 or $_POST['step_flg'] == null) {
+									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
+								} else {
+									echo '<input type="checkbox" id="step_flg" name="step_flg">';
+								}
+								?>
+								<label for="demo-copy">継続中のみ</label>
+							</div>
 						</form>
 
 						<form action="status-list-output.php" method="post">
@@ -27,7 +37,7 @@
 								$step_flg = 0;
 								$step_flg = $_POST['step_flg'];
 								error_log($step_flg);
-								
+
 								//タイトル
 								echo '<thead>';
 								echo '	<tr>';

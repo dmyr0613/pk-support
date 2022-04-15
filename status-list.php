@@ -43,12 +43,12 @@
 								<?php
 								//現在時刻を取得
 								date_default_timezone_set('Asia/Tokyo');
-								$datetime = date("Y/m/d His");
-								error_log("DateTime：" . $datetime);
+								error_log("from_date" . date("YYYY-m-d"));
+								error_log("to_date" . date("YYYY-m-d", strtotime("YYYY-mm-dd -1 month")));
 
-								echo '<input type="date" name="from_date" value="', date("Y-m-d", strtotime("YYYY-mm-dd -1 month")) ,'">';
+								echo '<input type="date" name="from_date" value="', date("YYYY-m-d", strtotime("YYYY-mm-dd -1 month")) ,'">';
 								echo ' 〜 ';
-								echo '<input type="date" name="to_date" value="', date("Y/m/d") ,'">';
+								echo '<input type="date" name="to_date" value="', date("YYYY-m-d") ,'">';
 								?>
 							</p>
 							<input type="submit" value="再検索">

@@ -38,6 +38,9 @@
 								}
 								?>
 								<label for="step_flg">継続中のみ</label>
+
+								<input type="date" name="from_date">
+								<input type="date" name="to_date">
 							</div>
 							<input type="submit" value="再検索">
 						</form>

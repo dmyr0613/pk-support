@@ -43,7 +43,7 @@
 								<?php
 								//現在時刻を取得
 								date_default_timezone_set('Asia/Tokyo');
-								error_log("from_date : " . date("Y-m-d", strtotime("YYYY-mm-dd -1 month")));
+								error_log("from_date : " . date("Y-m-d", strtotime("Y-m-d -1 month")));
 								error_log("to_date : " . date("Y-m-d"));
 								echo date("Y-m-d", strtotime("2021-09-30 -1 day")); //2021-09-29
 

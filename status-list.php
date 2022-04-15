@@ -19,7 +19,7 @@
 							error_log(print_r($obj, true));
 						}
 
-						$step_flg = "on";
+						$step_flg = "";
 						// if ($_SERVER["REQUEST_METHOD"] === "POST") {
 						if (!empty($_REQUEST)) {
 						  if (!empty($_POST["step_flg"])) {

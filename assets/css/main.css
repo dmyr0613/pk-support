@@ -2403,7 +2403,7 @@ input, select, textarea {
 			}
 
 			/* 追加 */
-			table tbody tr.clickable:hover td  {
+			table tbody tr:hover td  {
 				background: #ecf2fa;
         cursor: pointer;
 			}

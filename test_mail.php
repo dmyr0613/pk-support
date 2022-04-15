@@ -4,8 +4,8 @@
   </head>
   <body>
   <?php
-    mb_language("Japanese");
-    mb_internal_encoding("UTF-8");
+    // mb_language("Japanese");
+    // mb_internal_encoding("UTF-8");
 
     $to = $_POST['to'];
     $title = $_POST['title'];

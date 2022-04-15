@@ -46,12 +46,12 @@
 								// error_log("from_date : " . date("Y-m-d", strtotime("Y-m-d -1 month")));
 								// error_log("to_date : " . date("Y-m-d"));
 								// echo date("Y-m-d", strtotime("2021-09-30 -1 day")); //2021-09-29
-								$from_date = date("Y/m/d");
-								$from_date->modify('-1 months');
-								$to_date = date("Y/m/d");
+								$from_date = date("Y-m-d");
+								$from_date = strtotime("Y-m-d -1 month");
+								$to_date = date("Y-m-d");
 								error_log("from_date : " . $from_date);
 								error_log("to_date : " . $to_date);
-								
+
 								echo '<input type="date" name="from_date" value="', $from_date ,'">';
 								echo ' 〜 ';
 								echo '<input type="date" name="to_date" value="', $to_date ,'">';

@@ -16,6 +16,8 @@
 						<form action="status-list.php" method="post">
 							<div class="col-6 col-12-small">
 								<?php
+								error_log($_POST['step_flg']);
+								
 								if ($_POST['step_flg'] == 1 or $_POST['step_flg'] == null) {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
 								} else {

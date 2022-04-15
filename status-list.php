@@ -28,6 +28,8 @@
 						<form action="status-list.php" method="post">
 							<div class="col-6 col-12-small">
 								<?php
+								echo '', $step_flg , '';
+								echo '', $_POST["step_flg"], '';
 								if ($step_flg == 0) {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
 								} else {

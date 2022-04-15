@@ -58,10 +58,12 @@
 
 						} else {
 							// 新規お問合せ登録
-							$sql=$pdo->prepare('insert into inquiry (inquiry_no,insert_datetime,update_datetime,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?)');
+							$sql=$pdo->prepare('insert into inquiry (inquiry_no,confition_flg,insert_datetime,update_datetime,sttep_flg,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?,?,?)');
 							$sql->execute([
+								0,
 								$datetime,
 								$datetime,
+								0,
 								$user_id,
 								$facility_code,
 								$facility_name,
@@ -98,7 +100,7 @@
 						}
 						echo '<ul class="actions">';
 						echo '<li><a href="inquiry.php" class="button big">お問合せフォームに戻る</a></li>';
-						echo '<li><a class="button big" href="status-list.php">問合せ状況一覧</a>/li>';
+						echo '<li><a href="status-list.php" class="button big">問合せ状況一覧</a></li>';
 						echo '<li><a href="main.php" class="button big">ホーム</a></li>';
 						echo '</ul>';
 					?>

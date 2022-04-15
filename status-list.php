@@ -19,13 +19,11 @@
 							error_log(print_r($obj, true));
 						}
 
-						$step_flg = 1;
-						if ($_SERVER["REQUEST_METHOD"] === "POST") {
+						$step_flg = "on";
+						// if ($_SERVER["REQUEST_METHOD"] === "POST") {
+						if (!empty($_REQUEST)) {
 						  if (!empty($_POST["step_flg"])) {
 						    $step_flg = $_POST["step_flg"];
-								// error_log('STEP_FLG:' ,$step_flg);
-						  } else {
-
 							}
 						}
 						?>
@@ -33,13 +31,10 @@
 						<form action="status-list.php" method="post">
 							<div class="col-6 col-12-small">
 								<?php
-								echo '', $step_flg , '';
-								echo '', $_POST["step_flg"], '';
-
-								if ($step_flg == 0) {
-									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
-								} else {
+								if ($step_flg == "on") {
 									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
+								} else {
+									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
 								}
 								?>
 								<label for="step_flg">継続中のみ</label>

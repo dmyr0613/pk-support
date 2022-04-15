@@ -83,7 +83,7 @@
 							<p>メッセージ</p><textarea name="content" cols="60" rows="10"></textarea>
 							<p><input type="submit" name="send" value="送信"></p>
 						</form>
-						
+
 					</div>
 				</section>
 

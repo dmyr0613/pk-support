@@ -58,7 +58,7 @@
 
 						} else {
 							// 新規お問合せ登録
-							$sql=$pdo->prepare('insert into inquiry (inquiry_no,confition_flg,insert_datetime,update_datetime,sttep_flg,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?,?,?)');
+							$sql=$pdo->prepare('insert into inquiry (inquiry_no,condition_flg,insert_datetime,update_datetime,sttep_flg,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?,?,?)');
 							$sql->execute([
 								0,
 								$datetime,

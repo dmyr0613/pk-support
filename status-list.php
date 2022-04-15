@@ -18,7 +18,7 @@
 						if ($_SERVER["REQUEST_METHOD"] === "POST") {
 						  if (!empty($_POST["step_flg"])) {
 						    $step_flg = $_POST["step_flg"];
-								error_log('STEP_FLG:' ,$step_flg);
+								// error_log('STEP_FLG:' ,$step_flg);
 						  }
 						}
 						?>

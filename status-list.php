@@ -12,7 +12,7 @@
 
 					<div class="table-wrapper">
 
-						<!-- 一覧条件部 -->
+						<!-- 問合せ一覧の表示条件 -->
 						<?php
 						if (!empty($_REQUEST)) {
 							$obj = $_REQUEST;
@@ -28,33 +28,40 @@
 						}
 						?>
 
+						<!-- 再検索は自分自身にPOSTする -->
 						<form action="status-list.php" method="post">
-							<div class="col-6 col-12-small">
-								<?php
-								if ($step_flg == "on") {
-									echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
-								} else {
-									echo '<input type="checkbox" id="step_flg" name="step_flg" >';
-								}
-								?>
-								<label for="step_flg">継続中のみ</label>
-							</div>
-							<p>
+
 								<?php
 								//現在時刻を取得
 								date_default_timezone_set('Asia/Tokyo');
 								$from_date = date('Y-m-d', strtotime('last month'));
 								$to_date = date("Y-m-d");
-
+								//検索期間
+								echo '<p>';
 								echo '検索期間： ';
 								echo '<input type="date" name="from_date" value="', $from_date ,'">';
 								echo ' 〜 ';
 								echo '<input type="date" name="to_date" value="', $to_date ,'">';
+								echo '</p>';
+
+								//ステータス
+								echo '<p>';
+								echo 'ステータス： ';
+								echo '<div class="col-6 col-12-small">';
+									if ($step_flg == "on") {
+										echo '<input type="checkbox" id="step_flg" name="step_flg" checked>';
+									} else {
+										echo '<input type="checkbox" id="step_flg" name="step_flg" >';
+									}
+									echo '<label for="step_flg">継続中のみ</label>';
+								echo '</div>';
+								echo '</p>';
+
 								?>
-							</p>
 							<input type="submit" value="再検索">
 						</form>
 
+						<!-- ここから問合せ一覧 -->
 						<form action="status-list-output.php" method="post">
 						<table class="alt">
 							<?php

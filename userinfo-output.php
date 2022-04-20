@@ -38,7 +38,6 @@
 
 						} else {
 							// 新規ユーザ登録
-							// $sql=$pdo->prepare('insert into kanja values(null, ?, ?, ?, ?, ?, null, null)');
 							$sql=$pdo->prepare('insert into userinfo values(null, null, null, null, null, null, null, null)');
 							$sql->execute([
 								$_REQUEST['user_id'],

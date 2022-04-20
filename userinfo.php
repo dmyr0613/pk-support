@@ -72,6 +72,7 @@
 					echo '</table>';
 					echo '<input type="submit" class="button big primary" value="ユーザ情報更新">';
 					echo '　<a href="main.php" class="button big">ホーム</a>';
+					echo '　<a href="logout.php" class="button big">ログアウト</a>';
 					echo '</form>';
 					?>
 				</section>

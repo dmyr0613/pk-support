@@ -28,15 +28,9 @@
 							foreach ($sql as $row) {
 								//検索結果を表示
 								echo '<tr>';
-								echo '	<td><img src="icon/512w/' , $row['icon_name'] , '.png" width="150">　', $row['disp_name'], '</td>';
-								// echo '	<td>', $row['disp_name'], '</td>';
+								// echo '	<td><img src="icon/512w/' , $row['icon_name'] , '.png" width="150">　', $row['disp_name'], '</td>';
+								echo '	<td><img src="https://pk-support.herokuapp.com/icon/512w/' , $row['icon_name'] , '.png" width="150">　', $row['disp_name'], '</td>';
 								echo '</tr>';
-
-								// echo '<p><img src="icon/512w/' , $row['icon_name'] , '.png" width="200">';
-								// echo ' ', $row['disp_name'], '</p>';
-
-								// echo '<span class="image left"><img src="icon/512w/' , $row['icon_name'] , '.png" width="100"></span>';
-								// echo ' ', $row['disp_name'], ' ';
 							}
 						?>
 

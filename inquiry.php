@@ -10,7 +10,12 @@
 				<!-- inquiryMain -->
 				<section id="inquiryMain">
 					<?php
-					$inquiry_no=$insert_datetime=$update_datetime=$user_id=$facility_code=$facility_name=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment='';
+					//ログイン情報がなければ、トップページに遷移
+					if (isset($_SESSION['userinfo']) == false){
+						header("location: main.php");
+					}
+
+					$inquiry_no=$insert_datetime=$update_datetime=$user_id=$facility_code=$facility_name=$email=$department=$person=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment='';
 					if (isset($_SESSION['inquiry'])) {
 						// お問合せセッション情報ある場合
 						$inquiry_no=$_SESSION['inquiry']['inquiry_no'];
@@ -19,12 +24,16 @@
 						$user_id=$_SESSION['inquiry']['user_id'];
 						$facility_code=$_SESSION['inquiry']['facility_code'];
 						$facility_name=$_SESSION['inquiry']['facility_name'];
+						$email=$_SESSION['inquiry']['email'];
+						$department=$_SESSION['inquiry']['department'];
+						$person=$_SESSION['inquiry']['person'];
 						$priority_flg=$_SESSION['inquiry']['priority_flg'];
 						$order_kind=$_SESSION['inquiry']['order_kind'];
 						$contents=$_SESSION['inquiry']['contents'];
 						$kanja_id=$_SESSION['inquiry']['kanja_id'];
 						$sbs_comment=$_SESSION['inquiry']['sbs_comment'];
 					}
+
 					echo '<form action="inquiry-output.php" method="post">';
 					echo '<table>';
 
@@ -32,9 +41,9 @@
 					echo '', $inquiry_no, '';
 					echo '</td></tr>';
 
-					echo '<tr><td>施設名</td><td>';
 					if ($_SESSION['userinfo']['kind'] == 0) {
 						//SBS管理者の場合は施設名を表示
+						echo '<tr><td>施設名</td><td>';
 						echo '', $facility_name, '';
 					}
 
@@ -55,6 +64,7 @@
 						echo '<input type="text" name="order_kind" value="', $order_kind, '">';
 					}
 					echo '</td></tr>';
+
 					echo '<tr><td>事象・内容</td><td>';
 					if ($_SESSION['userinfo']['kind'] == 0) {
 						//修正できるのはSBS管理者以外
@@ -62,8 +72,8 @@
 					} else {
 						echo '<textarea name="contents" placeholder="Enter your message" rows="5">', $contents, '</textarea>';
 					}
-
 					echo '</td></tr>';
+
 					echo '<tr><td>患者ID</td><td>';
 					if ($_SESSION['userinfo']['kind'] == 0) {
 						//修正できるのはSBS管理者以外
@@ -72,28 +82,20 @@
 						echo '<input type="text" name="kanja_id" value="', $kanja_id, '">';
 					}
 
-					// echo '<tr><td></td><td>';
-					// echo '　';
-					// echo '</td></tr>';
-
-					echo '</td></tr>';
 					echo '<tr><td>SBS回答</td><td>';
-					if ($_SESSION['userinfo']['kind'] == 0) {
-						//修正できるのはSBS管理者のみ
-						echo '<textarea name="sbs_comment" placeholder="Reply message" rows="5">', $sbs_comment, '</textarea>';
-					} else {
-						echo '<textarea name="sbs_comment" placeholder="Reply message" rows="5" readonly="readonly">', $sbs_comment, '</textarea>';
-					}
+					//修正できるのはSBS管理者のみ
+					echo '<textarea name="sbs_comment" placeholder="Reply message" rows="5"';
+					if ($_SESSION['userinfo']['kind'] != 0) {
+					echo 'readonly="readonly"'; }
+					echo '>', $sbs_comment, '</textarea>';
 					echo '</td></tr>';
 
 					echo '</table>';
+					echo '<input type="submit" class="button big primary" value="問合せ情報更新">';
 					if (isset($_SESSION['inquiry'])) {
-						// お問合せセッション情報ある場合
-						echo '<input type="submit" class="button big primary" value="問合せ情報更新">';
+						// お問合せセッション情報ある場合は一覧から遷移したため、戻るボタン表示
 						echo '　';
 						echo '<a class="button big" href="status-list.php">一覧に戻る</a>';
-					}else {
-						echo '<input type="submit" class="button big primary" value="問合せ情報登録">';
 					}
 					echo '</form>';
 					?>

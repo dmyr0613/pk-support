@@ -12,6 +12,76 @@
 					<?php
 					try{
 
+						// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+						// ファイルアップロード処理
+						// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+						 //添付ファイルバリデーション
+						 function fileValidatorSize($data) {
+						  //ファイルサイズの上限をMB単位で指定
+						  $allowMaxSize = 2;
+						  if($data['size'] < $allowMaxSize * 1000000) {
+						   return false;
+						  } else {
+						   return true;
+						  }
+						 }
+						 function fileValidatorType($data) {
+						  //許可するファイルのMIMEタイプを指定
+						  $allowFileType = array(
+						   'image/jpeg',
+						   'image/png',
+						   'image/gif',
+						   'text/plain',
+						   'text/csv',
+						   'application/pdf',
+						   'application/zip'
+						  );
+						  if(in_array($data['type'], $allowFileType)) {
+						   return false;
+						  } else {
+						   return true;
+						  }
+						 }
+						 $isErrorFileSize = fileValidatorSize($_FILES['input_file']);
+						 $isErrorFileType = fileValidatorType($_FILES['input_file']);
+						 // echo print_r($_FILES['input_file'], true);
+
+						 //添付ファイルアップロード
+						 $fileTempName = $_FILES['input_file']['tmp_name'];
+						 $fileName = $_FILES['input_file']['name'];
+						 $attachedFile = "";
+						 $fileType = "";
+						 if(!$isErrorFileSize && !$isErrorFileType) {
+						  if(!empty($fileTempName)) {
+						   $isUploaded = move_uploaded_file($fileTempName, 'attachment/'.$fileName);
+						   if($isUploaded) {
+						    $attachedFile = $fileName;
+						    if(strpos($_FILES['input_file']['type'], 'image') !== false) {
+						     $fileType = 'image';
+						    } else {
+						     $fileType = 'other';
+						   }
+						    $uploadError = false;
+						   } else {
+						    $uploadError = true;
+						   }
+						  }
+						 } else {
+						  $uploadError = true;
+						 }
+
+						 //SESSIONへ受け渡し
+						 if(!$uploadError) {
+						  $_SESSION['input_file'] = $attachedFile;
+						 }
+						 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ 						// ファイルアップロード処理
+ 						// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+						// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+						// inquiryテーブル登録処理
+						// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 						//最初にユーザ情報を取得
 						$user_id=$kind=$facility_code=$facility_name=$password=$email=$department=$person='';
 						if (isset($_SESSION['userinfo'])) {
@@ -29,11 +99,15 @@
 						date_default_timezone_set('Asia/Tokyo');
 						// $datetime = date("Y/m/d His");
 						$datetime = date("Y-m-d H:i:s");	//mySQL時は時刻フォーマットを指定する
-						error_log("DateTime：" . $datetime);
 
-						if (isset($_SESSION['inquiry'])) {
-							// お問合せセッション情報がある場合は、inquiryテーブルをUPDATE
-							$sql=$pdo->prepare('update inquiry set priority_flg=?, update_datetime=?, order_kind=?, contents=?, kanja_id=?, sbs_comment=? where inquiry_no=?');
+						//渡されたinquiry_no
+						$index = 0;
+						$index = $_REQUEST['index'];
+						// if (isset($_SESSION['inquiry'])) {
+						// if (isset($_SESSION['inquiry_list'])) {
+						if ($index > 0) {
+							// 修正時は、inquiryテーブルをUPDATE
+							$sql=$pdo->prepare('update inquiry set priority_flg=?, update_datetime=?, order_kind=?, contents=?, kanja_id=?, sbs_comment=?, file_name=? where inquiry_no=?');
 							$sql->execute([
 								0,
 								$datetime,
@@ -41,26 +115,48 @@
 								$_REQUEST['contents'],
 								$_REQUEST['kanja_id'],
 								$_REQUEST['sbs_comment'],
-								$_SESSION['inquiry']['inquiry_no']]);
+								$fileName,
+								$_SESSION['inquiry_list'][$index]['inquiry_no']]);
+
+								// // お問合せセッション情報を更新
+								// $_SESSION['inquiry']=[
+								// 	//inquiryセッションは、クリアされるため再設定
+								// 	'inquiry_no'=>$_SESSION['inquiry']['inquiry_no'],
+								// 	'insert_datetime'=>$_SESSION['inquiry']['insert_datetime'],
+								// 	'update_datetime'=>$datetime,
+								// 	'user_id'=>$_SESSION['inquiry']['user_id'],
+								// 	'facility_code'=>$_SESSION['inquiry']['facility_code'],
+								// 	'facility_name'=>$_SESSION['inquiry']['facility_name'],
+								// 	'email'=>$_SESSION['inquiry']['email'],
+								// 	'department'=>$_SESSION['inquiry']['department'],
+								// 	'person'=>$_SESSION['inquiry']['person'],
+								// 	'priority_flg'=>$_SESSION['inquiry']['priority_flg'],
+								// 	//入力内容で更新
+								// 	'order_kind'=>$_REQUEST['order_kind'],
+								// 	'contents'=>$_REQUEST['contents'],
+								// 	'kanja_id'=>$_REQUEST['kanja_id'],
+								// 	'sbs_comment'=>$_REQUEST['sbs_comment'],
+								// 	'file_name'=>$fileName];
 
 								// お問合せセッション情報を更新
-								$_SESSION['inquiry']=[
+								$_SESSION['inquiry_list'][$index]=[
 									//inquiryセッションは、クリアされるため再設定
-									'inquiry_no'=>$_SESSION['inquiry']['inquiry_no'],
-									'insert_datetime'=>$_SESSION['inquiry']['insert_datetime'],
+									'inquiry_no'=>$_SESSION['inquiry_list'][$index]['inquiry_no'],
+									'insert_datetime'=>$_SESSION['inquiry_list'][$index]['insert_datetime'],
 									'update_datetime'=>$datetime,
-									'user_id'=>$_SESSION['inquiry']['user_id'],
-									'facility_code'=>$_SESSION['inquiry']['facility_code'],
-									'facility_name'=>$_SESSION['inquiry']['facility_name'],
-									'email'=>$_SESSION['inquiry']['email'],
-									'department'=>$_SESSION['inquiry']['department'],
-									'person'=>$_SESSION['inquiry']['person'],
-									'priority_flg'=>$_SESSION['inquiry']['priority_flg'],
+									'user_id'=>$_SESSION['inquiry_list'][$index]['user_id'],
+									'facility_code'=>$_SESSION['inquiry_list'][$index]['facility_code'],
+									'facility_name'=>$_SESSION['inquiry_list'][$index]['facility_name'],
+									'email'=>$_SESSION['inquiry_list'][$index]['email'],
+									'department'=>$_SESSION['inquiry_list'][$index]['department'],
+									'person'=>$_SESSION['inquiry_list'][$index]['person'],
+									'priority_flg'=>$_SESSION['inquiry_list'][$index]['priority_flg'],
 									//入力内容で更新
 									'order_kind'=>$_REQUEST['order_kind'],
 									'contents'=>$_REQUEST['contents'],
 									'kanja_id'=>$_REQUEST['kanja_id'],
-									'sbs_comment'=>$_REQUEST['sbs_comment']];
+									'sbs_comment'=>$_REQUEST['sbs_comment'],
+									'file_name'=>$fileName];
 
 							if ($_SESSION['userinfo']['kind'] == 0) {
 								//SBS管理者
@@ -75,7 +171,7 @@
 						} else {
 							// 新規お問合せ登録
 							// $sql=$pdo->prepare('insert into inquiry (inquiry_no,condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?,?,?)');
-							$sql=$pdo->prepare('insert into inquiry (condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,email,department,person,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+							$sql=$pdo->prepare('insert into inquiry (condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,email,department,person,priority_flg,order_kind,contents,kanja_id,sbs_comment,file_name) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
 							$sql->execute([
 								0,
 								$datetime,
@@ -91,7 +187,9 @@
 								$_REQUEST['order_kind'],
 								$_REQUEST['contents'],
 								$_REQUEST['kanja_id'],
-								$_REQUEST['sbs_comment']]);
+								$_REQUEST['sbs_comment'],
+								$fileName
+								]);
 
 							// 今登録したinquiry_noを取得
 							$inquiry_no=0;
@@ -108,7 +206,7 @@
 							}
 
 							// お問合せセッション情報を更新
-							$_SESSION['inquiry']=[
+							$_SESSION['inquiry_list'][]=[
 								'inquiry_no'=>$inquiry_no,
 								'insert_datetime'=>$datetime,
 								'update_datetime'=>$datetime,
@@ -122,16 +220,25 @@
 								'order_kind'=>$_REQUEST['order_kind'],
 								'contents'=>$_REQUEST['contents'],
 								'kanja_id'=>$_REQUEST['kanja_id'],
-								'sbs_comment'=>$_REQUEST['sbs_comment']];
+								'sbs_comment'=>$_REQUEST['sbs_comment'],
+								'file_name'=>$fileName];
+
+								// 追加したデータのindex番号を取得
+							$index = count($_SESSION['inquiry_list']) - 1;
+							echo 'インデックスNo：' . $index;
 
 							echo '<p>お問合せ情報を登録しました。<br>';
 							echo 'サポートセンターからの回答をお待ちください。</p>';
 						}
 						echo '<ul class="actions">';
-						echo '<li><a href="inquiry.php" class="button big">お問合せフォームに戻る</a></li>';
+						echo '<li><a href="inquiry.php?index=',$index,'" class="button big">お問合せフォームに戻る</a></li>';
 						echo '<li><a href="status-list.php" class="button big">問合せ状況一覧</a></li>';
 						echo '<li><a href="main.php" class="button big">ホーム</a></li>';
 						echo '</ul>';
+						// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					 // inquiryテーブル登録処理
+					 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 						// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 						// メール送信処理
@@ -142,24 +249,24 @@
 						// KIND:0=SBS管理者、1=病院、2=パートナー企業
 						if ($kind==0) {
 							//管理者の場合はユーザへメールを返す
-							$to = $_SESSION['inquiry']['email'];
+							$to = $_SESSION['inquiry_list'][$index]['email'];
 						} else {
 							//ユーザの場合はPKSupportセンターへメール
 							$to = "d_ota@sbs-infosys.co.jp";
 						}
 
-						$title  = "【PKSupput】お問合せ番号：" . $_SESSION['inquiry']['inquiry_no'];
+						$title  = "【PKSupput】お問合せ番号：" . $_SESSION['inquiry_list'][$index]['inquiry_no'];
 						$title .= "　" . $facility_name . "様";
 
 				    $message  = "";
-						$message .= "【質問者】" . "\n" . "施設名：" . $_SESSION['inquiry']['facility_name'] . "\n部署名：" . $_SESSION['inquiry']['department'] . "\n担当者：" . $_SESSION['inquiry']['person'] . "様\n\n";
-						if (!empty($_SESSION['inquiry']['order_kind'])) { $message .= "【オーダ種】" . "\n" . $_SESSION['inquiry']['order_kind'] . "\n\n"; }
-						if (!empty($_SESSION['inquiry']['contents'])) { $message .= "【事象・内容】" . "\n" . $_SESSION['inquiry']['contents'] . "\n\n"; }
-						if (!empty($_SESSION['inquiry']['kanja_id'])) { $message .= "【患者ID】" . "\n" . $_SESSION['inquiry']['kanja_id'] . "\n\n"; }
+						$message .= "【質問者】" . "\n" . "施設名：" . $_SESSION['inquiry_list'][$index]['facility_name'] . "\n部署名：" . $_SESSION['inquiry_list'][$index]['department'] . "\n担当者：" . $_SESSION['inquiry_list'][$index]['person'] . "様\n\n";
+						if (!empty($_SESSION['inquiry_list'][$index]['order_kind'])) { $message .= "【オーダ種】" . "\n" . $_SESSION['inquiry_list'][$index]['order_kind'] . "\n\n"; }
+						if (!empty($_SESSION['inquiry_list'][$index]['contents'])) { $message .= "【事象・内容】" . "\n" . $_SESSION['inquiry_list'][$index]['contents'] . "\n\n"; }
+						if (!empty($_SESSION['inquiry_list'][$index]['kanja_id'])) { $message .= "【患者ID】" . "\n" . $_SESSION['inquiry_list'][$index]['kanja_id'] . "\n\n"; }
 
-						if ($kind==0 && !empty($_SESSION['inquiry']['sbs_comment'])) {
+						if ($kind==0 && !empty($_SESSION['inquiry_list'][$index]['sbs_comment'])) {
 							//SBS管理者の場合はSBS回答を追加
-							$message .= "【SBS回答】" . "\n" . $_SESSION['inquiry']['sbs_comment'] . "\n\n";
+							$message .= "【SBS回答】" . "\n" . $_SESSION['inquiry_list'][$index]['sbs_comment'] . "\n\n";
 						}
 
 						if ($kind==0) {

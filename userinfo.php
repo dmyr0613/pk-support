@@ -10,6 +10,10 @@
 				<!-- userinfoMain -->
 				<section id="userinfoMain">
 					<?php
+					//各種セッションをクリア
+					unset($_SESSION['inquiry']);
+					unset($_SESSION['searchpara']);
+					
 					$user_id=$kind=$facility_code=$facility_name=$password=$email=$department=$person='';
 					if (isset($_SESSION['userinfo'])) {
 						$user_id=$_SESSION['userinfo']['user_id'];
@@ -38,6 +42,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>施設区分</td><td>';
+					// echo '<input type="hidden" name="kind" value="', $kind, '">';
 					switch ($kind){
 						case 1:
 						  echo '医療機関様';

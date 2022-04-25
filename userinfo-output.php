@@ -24,6 +24,7 @@
 
 							$_SESSION['userinfo']=[
 								'user_id'=>$_SESSION['userinfo']['user_id'],
+								'kind'=>$_SESSION['userinfo']['kind'],
 								'facility_code'=>$_SESSION['userinfo']['facility_code'],
 								'facility_name'=>$_REQUEST['facility_name'],
 								'password'=>$_REQUEST['password'],

@@ -1,3 +1,8 @@
+<!--
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// 未使用
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->
 <?php session_start(); ?>
 <?php require 'header.php'; ?>
 
@@ -14,27 +19,28 @@
 					///お問合せ情報セッションをクリア
 					unset($_SESSION['inquiry']);
 
-					//お問合せ情報をセッションに設定
-					$sql=$pdo->prepare('select * from inquiry where inquiry_no=?');
-					$sql->execute([$_REQUEST['inquiry_no']]);
-					foreach ($sql as $row) {
+					//渡されたinquiry_no
+					$index = $_REQUEST['index'];
+					if (isset($_SESSION['inquiry_list'])) {
 						$_SESSION['inquiry']=[
-							'user_id'=>$row['user_id'],
-							'insert_datetime'=>$row['insert_datetime'],
-							'update_datetime'=>$row['update_datetime'],
-							'inquiry_no'=>$row['inquiry_no'],
-							'user_id'=>$row['user_id'],
-							'facility_code'=>$row['facility_code'],
-							'facility_name'=>$row['facility_name'],
-							'email'=>$row['email'],
-							'department'=>$row['department'],
-							'person'=>$row['person'],
-							'priority_flg'=>$row['priority_flg'],
-							'order_kind'=>$row['order_kind'],
-							'contents'=>$row['contents'],
-							'kanja_id'=>$row['kanja_id'],
-							'sbs_comment'=>$row['sbs_comment']];
+							'user_id'=>$_SESSION['inquiry_list'][$index]['user_id'],
+							'insert_datetime'=>$_SESSION['inquiry_list'][$index]['insert_datetime'],
+							'update_datetime'=>$_SESSION['inquiry_list'][$index]['update_datetime'],
+							'inquiry_no'=>$_SESSION['inquiry_list'][$index]['inquiry_no'],
+							'user_id'=>$_SESSION['inquiry_list'][$index]['user_id'],
+							'facility_code'=>$_SESSION['inquiry_list'][$index]['facility_code'],
+							'facility_name'=>$_SESSION['inquiry_list'][$index]['facility_name'],
+							'email'=>$_SESSION['inquiry_list'][$index]['email'],
+							'department'=>$_SESSION['inquiry_list'][$index]['department'],
+							'person'=>$_SESSION['inquiry_list'][$index]['person'],
+							'priority_flg'=>$_SESSION['inquiry_list'][$index]['priority_flg'],
+							'order_kind'=>$_SESSION['inquiry_list'][$index]['order_kind'],
+							'contents'=>$_SESSION['inquiry_list'][$index]['contents'],
+							'kanja_id'=>$_SESSION['inquiry_list'][$index]['kanja_id'],
+							'sbs_comment'=>$_SESSION['inquiry_list'][$index]['sbs_comment'],
+							'file_name'=>$_SESSION['inquiry_list'][$index]['file_name']];
 					}
+
 					if (isset($_SESSION['inquiry'])) {
 						//お問合せページに遷移
 						header("location: inquiry.php");

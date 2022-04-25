@@ -19,6 +19,11 @@
 							フォームの回答欄およびメールにて、ご回答させていただきます。</p>
 						<ul class="actions">
 							<?php
+							//各種セッションをクリア
+							unset($_SESSION['inquiry']);
+							unset($_SESSION['searchpara']);
+
+
 							if (isset($_SESSION['userinfo'])) {
 								//ログイン時は「ログアウト」ボタン
 								echo '<li><a href="logout.php" class="button big">ログアウト</a></li>';

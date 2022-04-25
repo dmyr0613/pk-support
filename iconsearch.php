@@ -7,6 +7,12 @@
 				<!-- Header -->
 				<?php require 'header-sub.php'; ?>
 
+				<?php
+					//各種セッションをクリア
+					unset($_SESSION['inquiry']);
+					unset($_SESSION['searchpara']);
+				?>
+
 				<!-- iconsearch -->
 				<section id="iconsearch">
 

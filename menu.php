@@ -28,7 +28,8 @@
 										}
 										?>
 										<li><a href="iconsearch.php">アイコンダウンロード Download</a></li>
-										<!-- <li><a href="elements.html">Elements</a></li> -->
+										<li><a href="elements.html" target="_blank">Elements</a></li>
+										<!-- <li><a href="file-form.php">ファイル添付テスト</a></li> -->
 									</ul>
 								</nav>
 

@@ -9,7 +9,7 @@
 
 				<?php
 					//各種セッションをクリア
-					unset($_SESSION['inquiry']);
+					unset($_SESSION['inquiry_list']);
 					unset($_SESSION['searchpara']);
 				?>
 

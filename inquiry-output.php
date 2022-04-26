@@ -207,7 +207,6 @@
 
 							// 追加したデータのindex番号を取得
 							$index = count($_SESSION['inquiry_list']) -1;
-							echo 'インデックスNo：' . $index;
 
 							// //初データの場合はindex=0から入っているため、カウンタをインクリメント
 							// if ($index==0) {$index=1; };

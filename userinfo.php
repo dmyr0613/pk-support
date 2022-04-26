@@ -11,9 +11,9 @@
 				<section id="userinfoMain">
 					<?php
 					//各種セッションをクリア
-					unset($_SESSION['inquiry']);
+					unset($_SESSION['inquiry_list']);
 					unset($_SESSION['searchpara']);
-					
+
 					$user_id=$kind=$facility_code=$facility_name=$password=$email=$department=$person='';
 					if (isset($_SESSION['userinfo'])) {
 						$user_id=$_SESSION['userinfo']['user_id'];

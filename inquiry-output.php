@@ -100,13 +100,14 @@
 						// $datetime = date("Y/m/d His");
 						$datetime = date("Y-m-d H:i:s");	//mySQL時は時刻フォーマットを指定する
 
-						//渡されたinquiry_no
-						$index = 0;
-						$index = $_REQUEST['index'];
-						// if (isset($_SESSION['inquiry'])) {
-						// if (isset($_SESSION['inquiry_list'])) {
-						if ($index > 0) {
-							// 修正時は、inquiryテーブルをUPDATE
+						//渡されたインデックス番号を取得
+						$index = -1;
+						if (isset($_REQUEST['index'])) {
+							$index = $_REQUEST['index'];
+						}
+
+						if ($index>=0) {
+							// インデックス番号が渡された場合は、inquiryテーブルをUPDATE（修正）
 							$sql=$pdo->prepare('update inquiry set priority_flg=?, update_datetime=?, order_kind=?, contents=?, kanja_id=?, sbs_comment=?, file_name=? where inquiry_no=?');
 							$sql->execute([
 								0,
@@ -118,29 +119,8 @@
 								$fileName,
 								$_SESSION['inquiry_list'][$index]['inquiry_no']]);
 
-								// // お問合せセッション情報を更新
-								// $_SESSION['inquiry']=[
-								// 	//inquiryセッションは、クリアされるため再設定
-								// 	'inquiry_no'=>$_SESSION['inquiry']['inquiry_no'],
-								// 	'insert_datetime'=>$_SESSION['inquiry']['insert_datetime'],
-								// 	'update_datetime'=>$datetime,
-								// 	'user_id'=>$_SESSION['inquiry']['user_id'],
-								// 	'facility_code'=>$_SESSION['inquiry']['facility_code'],
-								// 	'facility_name'=>$_SESSION['inquiry']['facility_name'],
-								// 	'email'=>$_SESSION['inquiry']['email'],
-								// 	'department'=>$_SESSION['inquiry']['department'],
-								// 	'person'=>$_SESSION['inquiry']['person'],
-								// 	'priority_flg'=>$_SESSION['inquiry']['priority_flg'],
-								// 	//入力内容で更新
-								// 	'order_kind'=>$_REQUEST['order_kind'],
-								// 	'contents'=>$_REQUEST['contents'],
-								// 	'kanja_id'=>$_REQUEST['kanja_id'],
-								// 	'sbs_comment'=>$_REQUEST['sbs_comment'],
-								// 	'file_name'=>$fileName];
-
-								// お問合せセッション情報を更新
+								// inquiry_list配列を更新
 								$_SESSION['inquiry_list'][$index]=[
-									//inquiryセッションは、クリアされるため再設定
 									'inquiry_no'=>$_SESSION['inquiry_list'][$index]['inquiry_no'],
 									'insert_datetime'=>$_SESSION['inquiry_list'][$index]['insert_datetime'],
 									'update_datetime'=>$datetime,
@@ -169,8 +149,9 @@
 							}
 
 						} else {
-							// 新規お問合せ登録
+							// 新規登録（PostgreSQL）
 							// $sql=$pdo->prepare('insert into inquiry (inquiry_no,condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,priority_flg,order_kind,contents,kanja_id,sbs_comment) values(nextval(\'inquiry_seq\'),?,?,?,?,?,?,?,?,?,?,?,?)');
+							// 新規登録（mySQL）
 							$sql=$pdo->prepare('insert into inquiry (condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,email,department,person,priority_flg,order_kind,contents,kanja_id,sbs_comment,file_name) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
 							$sql->execute([
 								0,
@@ -191,14 +172,15 @@
 								$fileName
 								]);
 
-							// 今登録したinquiry_noを取得
 							$inquiry_no=0;
+							//今登録したinquiry_noを取得（PostgreSQL）
 							// $sql=$pdo->prepare('select currval(\'inquiry_seq\')');
 							// $sql->execute();
 							// foreach ($sql as $row) {
 							// 	$inquiry_no=$row['currval'];
 							// }
-							//今登録したinquiry_noを取得（mySQL時はSEQが利用できない）
+
+							//今登録したinquiry_noを取得（mySQL）
 							$sql=$pdo->prepare('select last_insert_id() FROM inquiry');
 							$sql->execute();
 							foreach ($sql as $row) {
@@ -223,9 +205,13 @@
 								'sbs_comment'=>$_REQUEST['sbs_comment'],
 								'file_name'=>$fileName];
 
-								// 追加したデータのindex番号を取得
-							$index = count($_SESSION['inquiry_list']) - 1;
+							// 追加したデータのindex番号を取得
+							$index = count($_SESSION['inquiry_list']) -1;
 							echo 'インデックスNo：' . $index;
+
+							// //初データの場合はindex=0から入っているため、カウンタをインクリメント
+							// if ($index==0) {$index=1; };
+							// echo 'インデックスNo：' . $index;
 
 							echo '<p>お問合せ情報を登録しました。<br>';
 							echo 'サポートセンターからの回答をお待ちください。</p>';
@@ -291,10 +277,11 @@
 						$headers = "From: " . $email;
 						// $headers = "From: PrimeKarte Supput Center";
 
-				    if(mb_send_mail($to, $title, $message, $headers))
-				    {
-				      // echo "メール送信成功です";
-				    }
+				    // if(mb_send_mail($to, $title, $message, $headers))
+				    // {
+				    //   // echo "メール送信成功です";
+				    // }
+
 						// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 						// メール送信処理
 						// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

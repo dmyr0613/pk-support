@@ -15,13 +15,15 @@
 						header("location: main.php");
 					}
 
-					//渡されたinquiry_no
-					$index = 0;
+					$index = -1;
+					if (isset($_REQUEST['index'])) {
+						$index = $_REQUEST['index'];
+					}
+
 					//変数初期化
 					$inquiry_no=$insert_datetime=$update_datetime=$user_id=$facility_code=$facility_name=$email=$department=$person=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment=$file_name='';
-					if (!empty($_REQUEST['index'])){
-						$index = $_REQUEST['index'];
-
+					if ($index>=0){
+						//インデックス番号が渡された場合は、inquiry_list配列よりデータを取得（インデックス番号がない場合は新規登録）
 						if (isset($_SESSION['inquiry_list'])) {
 							$inquiry_no=$_SESSION['inquiry_list'][$index]['inquiry_no'];
 							$insert_datetime=$_SESSION['inquiry_list'][$index]['insert_datetime'];
@@ -41,28 +43,12 @@
 						}
 					}
 
-					// $inquiry_no=$insert_datetime=$update_datetime=$user_id=$facility_code=$facility_name=$email=$department=$person=$priority_flg=$order_kind=$contents=$kanja_id=$sbs_comment=$file_name='';
-					// if (isset($_SESSION['inquiry'])) {
-					// 	// お問合せセッション情報ある場合
-					// 	$inquiry_no=$_SESSION['inquiry']['inquiry_no'];
-					// 	$insert_datetime=$_SESSION['inquiry']['insert_datetime'];
-					// 	$update_datetime=$_SESSION['inquiry']['update_datetime'];
-					// 	$user_id=$_SESSION['inquiry']['user_id'];
-					// 	$facility_code=$_SESSION['inquiry']['facility_code'];
-					// 	$facility_name=$_SESSION['inquiry']['facility_name'];
-					// 	$email=$_SESSION['inquiry']['email'];
-					// 	$department=$_SESSION['inquiry']['department'];
-					// 	$person=$_SESSION['inquiry']['person'];
-					// 	$priority_flg=$_SESSION['inquiry']['priority_flg'];
-					// 	$order_kind=$_SESSION['inquiry']['order_kind'];
-					// 	$contents=$_SESSION['inquiry']['contents'];
-					// 	$kanja_id=$_SESSION['inquiry']['kanja_id'];
-					// 	$sbs_comment=$_SESSION['inquiry']['sbs_comment'];
-					// 	$file_name=$_SESSION['inquiry']['file_name'];
-					// }
-
 					// ファイル添付のため、enctype="multipart/form-data"を追加
-					echo '<form action="inquiry-output.php?index=',$index,'" method="post" enctype="multipart/form-data">';
+					if ($index>=0) {
+						echo '<form action="inquiry-output.php?index=',$index,'" method="post" enctype="multipart/form-data">';
+					} else {
+						echo '<form action="inquiry-output.php" method="post" enctype="multipart/form-data">';
+					}
 					echo '<table>';
 
 					echo '<tr><td>お問合せ番号</td><td>';
@@ -134,7 +120,21 @@
 					if (isset($_SESSION['inquiry_list'])) {
 						// お問合せセッション情報ある場合は一覧から遷移したため、戻るボタン表示
 						echo '　';
-						echo '<a class="button big" href="status-list.php">一覧に戻る</a>';
+
+						//戻るボタン
+						if ($index<=0) {
+							echo '<span class="button disabled">Prev</span>　';
+					  } else {
+							echo '<a class="button big" href="inquiry.php?index=',$index-1,'" class="button disabled">Prev</a>　';
+						}
+						//一覧に戻る
+						echo '<a class="button big" href="status-list.php?index=',$index,'"">一覧に戻る</a>　';
+						//次へボタン
+						if ($index==count($_SESSION['inquiry_list'])-1 or $index==-1) {
+							echo '<span class="button disabled">Next</span>　';
+					  } else {
+							echo '<a class="button big" href="inquiry.php?index=',$index+1,'" class="button disabled">Next</a>　';
+						}
 					}
 
 					echo '</form>';

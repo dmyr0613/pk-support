@@ -13,6 +13,11 @@
 					<div class="table-wrapper">
 
 						<?php
+							$index = -1;
+							if (isset($_REQUEST['index'])) {
+								$index = $_REQUEST['index'];
+							}
+
 							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 							// 表示条件テーブル
 							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -29,7 +34,8 @@
 
 							//検索条件をセット
 							$search_kind=$keyword=$facility_code="";
-							if (!empty($_REQUEST)) {
+							// if (!empty($_REQUEST)) {
+							if (isset($_REQUEST['search_kind'])) {
 								// $obj = $_REQUEST;
 								// echo print_r($obj, true);
 								// echo '検索条件を画面で指定';
@@ -141,7 +147,7 @@
 							// 問合せ一覧テーブル
 							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 							echo '<form action="status-list-output.php" method="post">';
-							echo '<table class="alt">';
+							echo '<table class="alt" id="table">';
 								//ヘッダー部
 								echo '<thead>';
 								echo '	<tr>';
@@ -159,100 +165,153 @@
 								echo '</thead>';
 								echo '<tbody>';
 
-								//お問合せ情報セッションをクリア
-								unset($_SESSION['inquiry']);
+								if ($index<0) {
+									//新規検索時
+									$sqltxt ="";
+									$sqltxt = 'select * from inquiry where condition_flg = 0 ';
 
-								$sqltxt ="";
-								$sqltxt = 'select * from inquiry where condition_flg = 0 ';
+									if ($facility_code!="") {
+										//SBS管理者で施設名を指定した場合
+										$sqltxt .= ' and facility_code = "' . $facility_code . '"';
+									}
 
-								if ($facility_code!="") {
-									//SBS管理者で施設名を指定した場合
-									$sqltxt .= ' and facility_code = "' . $facility_code . '"';
+									switch ($search_kind) {
+										case 0;
+											//継続中のみ
+											$sqltxt .= ' and step_flg = 0';
+											break;
+										case 1:
+											//検索期間指定
+											$sqltxt .= ' and update_datetime >= "' . $from_date . '"';
+											$sqltxt .= ' and update_datetime <= "' . $to_date . ' 23:59:59"';
+											break;
+										case 2;
+											//検索ワード
+											$sqltxt .= ' and (contents    like "%' . $keyword . '%" ';
+											$sqltxt .= '  or  sbs_comment like "%' . $keyword . '%" ';
+											$sqltxt .= '  or  order_kind  like "%' . $keyword . '%")';
+											break;
+									}
+
+									if ($_SESSION['userinfo']['kind'] != 0) {
+										//SBS以外はログイン者と同じ病院コードの問合せを検索（SBS管理者は有効データ全て検索）
+										$sqltxt .= ' and facility_code = "' . $_SESSION['userinfo']['facility_code'] . '"';
+									}
+									$sqltxt .= ' order by inquiry_no';
+
+
+									//inquiry_listセッションをクリア
+									unset($_SESSION['inquiry_list']);
+									$cnt=0;
+
+									//検索SQL実行
+									// echo $sqltxt;
+									$sql=$pdo->prepare($sqltxt);
+									$sql->execute();
+									foreach ($sql as $row) {
+
+										//inquiry_list配列に全て設定する
+										$_SESSION['inquiry_list'][$cnt]=[
+											'user_id'=>$row['user_id'],
+											'insert_datetime'=>$row['insert_datetime'],
+											'update_datetime'=>$row['update_datetime'],
+											'inquiry_no'=>$row['inquiry_no'],
+											'user_id'=>$row['user_id'],
+											'facility_code'=>$row['facility_code'],
+											'facility_name'=>$row['facility_name'],
+											'email'=>$row['email'],
+											'department'=>$row['department'],
+											'person'=>$row['person'],
+											'priority_flg'=>$row['priority_flg'],
+											'order_kind'=>$row['order_kind'],
+											'contents'=>$row['contents'],
+											'kanja_id'=>$row['kanja_id'],
+											'sbs_comment'=>$row['sbs_comment'],
+											'file_name'=>$row['file_name']];
+											$cnt++;
+									}
+									$maxcnt=$cnt;
+								} else {
+									//入力画面から戻ってきた場合（index指定時）は、SQLを実行せずinquiry_listセッションの内容を表示する
+									$maxcnt=count($_SESSION['inquiry_list']);
+									// echo "入力画面から戻ってきた";
 								}
 
-								switch ($search_kind) {
-									case 0;
-										//継続中のみ
-										$sqltxt .= ' and step_flg = 0';
-										break;
-									case 1:
-										//検索期間指定
-										$sqltxt .= ' and update_datetime >= "' . $from_date . '"';
-										$sqltxt .= ' and update_datetime <= "' . $to_date . ' 23:59:59"';
-										break;
-									case 2;
-										//検索ワード
-										$sqltxt .= ' and (contents    like "%' . $keyword . '%" ';
-										$sqltxt .= '  or  sbs_comment like "%' . $keyword . '%" ';
-										$sqltxt .= '  or  order_kind  like "%' . $keyword . '%")';
-										break;
+								// 問合せ一覧の表示行数
+								$lineNum=5;
+								// 全体のページ数を計算
+								$maxPageNum=1;
+								if ($maxcnt>$lineNum) {
+									$maxPageNum=ceil($maxcnt/$lineNum);	//切り上げ
 								}
 
-								if ($_SESSION['userinfo']['kind'] != 0) {
-									//SBS以外はログイン者と同じ病院コードの問合せを検索（SBS管理者は有効データ全て検索）
-									$sqltxt .= ' and facility_code = "' . $_SESSION['userinfo']['facility_code'] . '"';
-								}
-								$sqltxt .= ' order by inquiry_no';
+								//表示するページ番号を計算する
+								if ($index<0) { $index=0; }								//index未指定時は最初から
+								$dispPageNum=floor($index/$lineNum);			//切り捨て
+								$dispStartIndexCnt=$dispPageNum*$lineNum;	//表示するページ番号の最初のindex
+								$dispPageNum++;														//表示するページ番号
+								// echo '　表示ページ番号:' . $dispPageNum;
+								// echo '　最大ページ番号' . $maxPageNum;
+								// echo '　表示開始Index番号' . $dispStartIndexCnt;
 
+								//ページ遷移ボタンの制御フラグ
+								$prevFlg=true;
+								$nextFlg=true;
+								if ($dispPageNum==1) { $prevFlg=false; }						//1ページ目は戻るボタン非表示
+								if ($dispPageNum==$maxPageNum) { $nextFlg=false; }	//最終ページは次へボタン非表示
 
-								//inquiry_listセッションをクリア
-								unset($_SESSION['inquiry_list']);
-								$cnt=1;
-
-								//検索SQL実行
-								echo $sqltxt;
-								$sql=$pdo->prepare($sqltxt);
-								$sql->execute();
-								foreach ($sql as $row) {
-
-									//inquiry_list配列に全て設定する
-									$_SESSION['inquiry_list'][$cnt]=[
-										'user_id'=>$row['user_id'],
-										'insert_datetime'=>$row['insert_datetime'],
-										'update_datetime'=>$row['update_datetime'],
-										'inquiry_no'=>$row['inquiry_no'],
-										'user_id'=>$row['user_id'],
-										'facility_code'=>$row['facility_code'],
-										'facility_name'=>$row['facility_name'],
-										'email'=>$row['email'],
-										'department'=>$row['department'],
-										'person'=>$row['person'],
-										'priority_flg'=>$row['priority_flg'],
-										'order_kind'=>$row['order_kind'],
-										'contents'=>$row['contents'],
-										'kanja_id'=>$row['kanja_id'],
-										'sbs_comment'=>$row['sbs_comment'],
-										'file_name'=>$row['file_name']];
-										$cnt++;
-								}
-
+								$pageCnt=0;
 								//問合せ一覧テーブル描画
-								$maxcnt=$cnt;
-								for ($cnt=1; $cnt<$maxcnt; $cnt++) {
-									// 行クリックで詳細表示
-									// echo '<tr data-href="status-list-output.php?index=',$cnt,'">';
-									echo '<tr data-href="inquiry.php?index=',$cnt,'">';
-								echo '	<td width="100">', $_SESSION['inquiry_list'][$cnt]['inquiry_no'];
-									if ($_SESSION['inquiry_list'][$cnt]['update_datetime'] >= date('Y-m-d', strtotime("-1 day"))) {
-										//更新日が3日前であれば、NEWアイコンを表示
-										echo ' <img src="images/new.gif" height="20">';
+								for ($cnt=0; $cnt<$maxcnt; $cnt++) {
+
+									$dispFlg=false;
+									if ($cnt>=$dispStartIndexCnt && $pageCnt<$lineNum) {
+										//indexが表示開始Index番号よりも大きく、表示ページ範囲内であれば、行表示
+										$dispFlg=True;
+										$pageCnt++;
 									}
-									echo '</td>';
-									echo '	<td width="150">', date('Y年m月d日', strtotime($_SESSION['inquiry_list'][$cnt]['update_datetime'])), '</td>';
-									if ($_SESSION['userinfo']['kind'] == 0) {
-										//SBS管理者は施設名を表示
-										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['facility_name'], '</td>';
+
+									if ($dispFlg) {
+										// 行クリックで詳細表示
+										echo '<tr data-href="inquiry.php?index=',$cnt,'">';
+										echo '	<td width="100">', $_SESSION['inquiry_list'][$cnt]['inquiry_no'];
+										if ($_SESSION['inquiry_list'][$cnt]['update_datetime'] >= date('Y-m-d', strtotime("-1 day"))) {
+											//更新日が3日前であれば、NEWアイコンを表示
+											echo ' <img src="images/new.gif" height="20">';
+										}
+										echo '</td>';
+										echo '	<td width="150">', date('Y年m月d日', strtotime($_SESSION['inquiry_list'][$cnt]['update_datetime'])), '</td>';
+										if ($_SESSION['userinfo']['kind'] == 0) {
+											//SBS管理者は施設名を表示
+											echo '	<td>', $_SESSION['inquiry_list'][$cnt]['facility_name'], '</td>';
+										}
+										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['order_kind'], '</td>';
+										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['contents'], '</td>';
+										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['sbs_comment'], '</td>';
+										echo '</tr>';
 									}
-									echo '	<td>', $_SESSION['inquiry_list'][$cnt]['order_kind'], '</td>';
-									echo '	<td>', $_SESSION['inquiry_list'][$cnt]['contents'], '</td>';
-									echo '	<td>', $_SESSION['inquiry_list'][$cnt]['sbs_comment'], '</td>';
-									echo '</tr>';
 								}
-								// echo '<br>';
 								// echo print_r($_SESSION['inquiry_list'], true);
 
 								echo '</tbody>';
 							echo '</table>';
+
+							//ページ切り替えボタン表示制御
+							echo '<div align="right">';
+							//戻るボタン
+							if ($prevFlg) {
+								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt-$lineNum,'" class="button disabled">Prev</a>　';
+							} else {
+								echo '<span class="button disabled">Prev</span>　';
+							}
+							//次へボタン
+							if ($nextFlg) {
+								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt+$lineNum,'" class="button disabled">Next</a>　';
+							} else {
+								echo '<span class="button disabled">Next</span>　';
+							}
+							echo '</div>';
+
 							echo '</form>';
 							// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 							// 問合せ一覧テーブル
@@ -264,6 +323,12 @@
 
 			</div>
 		</div>
+
+		<!-- 行非表示のCSS（本来はmain.cssに書きたい） -->
+		<style "text/css">
+		.visible { display: table-row; }
+		.hidden { display: none; }
+		</style>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script>

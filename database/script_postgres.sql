@@ -3,6 +3,9 @@ create database pksupport default character set utf8 collate utf8_general_ci;
 grant all on pksupport.* to 'sbs'@'localhost' identified by 'sbs_toro';
 use pksupport;
 
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-- ユーザテーブル
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 drop table userinfo;
 create table userinfo (
   user_id varchar(15) not null unique,
@@ -26,6 +29,10 @@ insert into userinfo values('300',2,'C300','BSNアイネット','300','d_ota@sbs
 select facility_code,facility_name from userinfo group by facility_code,facility_name having facility_code <> "C000"
 
 
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-- 問合せ情報テーブル
+-- /Volumes/sec2/PrimeKarteサポートセンター/資料/20170906 ユーザ向け案内文/案内文オリジナル/【PrimeKarteサポートセンター向けフォーマット】.txt
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 --STEP_FLG:0=回答待ち、1=回答済み、2=完了
 drop table inquiry;
 create table inquiry (
@@ -49,6 +56,9 @@ create table inquiry (
   file_name varchar(100)
 );
 
+--ON UPDATE CURRENT_TIMESTAMP属性が付いてしまったら、下記SQLで設定を外す
+alter table inquiry modify insert_datetime timestamp default '0000-00-00 00:00:00';
+
 --シーケンス（mySql時は利用せず）
 CREATE SEQUENCE inquiry_seq;
 
@@ -68,7 +78,49 @@ insert into inquiry
   (condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,email,department,person,priority_flg,order_kind,contents,kanja_id,sbs_comment)
   values(0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'001','H001','SBS総合病院','d_ota@sbs-infosys.co.jp','情報室','菊川 良子',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
 
---ICONテーブル
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-- 通知情報テーブル
+-- /Volumes/sec2/PrimeKarteサポートセンター/資料/20200624 ML(PK-Info、Pk-Info-partner)/ぷらさぽ通信送付資料/案内文
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+--KIND:0=共通、1=病院様向け、2=パートナー様向け
+--STR_01対象機能 02適用対象病院 03対応内容 04更新内容 05運用・適用について 06その他 07本件のお問い合わせについて
+drop table pkinfo;
+create table pkinfo (
+  pkinfo_no int Primary Key AUTO_INCREMENT,
+  condition_flg int,
+  insert_datetime timestamp,
+  update_datetime timestamp,
+  kind int,
+  info_title varchar(1000),
+  contents varchar(1000),
+  str_01 varchar(1000),
+  str_02 varchar(1000),
+  str_03 varchar(1000),
+  str_04 varchar(1000),
+  str_05 varchar(1000),
+  str_06 varchar(1000),
+  str_07 varchar(1000),
+  str_08 varchar(1000),
+  str_09 varchar(1000),
+  str_10 varchar(1000),
+  file_name varchar(100)
+);
+
+--ON UPDATE CURRENT_TIMESTAMP属性が付いてしまったら、下記SQLで設定を外す
+alter table pkinfo modify insert_datetime timestamp default '0000-00-00 00:00:00';
+
+insert into pkinfo
+  (condition_flg,insert_datetime,update_datetime,kind,info_title,contents,str_01,str_02,str_03,str_04,str_05,str_06,str_07,str_08,str_09,str_10,file_name)
+  values(0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1,'SBS情報システムからのお知らせ','診療報酬改定におけるPrimeKarteの対応スケジュールについてご案内します。','','','','','','','','','','','');
+insert into pkinfo
+  (condition_flg,insert_datetime,update_datetime,kind,info_title,contents,str_01,str_02,str_03,str_04,str_05,str_06,str_07,str_08,str_09,str_10,file_name)
+  values(0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2,'XXオーダでXX時にエラーが発生する','',
+    'XXオーダ','XXオーダご利用のお客様','XX現象があるため、XXいたします。','SBS作業中です。','SBS作業中です。','現在、弊社にて対応プログラムの準備を進めています。',
+    '対応準備が整い次第、再度ご連絡致します','下記メールアドレスまでメールにてお問い合わせください。','','','');
+
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-- アイコンテーブル
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 drop table iconlist;
 create table iconlist (
   code varchar(15) not null,

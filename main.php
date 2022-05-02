@@ -42,6 +42,13 @@
 					</span>
 				</section>
 
+				<?php
+				if (isset($_SESSION['userinfo'])) {
+						//ログイン時は、PK通知情報を画面下部に表示
+					require 'pkinfo-list-main.php';
+				}
+				?>
+
 			<!-- Section -->
 			<!--
 				<section>

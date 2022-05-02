@@ -8,11 +8,17 @@
 				<?php require 'header-sub.php'; ?>
 
 				<!-- statusListMain -->
-				<section id="statusListMain">
+				<!-- <section id="statusListMain"> -->
 
 					<div class="table-wrapper">
 
+						<!-- 検索条件テーブル表示非表示切り替え -->
+						<div align="right">
+						<i class="icon fa-toggle-on fa-2x" onclick="dispTable(this)" id="dispTableToggle"></i>
+						</div>
+
 						<?php
+
 							$index = -1;
 							if (isset($_REQUEST['index'])) {
 								$index = $_REQUEST['index'];
@@ -33,43 +39,59 @@
 							$to_date = date("Y-m-d");
 
 							//検索条件をセット
-							$search_kind=$keyword=$facility_code="";
+							// $dispTable=true;
+							$search_kind=$keyword=$facility_code=$number="";
 							// if (!empty($_REQUEST)) {
 							if (isset($_REQUEST['search_kind'])) {
 								// $obj = $_REQUEST;
 								// echo print_r($obj, true);
 								// echo '検索条件を画面で指定';
 
+								// $dispTable = $_REQUEST['dispTable'];
 								$facility_code = $_REQUEST['facility_code'];
 								$search_kind = $_REQUEST['search_kind'];
 								$from_date = $_REQUEST['from_date'];
 								$to_date = $_REQUEST['to_date'];
 								$keyword = $_REQUEST['keyword'];
+								$number = $_REQUEST['number'];
 
 								//検索条件セッションにもセット
 								$_SESSION['searchpara']=[
+									// 'dispTable'=>$dispTable,
 									'facility_code'=>$facility_code,
 									'search_kind'=>$search_kind,
 									'from_date'=>$from_date,
 									'to_date'=>$to_date,
-									'keyword'=>$keyword];
+									'keyword'=>$keyword,
+									'number'=>$number];
 
 							} elseif (!empty($_SESSION['searchpara'])) {
 								//検索条件セッションにデータがあえばセット
 								// echo '検索条件はセッションで指定';
+								// $dispTable = $_SESSION['searchpara']['dispTable'];
 								$facility_code = $_SESSION['searchpara']['facility_code'];
 								$search_kind = $_SESSION['searchpara']['search_kind'];
 								$from_date = $_SESSION['searchpara']['from_date'];
 								$to_date = $_SESSION['searchpara']['to_date'];
 								$keyword = $_SESSION['searchpara']['keyword'];
+								$number = $_SESSION['searchpara']['number'];
 							}
 							// echo print_r($_REQUEST, true);
 							// echo $facility_code;
 
+							// 検索条件テーブル表示非表示切り替え
+							// echo '<div align="right">';
+							// if ($dispTable) {
+							// 	echo '<i class="icon fa-toggle-on fa-2x" onclick="dispTable(this)"></i>';
+							// } else {
+							// 	echo '<i class="icon fa-toggle-off fa-2x" onclick="dispTable(this)"></i>';
+							// }
+							// echo '</div>';
+
 							// 再検索は自分自身にPOSTする
 							echo '<form action="status-list.php" method="post">';
 								//ヘッダー部
-								echo '<table>';
+								echo '<table id="tableSearch">';
 								echo '<thead>';
 								echo '	<tr>';
 								echo '		<th>検索条件</th>';
@@ -105,7 +127,7 @@
 								}
 
 								//ステータス
-								echo '<tr><td width="150">';	//タイトル幅指定
+								echo '<tr><td width="160">';	//タイトル幅指定
 								echo '	<input type="radio" id="search_kind0" name="search_kind" value="0" ';
 								if ($search_kind==0) { echo 'checked>'; } else { echo '>'; };
 								echo '	<label for="search_kind0">継続中のみ</label>';
@@ -128,6 +150,14 @@
 								echo '	<label for="search_kind2">検索ワード</label>';
 								echo '</td><td>';
 								echo '	<input type="text" name="keyword" value="', $keyword, '">';
+								echo '</td></tr>';
+								//お問合せ番号
+								echo '<tr><td>';
+								echo '	<input type="radio" id="search_kind3" name="search_kind" value="3" ';
+								if ($search_kind==3) { echo 'checked>'; } else { echo '>'; };
+								echo '	<label for="search_kind3">お問合せ番号</label>';
+								echo '</td><td>';
+								echo '	<input type="number" name="number" value="', $number, '">';
 								echo '</td></tr>';
 								// 検索ボタン
 								echo '<tr><td>';
@@ -152,6 +182,7 @@
 								echo '<thead>';
 								echo '	<tr>';
 								echo '		<th>お問合せ番号</th>';
+								echo '		<th>登録日</th>';
 								echo '		<th>更新日</th>';
 								if ($_SESSION['userinfo']['kind'] == 0) {
 									//SBS管理者は施設名を表示
@@ -190,6 +221,10 @@
 											$sqltxt .= ' and (contents    like "%' . $keyword . '%" ';
 											$sqltxt .= '  or  sbs_comment like "%' . $keyword . '%" ';
 											$sqltxt .= '  or  order_kind  like "%' . $keyword . '%")';
+											break;
+										case 3;
+											//お問合せ番号
+											$sqltxt .= ' and inquiry_no = ' . $number;
 											break;
 									}
 
@@ -238,17 +273,17 @@
 								}
 
 								// 問合せ一覧の表示行数
-								$lineNum=5;
+								$DISP_LINE_NUM=10;
 								// 全体のページ数を計算
 								$maxPageNum=1;
-								if ($maxcnt>$lineNum) {
-									$maxPageNum=ceil($maxcnt/$lineNum);	//切り上げ
+								if ($maxcnt>$DISP_LINE_NUM) {
+									$maxPageNum=ceil($maxcnt/$DISP_LINE_NUM);	//切り上げ
 								}
 
 								//表示するページ番号を計算する
 								if ($index<0) { $index=0; }								//index未指定時は最初から
-								$dispPageNum=floor($index/$lineNum);			//切り捨て
-								$dispStartIndexCnt=$dispPageNum*$lineNum;	//表示するページ番号の最初のindex
+								$dispPageNum=floor($index/$DISP_LINE_NUM);			//切り捨て
+								$dispStartIndexCnt=$dispPageNum*$DISP_LINE_NUM;	//表示するページ番号の最初のindex
 								$dispPageNum++;														//表示するページ番号
 								// echo '　表示ページ番号:' . $dispPageNum;
 								// echo '　最大ページ番号' . $maxPageNum;
@@ -265,7 +300,7 @@
 								for ($cnt=0; $cnt<$maxcnt; $cnt++) {
 
 									$dispFlg=false;
-									if ($cnt>=$dispStartIndexCnt && $pageCnt<$lineNum) {
+									if ($cnt>=$dispStartIndexCnt && $pageCnt<$DISP_LINE_NUM) {
 										//indexが表示開始Index番号よりも大きく、表示ページ範囲内であれば、行表示
 										$dispFlg=True;
 										$pageCnt++;
@@ -280,6 +315,7 @@
 											echo ' <img src="images/new.gif" height="20">';
 										}
 										echo '</td>';
+										echo '	<td width="150">', date('Y年m月d日', strtotime($_SESSION['inquiry_list'][$cnt]['insert_datetime'])), '</td>';
 										echo '	<td width="150">', date('Y年m月d日', strtotime($_SESSION['inquiry_list'][$cnt]['update_datetime'])), '</td>';
 										if ($_SESSION['userinfo']['kind'] == 0) {
 											//SBS管理者は施設名を表示
@@ -300,13 +336,13 @@
 							echo '<div align="right">';
 							//戻るボタン
 							if ($prevFlg) {
-								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt-$lineNum,'" class="button disabled">Prev</a>　';
+								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt-$DISP_LINE_NUM,'" class="button disabled">Prev</a>　';
 							} else {
 								echo '<span class="button disabled">Prev</span>　';
 							}
 							//次へボタン
 							if ($nextFlg) {
-								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt+$lineNum,'" class="button disabled">Next</a>　';
+								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt+$DISP_LINE_NUM,'" class="button disabled">Next</a>　';
 							} else {
 								echo '<span class="button disabled">Next</span>　';
 							}
@@ -319,7 +355,7 @@
 						?>
 
 					</div>
-				</section>
+				<!-- </section> -->
 
 			</div>
 		</div>
@@ -347,6 +383,46 @@
 			        window.location = $(e.target).closest('tr').data('href');}
 			  });
 			});
+
+			// 検索条件テーブルの表示非表示切り替え
+			function dispTable(obj){
+				//表示切り替え後、localStorageに状態を保存
+				if (obj.classList.value == "icon fa-toggle-on fa-2x") {
+					document.getElementById('tableSearch').style.display = 'none';
+					obj.classList.value = "icon fa-toggle-off fa-2x";
+					localStorage.setItem('dispTable', 'OFF');
+				} else {
+					document.getElementById('tableSearch').style.display = '';
+					obj.classList.value = "icon fa-toggle-on fa-2x";
+					localStorage.setItem('dispTable', 'ON');
+				}
+				// dispTableFlg = localStorage.getItem('dispTable');
+				// console.log(`dispTableFlg = ${dispTableFlg}`);
+			}
+
+			// 画面起動時、検索条件テーブルの表示非表示切り替えを再設定
+			function dispTableLoad(){
+				// localStorageから状態を取得
+				if(!localStorage.getItem('dispTable')) {
+					console.log("データがありません");
+				} else {
+					dispTableFlg = localStorage.getItem('dispTable');
+					console.log(`dispTableFlg = ${dispTableFlg}`);
+
+					// 検索条件テーブルの表示非表示切り替えを設定
+					if (dispTableFlg == "OFF") {
+						document.getElementById('tableSearch').style.display = 'none';
+						document.getElementById('dispTableToggle').classList.value = "icon fa-toggle-off fa-2x";
+					} else {
+						document.getElementById('tableSearch').style.display = '';
+						document.getElementById('dispTableToggle').classList.value = "icon fa-toggle-on fa-2x";
+					}
+				}
+			}
+
+			// 画面起動時、検索条件テーブルの表示非表示切り替えを再設定
+			window.onload = dispTableLoad()
+
 		</script>
 
 <?php require 'menu.php'; ?>

@@ -32,6 +32,36 @@
 
 				</section>
 
+				<body>
+			    localStrageに保存する値を入力して下さい<br />
+			    <input name="mydata_in" id="mydata_in" type="text" value="" />
+			    <br />
+			    <input type="button" value="読込" onclick="load();"/>
+			    <input type="button" value="保存" onclick="save();"/>
+			    <br /><br />
+			    <div id="mydata_out"></div>
+			  </body>
+
+				<script language="javascript" type="text/javascript">
+		      // 読込
+		      function load() {
+		        var mydata = "";
+		        if(!localStorage.getItem('mydata')) {
+		          mydata = "データがありません";
+		        } else {
+		          mydata = localStorage.getItem('mydata');
+		        }
+		        console.log(`mydata= ${mydata}`);
+		        document.getElementById("mydata_out").innerHTML = mydata;
+		      }
+		      // 保存
+		      function save() {
+		        var mydata = document.getElementById("mydata_in").value;
+		        console.log(`mydata_in = ${mydata_in}`);
+		        localStorage.setItem('mydata', mydata);
+		      }
+		    </script>
+
 			</div>
 		</div>
 

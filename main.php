@@ -44,6 +44,11 @@
 
 				<?php
 				if (isset($_SESSION['userinfo'])) {
+					if ($_SESSION['userinfo']['kind']==2) {
+						echo '<h3>PrimeKarte通知情報</h3>';
+					} else {
+						echo '<h3>PrimeKarte通知情報（ぷらさぽ通信）</h3>';
+					}
 						//ログイン時は、PK通知情報を画面下部に表示
 					require 'pkinfo-list-main.php';
 				}

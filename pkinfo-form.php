@@ -59,12 +59,18 @@
 
 					if ($_SESSION['userinfo']['kind'] == 0) {
 						//SBS管理者は区分を表示
-						$kind_name = "PrimeKarte通知情報";
-						if ($_SESSION['pkinfo_list'][$index]['kind'] == 1) {
-							$kind_name = "ぷらさぽ通信";
-						}
 						echo '<tr><td>通知区分</td><td>';
-						echo '', $kind_name, '';
+						echo '<div class="col-4 col-12-small">';
+						echo '	<input type="radio" id="kind1" name="kind" value="1" ';
+						if ($kind==1) { echo 'checked>'; } else { echo '>'; };
+						echo '	<label for="kind1">ぷらさぽ通信</label>';
+
+						echo '	<input type="radio" id="kind2" name="kind" value="2" ';
+						if ($kind==2) { echo 'checked>'; } else { echo '>'; };
+						echo '	<label for="kind2">PrimeKarte通知情報</label>';
+
+						echo '</div>';
+						echo '</td></tr>';
 					}
 
 					echo '<tr><td>タイトル</td><td>';
@@ -80,9 +86,9 @@
 					echo '<tr><td>通知内容</td><td>';
 					if ($_SESSION['userinfo']['kind'] != 0) {
 						//修正できるのはSBS管理者以外
-						echo '<textarea name="contents" rows="5" readonly="readonly">', $contents, '</textarea>';
+						echo '<textarea name="contents" rows="10" readonly="readonly">', $contents, '</textarea>';
 					} else {
-						echo '<textarea name="contents" rows="5">', $contents, '</textarea>';
+						echo '<textarea name="contents" rows="10">', $contents, '</textarea>';
 					}
 					echo '</td></tr>';
 
@@ -105,7 +111,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>３．対応内容</td><td>';
-					echo '<textarea name="str_03" rows="5" ';
+					echo '<textarea name="str_03" rows="10" ';
 					if ($_SESSION['userinfo']['kind'] != 0) {
 						//修正できるのはSBS管理者のみ
 						echo 'readonly="readonly"';
@@ -114,7 +120,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>４．更新内容 </td><td>';
-					echo '<textarea name="str_04" rows="5" ';
+					echo '<textarea name="str_04" rows="3" ';
 					if ($_SESSION['userinfo']['kind'] != 0) {
 						//修正できるのはSBS管理者のみ
 						echo 'readonly="readonly"';
@@ -123,7 +129,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>５．適用・適用について </td><td>';
-					echo '<textarea name="str_05" rows="5" ';
+					echo '<textarea name="str_05" rows="3" ';
 					if ($_SESSION['userinfo']['kind'] != 0) {
 						//修正できるのはSBS管理者のみ
 						echo 'readonly="readonly"';
@@ -132,7 +138,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>６．その他 </td><td>';
-					echo '<textarea name="str_06" rows="5" ';
+					echo '<textarea name="str_06" rows="3" ';
 					if ($_SESSION['userinfo']['kind'] != 0) {
 						//修正できるのはSBS管理者のみ
 						echo 'readonly="readonly"';
@@ -141,7 +147,7 @@
 					echo '</td></tr>';
 
 					echo '<tr><td>７．本件のお問い合わせについて</td><td>';
-					echo '<textarea name="str_07" rows="5" ';
+					echo '<textarea name="str_07" rows="3" ';
 					if ($_SESSION['userinfo']['kind'] != 0) {
 						//修正できるのはSBS管理者のみ
 						echo 'readonly="readonly"';

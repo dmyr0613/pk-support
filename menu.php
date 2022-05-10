@@ -19,9 +19,9 @@
 											// ログイン時のみ表示するメニュー
 											if ($_SESSION['userinfo']['kind'] != 0) {
 												//新規問合せフォームはユーザのみ表示
-												echo '<li><a href="inquiry.php">新規問合せ Inquiry</a></li>';
+												echo '<li><a href="inquiry-form.php">新規問合せ Inquiry</a></li>';
 											}
-											echo '<li><a href="status-list.php">問合せ状況一覧 Status List</a></li>';
+											echo '<li><a href="inquiry-list.php">問合せ状況一覧 Inquiry List</a></li>';
 											echo '<li><a href="#">事例検索 Search</a></li>';
 											echo '<li><a href="pkinfo-list.php">PK通知情報 Information</a></li>';
 											echo '<li><a href="userinfo.php">ユーザ情報 User Info</a></li>';
@@ -29,7 +29,6 @@
 										?>
 										<li><a href="iconsearch.php">アイコンダウンロード Download</a></li>
 										<li><a href="elements.html" target="_blank">Elements</a></li>
-										<!-- <li><a href="file-form.php">ファイル添付テスト</a></li> -->
 									</ul>
 								</nav>
 

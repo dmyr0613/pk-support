@@ -45,9 +45,9 @@
 
 					// ファイル添付のため、enctype="multipart/form-data"を追加
 					if ($index>=0) {
-						echo '<form action="inquiry-output.php?index=',$index,'" method="post" enctype="multipart/form-data">';
+						echo '<form action="inquiry-form-output.php?index=',$index,'" method="post" enctype="multipart/form-data">';
 					} else {
-						echo '<form action="inquiry-output.php" method="post" enctype="multipart/form-data">';
+						echo '<form action="inquiry-form-output.php" method="post" enctype="multipart/form-data">';
 					}
 					echo '<table>';
 
@@ -125,15 +125,15 @@
 						if ($index<=0) {
 							echo '<span class="button disabled">Prev</span>　';
 					  } else {
-							echo '<a class="button big" href="inquiry.php?index=',$index-1,'" class="button disabled">Prev</a>　';
+							echo '<a class="button big" href="inquiry-form.php?index=',$index-1,'" class="button disabled">Prev</a>　';
 						}
 						//一覧に戻る
-						echo '<a class="button big" href="status-list.php?index=',$index,'"">一覧に戻る</a>　';
+						echo '<a class="button big" href="inquiry-list.php?index=',$index,'"">一覧に戻る</a>　';
 						//次へボタン
 						if ($index==count($_SESSION['inquiry_list'])-1 or $index==-1) {
 							echo '<span class="button disabled">Next</span>　';
 					  } else {
-							echo '<a class="button big" href="inquiry.php?index=',$index+1,'" class="button disabled">Next</a>　';
+							echo '<a class="button big" href="inquiry-form.php?index=',$index+1,'" class="button disabled">Next</a>　';
 						}
 					}
 

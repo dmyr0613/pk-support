@@ -89,7 +89,7 @@
 							// echo '</div>';
 
 							// 再検索は自分自身にPOSTする
-							echo '<form action="status-list.php" method="post">';
+							echo '<form action="inquiry-list.php" method="post">';
 								//ヘッダー部
 								echo '<table id="tableSearch">';
 								echo '<thead>';
@@ -308,7 +308,7 @@
 
 									if ($dispFlg) {
 										// 行クリックで詳細表示
-										echo '<tr data-href="inquiry.php?index=',$cnt,'">';
+										echo '<tr data-href="inquiry-form.php?index=',$cnt,'">';
 										echo '	<td width="100">', $_SESSION['inquiry_list'][$cnt]['inquiry_no'];
 										if ($_SESSION['inquiry_list'][$cnt]['update_datetime'] >= date('Y-m-d', strtotime("-1 day"))) {
 											//更新日が3日前であれば、NEWアイコンを表示
@@ -336,13 +336,13 @@
 							echo '<div align="right">';
 							//戻るボタン
 							if ($prevFlg) {
-								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt-$DISP_LINE_NUM,'" class="button disabled">Prev</a>　';
+								echo '<a class="button big" href="inquiry-list.php?index=',$dispStartIndexCnt-$DISP_LINE_NUM,'" class="button disabled">Prev</a>　';
 							} else {
 								echo '<span class="button disabled">Prev</span>　';
 							}
 							//次へボタン
 							if ($nextFlg) {
-								echo '<a class="button big" href="status-list.php?index=',$dispStartIndexCnt+$DISP_LINE_NUM,'" class="button disabled">Next</a>　';
+								echo '<a class="button big" href="inquiry-list.php?index=',$dispStartIndexCnt+$DISP_LINE_NUM,'" class="button disabled">Next</a>　';
 							} else {
 								echo '<span class="button disabled">Next</span>　';
 							}

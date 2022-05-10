@@ -138,6 +138,10 @@
 
 		//ページ切り替えボタン表示制御
 		echo '<div align="right">';
+		if ($_SESSION['userinfo']['kind'] == 0) {
+			//SBS管理者は新規登録ボタンを表示
+			echo '<a class="button big primary" href="pkinfo-form.php" class="button disabled">PK通知情報 新規登録</a>　';
+		}
 		//戻るボタン
 		if ($prevFlg) {
 			echo '<a class="button big" href="pkinfo-list.php?index=',$dispStartIndexCnt-$DISP_LINE_NUM,'" class="button disabled">Prev</a>　';

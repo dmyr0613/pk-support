@@ -27,43 +27,46 @@
 						</div>
 
 						検索ワード<input type="text" name="search"><br>
-						<p><input type="submit" value="アイコン検索"></p>
-					</form>
+						<p><input type="submit" value="アイコン検索" onclick="buttonClick()"></p>
 
+						<!-- 処理中アニメーション（最初は非表示） -->
+						<div id="loading"><img src="images/loading2.gif"></div>
+
+					</form>
 				</section>
 
-				<body>
-			    localStrageに保存する値を入力して下さい<br />
-			    <input name="mydata_in" id="mydata_in" type="text" value="" />
-			    <br />
-			    <input type="button" value="読込" onclick="load();"/>
-			    <input type="button" value="保存" onclick="save();"/>
-			    <br /><br />
-			    <div id="mydata_out"></div>
-			  </body>
+				<?php
 
-				<script language="javascript" type="text/javascript">
-		      // 読込
-		      function load() {
-		        var mydata = "";
-		        if(!localStorage.getItem('mydata')) {
-		          mydata = "データがありません";
-		        } else {
-		          mydata = localStorage.getItem('mydata');
-		        }
-		        console.log(`mydata= ${mydata}`);
-		        document.getElementById("mydata_out").innerHTML = mydata;
-		      }
-		      // 保存
-		      function save() {
-		        var mydata = document.getElementById("mydata_in").value;
-		        console.log(`mydata_in = ${mydata_in}`);
-		        localStorage.setItem('mydata', mydata);
-		      }
-		    </script>
+				// $txtFacility = "H001@@AA病院";
+				// $DELIM_STR = "@@";
+				// $stPos1 = strpos($txtFacility, $DELIM_STR);
+				// $stPos2 = $stPos1 + strlen($DELIM_STR);
+				// print '<br>' . substr($txtFacility, 0, $stPos1);
+				// print '<br>' . substr($txtFacility, $stPos2, strlen($txtFacility) - $stPos2);
+				?>
 
 			</div>
 		</div>
+
+		<style>
+			/* 処理中アニメーションの表示位置など */
+			#loading{
+			position:fixed;
+			left:50%;
+			top:30%;
+			margin-left:-30px;
+			}
+		</style>
+		<script>
+		function buttonClick(){
+			// 登録ボタンクリック時、処理中アニメーションを表示する
+			document.getElementById('loading').style.display ="block";
+		}
+		window.onload = function() {
+			// 画面描画時に、処理中アニメーションを非表示
+			document.getElementById('loading').style.display ="none";
+		}
+		</script>
 
 <?php require 'menu.php'; ?>
 <?php require 'footer.php'; ?>

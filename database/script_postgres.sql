@@ -15,7 +15,7 @@ create table userinfo (
 	password varchar(15) not null,
   email varchar(30),
   department varchar(100),
-  person varchar(100)
+  person varchar(50)
 );
 
 --KIND:0=SBS管理者、1=病院、2=パートナー企業
@@ -28,6 +28,12 @@ insert into userinfo values('300',2,'C300','BSNアイネット','300','d_ota@sbs
 --施設コード、施設名をユーザテーブルから取得する
 select facility_code,facility_name from userinfo group by facility_code,facility_name having facility_code <> "C000"
 
+drop table facility;
+create table facility (
+	facility_code varchar(15) not null unique,
+  facility_name varchar(100) not null,
+	asana_gid varchar(15)
+);
 
 -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 -- 問合せ情報テーブル
@@ -47,13 +53,29 @@ create table inquiry (
   facility_name varchar(100),
   email varchar(30),
   department varchar(100),
-  person varchar(100),
+  person varchar(50),
+  facility_code_02 varchar(15),
+  facility_name_02 varchar(100),
   priority_flg int,
+  inquiry_title varchar(100),
+  inquiry_kind int,
 	order_kind varchar(100),
 	contents varchar(1000),
   kanja_id varchar(15),
+  file_name varchar(100),
+  hakkou_datetime timestamp,
+  order_no int,
+  rep_flg int,
+  rep_process varchar(1000),
+  hassei_datetime timestamp,
+  pc_name varchar(50),
+  end_user_id varchar(15),
+  log_file_name varchar(100),
+  contents_02 varchar(1000),
+  contents_03 varchar(1000),
   sbs_comment varchar(1000),
-  file_name varchar(100)
+  doc_file_name varchar(100),
+  asana_gid varchar(30)
 );
 
 --ON UPDATE CURRENT_TIMESTAMP属性が付いてしまったら、下記SQLで設定を外す
@@ -61,22 +83,81 @@ alter table inquiry modify insert_datetime timestamp default '0000-00-00 00:00:0
 
 --シーケンス（mySql時は利用せず）
 CREATE SEQUENCE inquiry_seq;
-
 --シーケンスの現在値取得（currvalは同じセッションにおいて、nextvalの値を戻すため、last_valueであれば最大値となる）
 select currval('inquiry_seq');
 SELECT last_value FROM inquiry_seq;
 --シーケンスの現在値取得（mySQL）
 SELECT last_insert_id(inquiry_no) FROM inquiry;
-
 --PostgreSQL
-insert into inquiry
-  (inquiry_no,condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,email,department,person,priority_flg,order_kind,contents,kanja_id,sbs_comment)
-  values(nextval('inquiry_seq'),0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'001','H001','SBS総合病院','d_ota@sbs-infosys.co.jp','情報室','菊川 良子',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+insert into inquiry (inquiry_no) values(nextval('inquiry_seq'));
 
 --mySQL
-insert into inquiry
-  (condition_flg,insert_datetime,update_datetime,step_flg,user_id,facility_code,facility_name,email,department,person,priority_flg,order_kind,contents,kanja_id,sbs_comment)
-  values(0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0,'001','H001','SBS総合病院','d_ota@sbs-infosys.co.jp','情報室','菊川 良子',0,'テストオーダ種','質問です。','1234567','SBS回答です。');
+insert into inquiry (
+  condition_flg,
+  insert_datetime,
+  update_datetime,
+  step_flg,
+  user_id,
+  facility_code,
+  facility_name,
+  email,
+  department,
+  person,
+  facility_code_02,
+  facility_name_02,
+  priority_flg,
+  inquiry_title,
+  inquiry_kind,
+  order_kind,
+  contents,
+  kanja_id,
+  file_name,
+  hakkou_datetime,
+  order_no,
+  rep_flg,
+  rep_process,
+  hassei_datetime,
+  pc_name,
+  end_user_id,
+  log_file_name,
+  contents_02,
+  contents_03,
+  sbs_comment,
+  doc_file_name,
+  asana_gid
+) values (
+  0,
+  CURRENT_TIMESTAMP,
+  CURRENT_TIMESTAMP,
+  0,
+  '001',
+  'H001',
+  'SBS総合病院',
+  'd_ota@sbs-infosys.co.jp',
+  '情報室',
+  '大空 翼',
+  null,
+  null,
+  0,
+  'テストデータについて',
+  0,
+	'テストオーダ種',
+	'テスト質問',
+  '1234567',
+  null,
+  '2022/03/01',
+  null,
+  0,
+  null,
+  '2022/03/01',
+  'DT001',
+  null,
+  null,
+  'テスト再現手順',
+  'テストその他',
+  'テストSBS回答',
+  null,
+  null);
 
 -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 -- 通知情報テーブル

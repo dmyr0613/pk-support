@@ -181,14 +181,14 @@
 								//ヘッダー部
 								echo '<thead>';
 								echo '	<tr>';
-								echo '		<th>お問合せ番号</th>';
+								echo '		<th>問合せ番号</th>';
 								echo '		<th>登録日</th>';
 								echo '		<th>更新日</th>';
 								if ($_SESSION['userinfo']['kind'] == 0) {
 									//SBS管理者は施設名を表示
 									echo '		<th>施設名</th>';
 								}
-								echo '		<th>オーダ種</th>';
+								// echo '		<th>オーダ種</th>';
 								echo '		<th>事象・内容</th>';
 								echo '		<th>SBS回答</th>';
 								// echo '		<th>ステータス</th>';
@@ -232,7 +232,7 @@
 										//SBS以外はログイン者と同じ病院コードの問合せを検索（SBS管理者は有効データ全て検索）
 										$sqltxt .= ' and facility_code = "' . $_SESSION['userinfo']['facility_code'] . '"';
 									}
-									$sqltxt .= ' order by inquiry_no';
+									$sqltxt .= ' order by inquiry_no desc';
 
 
 									//inquiry_listセッションをクリア
@@ -247,22 +247,40 @@
 
 										//inquiry_list配列に全て設定する
 										$_SESSION['inquiry_list'][$cnt]=[
-											'user_id'=>$row['user_id'],
+											'inquiry_no'=>$row['inquiry_no'],
+											'condition_flg'=>$row['condition_flg'],
 											'insert_datetime'=>$row['insert_datetime'],
 											'update_datetime'=>$row['update_datetime'],
-											'inquiry_no'=>$row['inquiry_no'],
+											'step_flg'=>$row['step_flg'],
 											'user_id'=>$row['user_id'],
 											'facility_code'=>$row['facility_code'],
 											'facility_name'=>$row['facility_name'],
 											'email'=>$row['email'],
 											'department'=>$row['department'],
 											'person'=>$row['person'],
+											'facility_code_02'=>$row['facility_code_02'],
+											'facility_name_02'=>$row['facility_name_02'],
 											'priority_flg'=>$row['priority_flg'],
+											'inquiry_title'=>$row['inquiry_title'],
+											'inquiry_kind'=>$row['inquiry_kind'],
 											'order_kind'=>$row['order_kind'],
 											'contents'=>$row['contents'],
 											'kanja_id'=>$row['kanja_id'],
+											'file_name'=>$row['file_name'],
+											'hakkou_datetime'=>$row['hakkou_datetime'],
+											'order_no'=>$row['order_no'],
+											'rep_flg'=>$row['rep_flg'],
+											'rep_process'=>$row['rep_process'],
+											'hassei_datetime'=>$row['hassei_datetime'],
+											'pc_name'=>$row['pc_name'],
+											'end_user_id'=>$row['end_user_id'],
+											'log_file_name'=>$row['log_file_name'],
+											'contents_02'=>$row['contents_02'],
+											'contents_03'=>$row['contents_03'],
+											'file_name'=>$row['file_name'],
 											'sbs_comment'=>$row['sbs_comment'],
-											'file_name'=>$row['file_name']];
+											'doc_file_name'=>$row['doc_file_name'],
+											'asana_gid'=>$row['asana_gid']];
 											$cnt++;
 									}
 									$maxcnt=$cnt;
@@ -272,6 +290,8 @@
 									// echo "入力画面から戻ってきた";
 								}
 
+								//一覧に表示する文字数の上限
+								$DISP_STR_MAX=40;
 								// 問合せ一覧の表示行数
 								$DISP_LINE_NUM=10;
 								// 全体のページ数を計算
@@ -321,9 +341,15 @@
 											//SBS管理者は施設名を表示
 											echo '	<td>', $_SESSION['inquiry_list'][$cnt]['facility_name'], '</td>';
 										}
-										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['order_kind'], '</td>';
-										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['contents'], '</td>';
-										echo '	<td>', $_SESSION['inquiry_list'][$cnt]['sbs_comment'], '</td>';
+										// echo '	<td>', $_SESSION['inquiry_list'][$cnt]['order_kind'], '</td>';
+
+										$prestr="";
+										if (mb_strlen($_SESSION['inquiry_list'][$cnt]['contents']) > $DISP_STR_MAX) { $prestr="..."; }
+										echo '	<td>', mb_substr($_SESSION['inquiry_list'][$cnt]['contents'],0,$DISP_STR_MAX, "UTF-8"). $prestr, '</td>';
+
+										$prestr="";
+										if (mb_strlen($_SESSION['inquiry_list'][$cnt]['sbs_comment']) > $DISP_STR_MAX) { $prestr="..."; }
+										echo '	<td>', mb_substr($_SESSION['inquiry_list'][$cnt]['sbs_comment'],0,$DISP_STR_MAX, "UTF-8"). $prestr, '</td>';
 										echo '</tr>';
 									}
 								}

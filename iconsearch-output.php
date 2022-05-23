@@ -32,15 +32,22 @@
 								// echo '	<td><img src="https://pk-support.herokuapp.com/icon/512w/' , $row['icon_name'] , '.png" width="150">　', $row['disp_name'], '</td>';
 								echo '</tr>';
 							}
+
 						?>
 
 						</tbody>
 					</table>
+					<a href="iconsearch.php" class="button big">アイコン検索に戻る</a>
 
 				</section>
 
 			</div>
 		</div>
+
+
+		<?php
+
+		?>
 
 <?php require 'menu.php'; ?>
 <?php require 'footer.php'; ?>

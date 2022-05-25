@@ -7,8 +7,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
 <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<!-- fontawesome kit 読み込み-->
+<script src="https://kit.fontawesome.com/d430b8515c.js" crossorigin="anonymous"></script>
 </head>
 
 <?php

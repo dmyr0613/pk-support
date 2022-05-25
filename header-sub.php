@@ -28,15 +28,15 @@
 							switch ($kind){
 								case 1:
 									//医療機関
-								  echo '<i class="fa-solid fa-square-h"></i> ';
+									echo '<i class="fa-solid fa-stethoscope"></i> ';
 								  break;
 								case 2:
 									//パートナー
-									echo '<i class="fa-solid fa-square-p"></i> ';
+									echo '<i class="fa-solid fa-building"></i> ';
 								  break;
 								default:
 									//sbs
-									echo '<i class="fa-solid fa-square-s"></i> ';
+									echo '<i class="fa-solid fa-id-card"></i> ';
 							}
 							echo 'ようこそ、', $person,'様【',$facility_name, ' ', $department, '】</span></td><td>';
 						}

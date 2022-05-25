@@ -1,0 +1,27 @@
+
+/* .required {
+  margin-left: .3em;
+  color: #f33;
+  font-size: .9em;
+  padding: 3px;
+  background-color: #fee;
+  font-weight: bold;
+} */
+
+.required::after {
+  content: "必須";
+  /* background-color: #f0ad4e; */
+  background-color: #4A92FF;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 10px;
+  padding: 3px 7px;
+  margin: 0px 5px;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  border-radius: 10px;
+  display: inline-block;
+}

@@ -1,3 +1,10 @@
+<!--
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ inquiry-form-output.php
+ 問合せ登録・更新処理、メール送信処理、Asana登録処理
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->
+
 <!-- 外部ファイルを読み込む -->
 <?php require_once('const.php'); ?>
 <?php require 'header.php'; ?>
@@ -13,6 +20,10 @@
 				<section id="inquiryRegMain">
 					<?php
 					try{
+
+						// if(empty($_REQUEST['inquiry_title'])) {
+						//
+						// }
 
 						$CONST_ZERO = 0;
 						$CONST_BLANK = '';
@@ -65,7 +76,7 @@
 
 						//メール、Asana用に問合せメッセージ内容を作成
 						$title = "";
-						if (!empty($_REQUEST['inquiry_title'])) { $title= "【PK-supput】　" . $_REQUEST['inquiry_title']; }
+						if (!empty($_REQUEST['inquiry_title'])) { $title= "【PK-supput】" . $_REQUEST['inquiry_title']; }
 						$message = "";
 						// $message .= "【質問者】" . "\n" . "施設名：" . $_REQUEST['facility_name'] . "\n部署名：" . $_REQUEST['department'] . "\n担当者：" . $_REQUEST['person'] . "様\n\n";
 						if (!empty($_REQUEST['order_kind'])) { $message .= "【オーダ種】" . "\n" . $_REQUEST['order_kind'] . "\n\n"; }
@@ -83,8 +94,13 @@
 			 			if ($kind==0 && !empty($_REQUEST['sbs_comment'])) {
 			 				//SBS管理者の場合はSBS回答を追加
 			 				$sbs_comment = "【SBS回答】" . "\n" . $_REQUEST['sbs_comment'] . "\n\n";
-							$sbs_comment = preg_replace("/\r\n|\r|\n/",'\\n', $sbs_comment);
 			 			}
+						$userInfo='';
+						if ($kind!=0){
+							//ユーザ・パートナーの場合は、メールヘッダーに質問者情報
+							$userInfo  = MAIL_HSIGN_USER;
+							$userInfo .= "【質問者】" . "\n" . "施設名：" . $facility_name . "\n部署名：" . $department . "\n担当者：" . $person . "様\n\n";
+						}
 
 						if ($index>=0) {
 							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -199,7 +215,7 @@
 								if (!empty($_REQUEST['asana_gid'])) {
 									// Asana側は改行コードが異なるため、複数の改行コードを変換
 									$AsanaMsg = preg_replace("/\r\n|\r|\n/",'\\n', $message);
-									updateAsanaTask($_REQUEST['asana_gid'], $_SESSION['inquiry_list'][$index]['inquiry_no'], $AsanaMsg, $sbs_comment);
+									updateAsanaTask($_REQUEST['asana_gid'], $_SESSION['inquiry_list'][$index]['inquiry_no'], $AsanaMsg, preg_replace("/\r\n|\r|\n/",'\\n', $sbs_comment));
 									// echo "asana_gid:" .$_REQUEST['asana_gid'];
 								}
 
@@ -414,80 +430,8 @@
 					 	// inquiryテーブル登録処理
 					 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
-
 					 // メール送信
-					 // sendSupportMail();
-
-					 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 			// メール送信処理
-		 			// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 			mb_language("Japanese");
-		 			mb_internal_encoding("UTF-8");
-
-		 			// KIND:0=SBS管理者、1=病院、2=パートナー企業
-		 			if ($kind==0) {
-		 				//管理者の場合はユーザへメールを返す
-		 				$to = $_SESSION['inquiry_list'][$index]['email'];
-		 			} else {
-		 				//ユーザの場合はPKSupportセンターへメール
-		 				$to = "d_ota@sbs-infosys.co.jp";
-		 			}
-
-		 			$title  = "【PKSupput】お問合せ番号：" . $_SESSION['inquiry_list'][$index]['inquiry_no'];
-		 			$title .= "　" . $facility_name . "様";
-
-		 			$message  = "";
-		 			$message .= "【質問者】" . "\n" . "施設名：" . $_SESSION['inquiry_list'][$index]['facility_name'] . "\n部署名：" . $_SESSION['inquiry_list'][$index]['department'] . "\n担当者：" . $_SESSION['inquiry_list'][$index]['person'] . "様\n\n";
-		 			if (!empty($_SESSION['inquiry_list'][$index]['order_kind'])) { $message .= "【オーダ種】" . "\n" . $_SESSION['inquiry_list'][$index]['order_kind'] . "\n\n"; }
-		 			if (!empty($_SESSION['inquiry_list'][$index]['contents'])) { $message .= "【事象・内容】" . "\n" . $_SESSION['inquiry_list'][$index]['contents'] . "\n\n"; }
-		 			if (!empty($_SESSION['inquiry_list'][$index]['kanja_id'])) { $message .= "【患者ID】" . "\n" . $_SESSION['inquiry_list'][$index]['kanja_id'] . "\n\n"; }
-
-
-
-					$sbs_comment='';
-		 			if ($kind==0 && !empty($_SESSION['inquiry_list'][$index]['sbs_comment'])) {
-		 				//SBS管理者の場合はSBS回答を追加
-		 				$message .= "【SBS回答】" . "\n" . $_SESSION['inquiry_list'][$index]['sbs_comment'] . "\n\n";
-
-						$sbs_comment = "【SBS回答】" . "\n" . $_SESSION['inquiry_list'][$index]['sbs_comment'] . "\n\n";
-						$sbs_comment = preg_replace("/\r\n|\r|\n/",'\\n', $sbs_comment);
-		 			}
-
-
-		 			if ($kind==0) {
-		 				//SBSからユーザにメールを返す場合は、署名と結合する
-		 				$hsign  = "お世話になっております、ＳＢＳ情報システム PrimeKarteサポートチームです。\n";
-		 				$hsign .= "平素は弊社PrimeKarteをご利用いただき、誠にありがとうございます。\n\n";
-
-		 				$fsign  = "\nお忙しいところ申し訳ございませんが、ご確認の程、よろしくお願いいたします。\n";
-		 				$fsign .= "～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～\n";
-		 				$fsign .= "※システム停止等の緊急時には、電話にてご連絡下さい。\n";
-		 				$fsign .= "※本メールについてのお問い合わせは、下記までお問い合わせください。\n\n";
-		 				$fsign .= "株式会社ＳＢＳ情報システム\n";
-		 				$fsign .= "医療事業本部　Primekarteサポートチーム\n";
-		 				$fsign .= "http://localhost/pk-support/main.php\n";
-		 				$fsign .= "静岡県静岡市駿河区登呂3-1-1\n";
-		 				$fsign .= "　電話　 054-283-1450\n";
-		 				$fsign .= "　ＦＡＸ 054-284-9181\n";
-
-		 				$message = $hsign . $message . $fsign;
-		 			}
-
-		 			$headers = "From: " . $email;
-		 			// $headers = "From: PrimeKarte Supput Center";
-
-		 			// if(mb_send_mail($to, $title, $message, $headers))
-		 			// {
-		 			//   // echo "メール送信成功です";
-		 			// }
-
-		 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		 			// メール送信処理
-		 			// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-
+					 // sendSupportMail($kind, $title, $message, $sbs_comment, $_SESSION['inquiry_list'][$index]['email'], $email, $userInfo);
 
 					}catch (PDOException $e){
 						print('Error:'.$e->getMessage());
@@ -506,7 +450,40 @@
 		//  @param:なし
 		//  @return:なし
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		function sendSupportMail(){
+		function sendSupportMail($kind, $title, $message, $sbs_comment, $toMail, $fromMail, $userInfo){
+
+			mb_language("Japanese");
+			mb_internal_encoding("UTF-8");
+
+			// KIND:0=SBS管理者、1=病院、2=パートナー企業
+			if ($kind==0) {
+				//管理者の場合はユーザへメールを返す
+				$to = $toMail;
+			} else {
+				//ユーザの場合はPKSupportセンターへメール
+				$to = SUPPORT_MAIL_ADDRESS;
+			}
+
+			if ($kind==0) {
+				if (!empty($sbs_comment)){
+					//SBS回答時は、メッセージ最後に追加
+					$message .= $sbs_comment;
+				}
+				//SBSからユーザにメールを返す場合は、署名と結合する
+				$message = MAIL_HSIGN . $message . MAIL_FSIGN;
+			} else {
+				//ユーザからのメールは問合せ者情報を付加
+				$message = $userInfo . $message;
+			}
+
+
+			$headers = "From: " . $fromMail;
+			// $headers = "From: PrimeKarte Supput Center";
+
+			if(mb_send_mail($to, $title, $message, $headers))
+			{
+			  // echo "メール送信成功です";
+			}
 
 		}
 

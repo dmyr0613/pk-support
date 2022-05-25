@@ -1,3 +1,10 @@
+<!--
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ inquiry-form.php
+ 問合せ登録画面
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-->
+
 <?php require 'header.php'; ?>
 
 <!-- Main -->
@@ -14,9 +21,13 @@
 					<div id="loading"><img src="images/loading2.gif"></div>
 
 					<?php
+					$kind = 0;
 					//ログイン情報がなければ、トップページに遷移
 					if (isset($_SESSION['userinfo']) == false){
 						header("location: main.php");
+					} else {
+						//0=SBS管理者、1=病院、2=パートナー企業
+						$kind = $_SESSION['userinfo']['kind'];
 					}
 
 					$index = -1;
@@ -59,11 +70,17 @@
 							$contents=$_SESSION['inquiry_list'][$index]['contents'];
 							$kanja_id=$_SESSION['inquiry_list'][$index]['kanja_id'];
 							$file_name=$_SESSION['inquiry_list'][$index]['file_name'];
-							$hakkou_datetime=date("Y-m-d",strtotime($_SESSION['inquiry_list'][$index]['hakkou_datetime']));
+							if (!empty($_SESSION['inquiry_list'][$index]['hakkou_datetime'])) {
+								//日付指定時、変数にセット
+								$hakkou_datetime=date("Y-m-d",strtotime($_SESSION['inquiry_list'][$index]['hakkou_datetime']));
+							}
 							$order_no=$_SESSION['inquiry_list'][$index]['order_no'];
 							$rep_flg=$_SESSION['inquiry_list'][$index]['rep_flg'];
 							$rep_process=$_SESSION['inquiry_list'][$index]['rep_process'];
-							$hassei_datetime=date("Y-m-d",strtotime($_SESSION['inquiry_list'][$index]['hassei_datetime']));
+							if (!empty($_SESSION['inquiry_list'][$index]['hassei_datetime'])) {
+								//日付指定時、変数にセット
+								$hassei_datetime=date("Y-m-d",strtotime($_SESSION['inquiry_list'][$index]['hassei_datetime']));
+							}
 							$pc_name=$_SESSION['inquiry_list'][$index]['pc_name'];
 							$end_user_id=$_SESSION['inquiry_list'][$index]['end_user_id'];
 							$log_file_name=$_SESSION['inquiry_list'][$index]['log_file_name'];
@@ -76,7 +93,7 @@
 					}
 
 					$PRE_TXT = '';
-					if ($_SESSION['userinfo']['kind'] == 0) {
+					if ($kind == 0) {
 						//SBS管理者は修正不可とするため
 						$PRE_TXT = 'readonly="readonly"';
 					}
@@ -93,7 +110,7 @@
 					echo $inquiry_no;
 					echo '</td></tr>';
 
-					if ($_SESSION['userinfo']['kind'] == 0) {
+					if ($kind == 0) {
 						//SBS管理者の場合は施設名を表示
 						echo '<tr><td>施設名</td><td>';
 						echo $facility_name;
@@ -107,7 +124,7 @@
 						echo '</td></tr>';
 					}
 
-					if ($_SESSION['userinfo']['kind'] == 0) {
+					if ($kind == 0) {
 						//SBS管理者は検索条件に施設名を表示
 						echo '<tr><td>病院名</td><td>';
 						echo '<div class="col-12">';
@@ -134,8 +151,8 @@
 					echo '</div>';
 					echo '</td></tr>';
 
-					echo '<tr><td>タイトル</td><td>';
-					echo '<input type="text" name="inquiry_title" value="', $inquiry_title, '" ' . $PRE_TXT . ' >';
+					echo '<tr><td>タイトル <span class="required"></span></td><td>';
+					echo '<input class="required" type="text" name="inquiry_title" id="inquiry_title" value="', $inquiry_title, '" ' . $PRE_TXT . ' >';
 					echo '</td></tr>';
 
 
@@ -143,11 +160,11 @@
 					echo '<input type="text" name="order_kind" value="', $order_kind, '" ' . $PRE_TXT . '>';
 					echo '</td></tr>';
 
-					echo '<tr><td>事象・内容</td><td>';
+					echo '<tr><td>事象・内容 <span class="required"></span></td><td>';
 					echo '<textarea name="contents" placeholder="Enter your message" rows="10" ' . $PRE_TXT . '>', $contents, '</textarea>';
 					echo '</td></tr>';
 
-					if ($_SESSION['userinfo']['kind'] == 0 && $kanja_id=="") {
+					if ($kind == 0 && $kanja_id=="") {
 						echo '<input type="hidden" name="kanja_id" value="" >';	//SBS管理者でデータがない場合は非表示
 					} else {
 						echo '<tr><td>患者ID</td><td>';
@@ -155,7 +172,7 @@
 						echo '</td></tr>';
 					}
 
-					// if ($_SESSION['userinfo']['kind'] == 0 && $file_name=="") {
+					// if ($kind == 0 && $file_name=="") {
 					// 	echo '<input type="hidden" name="input_file" value="" >';	//SBS管理者でデータがない場合は非表示
 					// } else {
 						echo '<tr><td>添付資料・ハードコピー</td><td>';
@@ -225,7 +242,7 @@
 					//新規問合せではない場合
 					if ($index>=0) {
 						echo '<tr><td>SBS回答</td><td>';
-						if ($_SESSION['userinfo']['kind'] != 0) {
+						if ($kind != 0) {
 							echo '<textarea name="sbs_comment" placeholder="Reply message" rows="10" readonly="readonly">', $sbs_comment, '</textarea>';
 						} else {
 							echo '<textarea name="sbs_comment" placeholder="Reply message" rows="10">', $sbs_comment, '</textarea>';
@@ -243,13 +260,12 @@
 						}
 					}
 
-					if ($_SESSION['userinfo']['kind'] != 0 ) {
+					if ($kind != 0 ) {
 						echo '<input type="hidden" name="asana_gid" value="', $asana_gid, '" >';	//SBS管理者でデータがない場合は非表示
 					} else {
 						echo '<tr><td>Asana</td><td>';
 						echo '<a href="https://app.asana.com/0/1172128163255929/' . $asana_gid . '" target="_blank">Asanaリンク</a>';
 						echo '<input type="hidden" name="asana_gid" value="', $asana_gid, '" >';	//SBS管理者でデータがない場合は非表示
-						// echo '<input type="text" name="asana_gid" value="', $asana_gid, '" ' . $PRE_TXT . '>';
 						echo '</td></tr>';
 					}
 
@@ -302,6 +318,41 @@
 			// 画面描画時に、処理中アニメーションを非表示
 			document.getElementById('loading').style.display ="none";
 		}
+
+
+
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//  データ登録時の未入力チェック
+		//  @param:
+		//  @return:
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+		//required クラスを指定された要素の集まり
+		const requiredElems = document.querySelectorAll('.required');
+
+		this.addEventListener('submit', (e) => {
+			console.log('submit処理');
+			if (document.getElementById('inquiry_title').value==""){
+				// 未入力時、背景色変更とフォーカスを当てる
+				document.getElementById('inquiry_title').style.backgroundColor = '#FFDCDC' ;
+				document.getElementById('inquiry_title').focus();
+
+				//フォームの送信を中止
+	      e.preventDefault();
+				// 画面描画時に、処理中アニメーションを非表示
+				document.getElementById('loading').style.display ="none";
+			} else {
+				if (confirm('問合せ情報を登録します。よろしいですか？')) {
+
+				} else {
+					//フォームの送信を中止
+		      e.preventDefault();
+					// 画面描画時に、処理中アニメーションを非表示
+					document.getElementById('loading').style.display ="none";
+				}
+			}
+		});
+
 		</script>
 
 <?php require 'menu.php'; ?>

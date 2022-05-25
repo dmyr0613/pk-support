@@ -34,7 +34,6 @@
 
 					</form>
 				</section>
-
 				<?php
 
 				// $txtFacility = "H001@@AA病院";

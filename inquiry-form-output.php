@@ -76,7 +76,7 @@
 
 						//メール、Asana用に問合せメッセージ内容を作成
 						$title = "";
-						if (!empty($_REQUEST['inquiry_title'])) { $title= "【PK-supput】" . $_REQUEST['inquiry_title']; }
+						if (!empty($_REQUEST['inquiry_title'])) { $title= "【PK-support】" . $_REQUEST['inquiry_title']; }
 						$message = "";
 						// $message .= "【質問者】" . "\n" . "施設名：" . $_REQUEST['facility_name'] . "\n部署名：" . $_REQUEST['department'] . "\n担当者：" . $_REQUEST['person'] . "様\n\n";
 						if (!empty($_REQUEST['order_kind'])) { $message .= "【オーダ種】" . "\n" . $_REQUEST['order_kind'] . "\n\n"; }
@@ -217,6 +217,11 @@
 									$AsanaMsg = preg_replace("/\r\n|\r|\n/",'\\n', $message);
 									updateAsanaTask($_REQUEST['asana_gid'], $_SESSION['inquiry_list'][$index]['inquiry_no'], $AsanaMsg, preg_replace("/\r\n|\r|\n/",'\\n', $sbs_comment));
 									// echo "asana_gid:" .$_REQUEST['asana_gid'];
+
+									// if (!empty($fileName)) {
+									// 	attachAsanaTask($_REQUEST['asana_gid'],$fileName);
+									// }
+
 								}
 
 							if ($_SESSION['userinfo']['kind'] == 0) {
@@ -241,6 +246,36 @@
 							$AsanaMsg = preg_replace("/\r\n|\r|\n/",'\\n', $message);
 							// Asanaタスク作成
 							$asana_gid = createAsanaTask($facility_name, $department, $person, $datetime, $title, $AsanaMsg);
+
+
+
+							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+							// Asanaファイル添付テスト
+							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+							// $binary = file_get_contents($_FILES['input_file']['tmp_name']);
+							// $attachFileName = $_FILES['input_file']['name'];
+							//
+							// $curl = curl_init();
+							// curl_setopt_array($curl, array(
+			        // CURLOPT_URL => 'https://app.asana.com/api/1.0/tasks/' . $asana_gid . '/attachments',
+			        // CURLOPT_RETURNTRANSFER => true,
+			        // CURLOPT_ENCODING => '',
+			        // CURLOPT_MAXREDIRS => 10,
+			        // CURLOPT_TIMEOUT => 0,
+			        // CURLOPT_FOLLOWLOCATION => true,
+			        // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			        // CURLOPT_CUSTOMREQUEST => 'POST',
+			        // CURLOPT_POSTFIELDS => array('file' => $binary, 'resource_subtype' => 'asana', 'name' => $attachFileName),
+			        // CURLOPT_HTTPHEADER => array(
+			        //             'Authorization: Bearer '. ASANA_ACCESS_TOKEN,
+			        //             'Cookie: TooBusyRedirectCount=0; TooBusyRedirectCount=0;                                                                                          logged_out_uuid=54a01a0dd7857620640436eb9ab6e4e0' ),
+			        // ));
+							//
+							// $resp = curl_exec($curl);
+							// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+						 	// Asanaファイル添付テスト
+						 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 
 							//INSERT文作成
 							$sqltxt  = 'insert into inquiry ( ';
@@ -431,7 +466,7 @@
 					 	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 					 // メール送信
-					 // sendSupportMail($kind, $title, $message, $sbs_comment, $_SESSION['inquiry_list'][$index]['email'], $email, $userInfo);
+					 sendSupportMail($kind, $title, $message, $sbs_comment, $_SESSION['inquiry_list'][$index]['email'], $email, $userInfo);
 
 					}catch (PDOException $e){
 						print('Error:'.$e->getMessage());
@@ -601,6 +636,40 @@
 
 			// echo "<br>";
 			// echo print_r($response, true);
+			// echo "<br>";
+			// echo print_r($options, true);
+		}
+
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//  Asanaファイル添付
+		//  @param:なし
+		//  @return:作成したコピータスクのgid
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		function attachAsanaTask($asana_gid, $attachFileName){
+
+			$options = array(
+			    'filedata_param' => '@' . $attachFileName . ';filename=' . $attachFileName
+			);
+
+			echo "<br>";
+			echo print_r($options, true);
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, 'https://app.asana.com/api/1.0/tasks/' . $asana_gid . '/attachments');
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json', 'Authorization: Bearer '. ASANA_ACCESS_TOKEN));
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');		//UPDATEはPUT
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $options);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			$response = curl_exec($ch);
+			curl_close($ch);
+
+			echo "<br>";
+			echo print_r($response, true);
+			// echo "<br>";
+			// echo print_r($options, true);
+
+
 
 		}
 

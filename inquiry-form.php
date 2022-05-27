@@ -124,7 +124,7 @@
 						echo '</td></tr>';
 					}
 
-					if ($kind == 0) {
+					if ($kind == 0 || $kind == 2) {
 						//SBS管理者は検索条件に施設名を表示
 						echo '<tr><td>病院名</td><td>';
 						echo '<div class="col-12">';
@@ -140,16 +140,17 @@
 						echo '<input type="hidden" id="facility_code_02" name="facility_code_02" value="">';
 					}
 
-					echo '<tr><td>緊急度</td><td>';
-					echo '<div class="col-4 col-12-small">';
-					echo '	<input type="radio" id="priority_flg0" name="priority_flg" value="0" ';
-					if ($priority_flg==0) { echo 'checked>'; } else { echo '>'; };
-					echo '	<label for="priority_flg0">通常</label>';
-					echo '	<input type="radio" id="priority_flg1" name="priority_flg" value="1" ';
-					if ($priority_flg==1) { echo 'checked>'; } else { echo '>'; };
-					echo '	<label for="priority_flg1">至急</label>';
-					echo '</div>';
-					echo '</td></tr>';
+					// echo '<tr><td>緊急度</td><td>';
+					// echo '<div class="col-4 col-12-small">';
+					// echo '	<input type="radio" id="priority_flg0" name="priority_flg" value="0" ';
+					// if ($priority_flg==0) { echo 'checked>'; } else { echo '>'; };
+					// echo '	<label for="priority_flg0">通常</label>';
+					// echo '	<input type="radio" id="priority_flg1" name="priority_flg" value="1" ';
+					// if ($priority_flg==1) { echo 'checked>'; } else { echo '>'; };
+					// echo '	<label for="priority_flg1">至急</label>';
+					// echo '</div>';
+					// echo '</td></tr>';
+					echo '<input type="hidden" id="priority_flg" name="priority_flg" value="0">';
 
 					echo '<tr><td>タイトル <span class="required"></span></td><td>';
 					echo '<input class="required" type="text" name="inquiry_title" id="inquiry_title" value="', $inquiry_title, '" ' . $PRE_TXT . ' >';

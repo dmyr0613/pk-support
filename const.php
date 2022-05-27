@@ -8,6 +8,7 @@
 
   //サポートセンターメールアドレス
   define('SUPPORT_MAIL_ADDRESS', 'd_ota@sbs-infosys.co.jp');
+  
   //メールヘッダー
   $hsign  = "お世話になっております、ＳＢＳ情報システム PrimeKarteサポートチームです。\n";
   $hsign .= "平素は弊社PrimeKarteをご利用いただき、誠にありがとうございます。\n\n";
